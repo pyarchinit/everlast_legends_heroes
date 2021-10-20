@@ -1,6 +1,6 @@
-# Heroquest's Legends
+#Everlast legends's heroes
 
-This is a simple A.I. app for playing heroquest without the dungeon master.
+This is a simple A.I. app for playing any Dugeon Crawler with tiles system without the dungeon master.
 
 It is a python app which use pysqlite, PyQt and random modules.
 

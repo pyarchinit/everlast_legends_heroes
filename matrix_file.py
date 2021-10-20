@@ -37,7 +37,9 @@ dungeon_to_room = {
     'G3' : ('103', '203', '501'),
     'G7' : ('203', '205', '501'),
     'G8' : ('103', '105', '501'),
-    'H4' : ('104', '105', '404', '405', '406', '501')}
+    'H4' : ('104', '105', '404', '405', '406', '501'),
+    'H5' : ('403', '406', '501'),
+    'H8' : ('103', '105', '501')}
 
 room_to_room = {
     '101' : ('102', '104'),
@@ -118,60 +120,102 @@ def find_route(b, a):
 
     return path_temp
 
+def how_is_the_dungeon(pv, pa):
+    pointofview = pv
+    path = pa
+    print("You is at the POV {}".format(str(pointofview)))
+    print(str('Verify if you can pursue to POV'))
+    single_points = points_of_view[pointofview]
+    #if pointofview == path[-1]:
+        #for i in single_points:
+            #index_number != path.index(pointofview) - 1:
+            #if i != path[index_number]:
+                #print("The  dungeon continues through the darkness but the roof doesn't appear solid, (you can walk to POV {} if you obbain a shield after launching a combat dice".format(
+                        #str(i)))
+    for i in single_points:
+        if i in path and i != path[-1]:
+            index_number = path.index(pointofview)+1
+            if i != path[index_number]:
+                print("The dungeon continues through the darkness but the roof doesn't appear solid, (you can walk to POV {} if you obbain a shield after launching a combat dice".format(str(i)))
+            else:
+                print("The dungeon continues through the darkness, (you can walk to POV {} )".format(str(i)))
+        else:
+            if i == path[-1]:
+                print("The dungeon continues through the darkness, (you can walk to POV {} )".format(str(i)))
 
-#INSERT VALUES 
-start = '1' #CHOOSED RANDOMLY BY THE GAME
-arrive = 'B' #CHOOSED RANDOMLY BY THE GAME
-min_path = 3 #CHOOSED RANDOMLY BY THE GAME
-the_primary_path = ''
-
-
-#THEN PUSH THE BUTTON
-
-the_primary_path = find_route(start,arrive)
-while len(the_primary_path) < min_path or arrive != the_primary_path[-1]:
-    the_primary_path = find_route(start, arrive)
-
-print(str("The Dungeon Path is: "))
-print(str(the_primary_path))
-
-#THE GAME CHOOSE A SECONDARY PATH
-
-half = len(the_primary_path) // 2
-the_secondary_path_temp = the_primary_path[0:half]
-
-for i in points_of_view.keys():
-    if i not in the_primary_path:
-        the_secondary_arrive = i
-        print("the secondary arrive is:")
-        print(the_secondary_arrive)
-        break
-
-
-the_secondary_start = the_secondary_path_temp[-1]
-#CHOOSED RANDOMLY BY THE GAME
-
-the_scondary_min_path = len(the_primary_path) #the current path lenght of primary_path
-the_path = ''
-
-#THEN PUSH THE BUTTON
-
-#INSERT VALUES
-
-#THEN PUSH THE BUTTON
+def push_button_create_the_mission(s, a, m):
+    #INSERT VALUES
+    start = s #CHOOSED RANDOMLY BY THE GAME
+    arrive = a #CHOOSED RANDOMLY BY THE GAME
+    min_path = m #CHOOSED RANDOMLY BY THE GAME
+    the_primary_path = ''
 
 
-secondary_res = find_route(the_secondary_start,the_secondary_arrive)
+    #THEN PUSH THE BUTTON
 
-while len(secondary_res) >= len(the_primary_path) or the_secondary_arrive != secondary_res[-1]:
-    secondary_res = find_route(the_secondary_start, the_secondary_arrive)
+    the_primary_path = find_route(start,arrive)
+    while len(the_primary_path) < min_path or arrive != the_primary_path[-1]:
+        the_primary_path = find_route(start, arrive)
 
-print("the secondary path is: ")
-print(str(secondary_res))
+    print(str("The Dungeon Path is: "))
+    print(str(the_primary_path))
+
+    #THE GAME CHOOSE A SECONDARY PATH
+
+    half = len(the_primary_path) // 2
+    the_secondary_path_temp = the_primary_path[0:half]
+
+    for i in points_of_view.keys():
+        if i not in the_primary_path:
+            the_secondary_arrive = i
+            print("the secondary arrive is:")
+            print(the_secondary_arrive)
+            break
+
+
+    the_secondary_start = the_secondary_path_temp[-1]
+    #CHOOSED RANDOMLY BY THE GAME
+
+    the_scondary_min_path = len(the_primary_path) #the current path lenght of primary_path
+    the_path = ''
+
+    #THEN PUSH THE BUTTON
+
+    #INSERT VALUES
+
+    #THEN PUSH THE BUTTON
+
+
+    secondary_res = find_route(the_secondary_start,the_secondary_arrive)
+
+    while len(secondary_res) >= len(the_primary_path) or the_secondary_arrive != secondary_res[-1]:
+        secondary_res = find_route(the_secondary_start, the_secondary_arrive)
+
+    print("the secondary path is: ")
+    print(str(secondary_res))
+    return the_primary_path
+
+def put_the_doors(dungeon_id):
+    rooms_list = dungeon_to_room[dungeon_id]
+    for i in rooms_list:
+        rng = random.SystemRandom()
+
+        num = rng.randint(0, 99)
+        if (num % 2) == 0:
+            print("Room {0} had a door".format(str(i)))
+        else:
+            print("No doors for room {}".format(str(i)))
+
+
+start_from =  'D' #randomly selected by the app from point of views kesy
+arrive_to = 'F' #randomly selected by the app from point of views kesy
+min_path = 4 #randomly selected by the app between 3 and 6
+#the_path = push_button_create_the_mission(start_from, arrive_to, min_path)
+the_path = ['D', '4', 'H', '5', 'E', '6', 'F']
+how_is_the_dungeon('D', the_path)
+put_the_doors('D4')
 
 
 
-def define_the_dugeons(p):
-    the_path_temp = p
 
 
