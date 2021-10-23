@@ -71,6 +71,115 @@ class Ui(QtWidgets.QMainWindow):
 
     CHRONICLE = ""
 
+    POV_LIST = []
+
+    PRIMARY_PATH = []
+    START_FROM = 'D'
+    ARRIVE_TO = 'F'  # randomly selected by the app from point of views kesy
+    MIN_PATH = 4  # randomly selected by the app between 3 and 6
+
+    SECONDARY_PATH = []
+    THE_SECONDARY_START = ''
+    THE_SECONDARY_ARRIVE = ''
+    THE_SECONDARY_MIN_PATH = ''
+
+    POINT_OF_VIEW_EXPLORED = []
+
+    POINT_OF_VIEW = {
+        'A': ('1', '4'),
+        'B': ('1', '2'),
+        'C': ('2', '3'),
+        'D': ('3', '4'),
+        'E': ('1', '5', '6'),
+        'F': ('2', '6', '7'),
+        'G': ('3', '7', '8'),
+        'H': ('4', '5', '8'),
+        '1': ('A', 'B', 'E'),
+        '2': ('B', 'C', 'F'),
+        '3': ('C', 'D', 'G'),
+        '4': ('A', 'D', 'H'),
+        '5': ('E', 'H'),
+        '6': ('E', 'F'),
+        '7': ('F', 'G'),
+        '8': ('G', 'H')}
+
+    DUNGEON_TO_ROOM = {
+        'A1': ('401', '402', '403'),
+        'B1': ('301', '302', '303'),
+        'B2': ('301', '304'),
+        'C2': ('201', '204'),
+        'C3': ('201', '202', '203'),
+        'D3': ('101', '102', '103'),
+        'D4': ('101', '104'),
+        'A4': ('401', '404'),
+        'E1': ('303', '403', '501'),
+        'E5': ('403', '406', '501'),
+        'E6': ('303', '305', '501'),
+        'F2': ('204', '205', '304', '305', '501'),
+        'F6': ('303', '305', '501'),
+        'F7': ('203', '205', '501'),
+        'G3': ('103', '203', '501'),
+        'G7': ('203', '205', '501'),
+        'G8': ('103', '105', '501'),
+        'H4': ('104', '105', '404', '405', '406', '501'),
+        'H5': ('403', '406', '501'),
+        'H8': ('103', '105', '501')}
+
+    ROOM_TO_ROOM = {
+        '101': ('102', '104'),
+        '102': ('101', '103', '105'),
+        '103': ('102', '105'),
+        '104': ('101', '105'),
+        '105': ('102', '103', '104'),
+
+        '201': ('202', '204'),
+        '202': ('201', '203', '205'),
+        '203': ('202', '205'),
+        '204': ('201', '205'),
+        '205': ('202', '203', '204'),
+
+        '301': ('302', '304'),
+        '302': ('301', '303', '305'),
+        '303': ('302', '305'),
+        '304': ('301', '305'),
+        '305': ('302', '303', '304'),
+
+        '401': ('402', '404'),
+        '402': ('401', '403', '404', '405', '406'),
+        '403': ('402'),
+        '404': ('401', '404', '405', '406'),
+        '405': ('402', '404', '406'),
+        '406': ('402', '405')}
+
+    ROOM_TO_DUNGEON = {
+        '101': ('D3', 'D4'),
+        '102': ('D3'),
+        '103': ('D3', 'G3', 'G8'),
+        '104': ('D4', 'H4'),
+        '105': ('H4', 'H8'),
+
+        '201': ('C2', 'C3'),
+        '202': ('C3'),
+        '203': ('C3', 'G3', 'G7'),
+        '204': ('C2', 'F2'),
+        '205': ('F2', 'F7'),
+
+        '301': ('B1', 'B2'),
+        '302': ('B1'),
+        '303': ('B1', 'E1', 'E6'),
+        '304': ('B2', 'F2'),
+        '305': ('F2', 'F6'),
+
+        '401': ('A1', 'A4'),
+        '402': ('A1'),
+        '403': ('A1', 'E1'),
+        '404': ('A4', 'H4'),
+        '405': ('H4'),
+        '406': ('H4', 'H5'),
+
+        '501': (
+        'E1', 'E5', 'E6', 'F2', 'F6', 'F7', 'G3', 'G7', 'G8',
+        'H4', 'H5', 'H8')}
 
 
     def __init__(self):
@@ -103,7 +212,6 @@ class Ui(QtWidgets.QMainWindow):
 
     def on_pushButton_map_pressed(self):
         map = HQL_MAP(self)
-
         map.show()
 
     def on_pushButton_settings_pressed(self):
@@ -127,17 +235,14 @@ class Ui(QtWidgets.QMainWindow):
             convert_file.write(str(self.CONFIG_DICT))
             convert_file.close()
             self.pushButton_the_mission.setEnabled(True)
-
         else:
             self.CONFIG = open('./languages/EN_en.txt', 'w')
             convert_file.write(str(self.CONFIG_DICT))
             convert_file.close()
             self.pushButton_the_mission.setEnabled(True)
 
-
-
-
     def charge_list(self):
+        #CHARGE DB MONSTERS CATEGORY
         db_monsters_charged = self.HQ_SOLO.MONSTERS_CATEGORY
 
         self.MONSTER_LIST = []
@@ -150,8 +255,17 @@ class Ui(QtWidgets.QMainWindow):
 
         self.comboBox_monster_attack.addItems(self.MONSTER_LIST)
 
+        ############# CHARGE FORNITURES LIST ##############
         fornitures_list = self.CONFIG_DICT['forniture_name_reconversion_dict']
         self.comboBox_fornitures.addItems([*fornitures_list])
+
+        ###########CHARGE DUNGEON POV ############
+        for keys in self.POINT_OF_VIEW.keys():
+            self.POV_LIST.append(keys)
+
+        self.comboBox_pov.clear()
+        self.comboBox_pov.addItems(self.POV_LIST)
+
 
     def on_pushButton_the_mission_pressed(self):
 
@@ -177,7 +291,7 @@ class Ui(QtWidgets.QMainWindow):
         self.textEdit_the_mission.setText(the_mission_text)
         self.QLabel_the_title.setText(the_mission_dict[mission_number_rand][0])
 
-        self.set_chronicle(the_mission_text)
+
 
         self.pushButton_aisles.setEnabled(True)
         self.pushButton_rooms.setEnabled(True)
@@ -191,6 +305,80 @@ class Ui(QtWidgets.QMainWindow):
 
 
         self.pushButton_the_mission.setEnabled(False)
+
+        #################CREATE THE DUNGEON####################
+        self.create_the_dungeon(self.START_FROM, self.ARRIVE_TO,self.MIN_PATH)
+
+        self.set_chronicle(the_mission_text)
+        the_primary_path_txt = 'The primary path is:\n{}'.format(self.PRIMARY_PATH)
+        self.set_chronicle(the_primary_path_txt)
+        the_secondary_path_txt = 'The secondary path is:\n{}'.format(self.SECONDARY_PATH)
+        self.set_chronicle(the_secondary_path_txt)
+
+    def create_the_dungeon(self, s, a, m):
+        #INSERT VALUES
+        start = s #CHOOSED RANDOMLY BY THE GAME
+        arrive = a #CHOOSED RANDOMLY BY THE GAME
+        min_path = m #CHOOSED RANDOMLY BY THE GAME
+
+
+        #the_primary_path = ''
+        #THEN PUSH THE BUTTON
+        #self.PRIMARY_PATH = ''
+        #self.SECONDARY_PATH = ''
+
+
+        self.PRIMARY_PATH = self.find_route(start,arrive)
+        while len(self.PRIMARY_PATH) < min_path or arrive != self.PRIMARY_PATH[-1]:
+            self.PRIMARY_PATH = self.find_route(start, arrive)
+
+        #THE GAME CHOOSE A SECONDARY PATH
+        half = len(self.PRIMARY_PATH) // 2
+        the_secondary_path_temp = self.PRIMARY_PATH[0:half]
+
+        for i in self.POINT_OF_VIEW.keys():
+            if i not in self.PRIMARY_PATH:
+                self.THE_SECONDARY_ARRIVE = i
+                break
+
+        self.THE_SECONDARY_START = the_secondary_path_temp[-1]
+        #CHOOSED RANDOMLY BY THE GAME
+
+        self.THE_SECONDARY_MIN_PATH = 3 #len(self.PRIMARY_PATH) #the current path lenght of primary_path
+        #the_path = ''
+
+        #THEN PUSH THE BUTTON
+
+        #INSERT VALUES
+
+        #THEN PUSH THE BUTTON
+
+        self.SECONDARY_PATH = self.find_route(self.THE_SECONDARY_START,self.THE_SECONDARY_ARRIVE)
+        while len(self.SECONDARY_PATH) >= len(self.PRIMARY_PATH) or self.THE_SECONDARY_ARRIVE != self.SECONDARY_PATH[-1]:
+            self.SECONDARY_PATH = self.find_route(self.THE_SECONDARY_START, self.THE_SECONDARY_ARRIVE)
+        #return self.PRIMARY_PATH
+
+    def find_route(self, b, a):
+        start = b
+        arrive = a
+        current = start
+        path_temp = [start]
+        cont = 0
+        while current != arrive and cont <= 25:
+            local_paths = self.POINT_OF_VIEW[current] #POINT_OF_VIEW
+            length_list = len(local_paths)
+            rng = random.SystemRandom()
+            slice_number = rng.randint(0, int(length_list)-1)
+            current_temp_pov = local_paths[slice_number]
+            if current_temp_pov in path_temp:
+                pass
+            else:
+                path_temp.append(current_temp_pov)
+                current = current_temp_pov
+                cont = 0
+            cont += 1
+        return path_temp
+
 
     def set_chronicle(self, nt):
         self.new_text = nt
@@ -235,7 +423,16 @@ class Ui(QtWidgets.QMainWindow):
 
 
         self.textEdit_aisles.setText("")
-        self.textEdit_aisles.setText(str(msg))
+
+        ###TODO Spostare
+        current_POV = self.comboBox_pov.currentText()
+        self.POINT_OF_VIEW_EXPLORED.append(current_POV)
+        the_dungeon = self.how_is_the_dungeon(current_POV)
+        ###TODO SPOSTARE
+
+        #self.textEdit_aisles.setText(str(msg)+the_dungeon) OLD AISLES MESSAGES
+        self.textEdit_aisles.setText(the_dungeon)
+
         random_trap = self.HQ_SOLO.random_trap(self.CURRENT_ROUND)
         self.textEdit_traps.setText(random_trap)
         self.set_chronicle(random_trap)
@@ -294,7 +491,7 @@ class Ui(QtWidgets.QMainWindow):
             self.textEdit_room_description.setText(msg_secret_door[1])
 
             self.set_chronicle(msg_secret_door[0]+msg_secret_door[1])
-            # print("puppa 2")
+
 
             self.textEdit_chronicle.setText(self.CHRONICLE)
         else:
@@ -359,6 +556,8 @@ class Ui(QtWidgets.QMainWindow):
         self.set_chronicle(str(msg_temp[1]))
 
 
+
+
     def on_pushButton_monster_attack_pressed(self):
         self.textEdit_combat_text.setText("")
         self.textEdit_traps.setText("")
@@ -400,6 +599,78 @@ class Ui(QtWidgets.QMainWindow):
         self.set_chronicle(random_trap)
         rand_value = self.HQ_SOLO.random_numbers()
         self.textEdit_combat_text.setText(self.HQ_SOLO.hero_attack(rand_value))
+
+
+
+    ############################ TODO spostare in functions ####################
+
+    def put_the_doors(self, d):
+        dungeon_id = d
+        rooms_list = self.DUNGEON_TO_ROOM[dungeon_id]
+        door_msg = ''
+        for i in rooms_list:
+            rng = random.SystemRandom()
+            num = rng.randint(0, 99)
+            if (num % 2) == 0:
+                door_msg += "Room {0} has a door. \n".format(str(i))
+            else:
+                door_msg += "No doors for room {}. \n".format(str(i))
+
+        return door_msg
+
+
+    def how_is_the_dungeon(self, pv):
+        pointofview = pv
+        path = self.PRIMARY_PATH
+
+        single_points = self.POINT_OF_VIEW[pointofview]
+
+        msg = '\nMessaggi dungeon e pov\n'
+
+        if pointofview == path[-1]:
+            msg += "This is a Dead-end road...you can only con back. Put Rocks to any other point of view"
+        else:
+            for i in single_points:
+                if i not in path:
+                    msg += "A collapse blocks access to this part of the dungeon (Put a collapse blocks to POV {})\n".format(str(i))
+                else:
+                    if i == path[-1]:
+                        msg += "The dungeon continues through the darkness, (you can walk to POV {})\n".format(str(i))
+                        if i.isdigit() == True:
+                            dungeon_id = '{}{}'.format(str(pointofview), str(i))
+                            msg_doors = self.put_the_doors(dungeon_id)
+                            msg += msg_doors
+                        else:
+                            dungeon_id = '{}{}'.format(str(i), str(pointofview))
+                            msg_doors = self.put_the_doors(dungeon_id)
+                            msg += msg_doors
+
+                    else:
+                        index_number = path.index(pointofview)+1
+                        if i == path[index_number] and i not in self.POINT_OF_VIEW_EXPLORED :  #IF i the next pov
+                            msg += "The dungeon continues through the darkness. (you can walk to POV {})\n".format(str(i))
+                            if i.isdigit() == True:
+                                dungeon_id = '{}{}'.format(str(pointofview), str(i))
+                                msg_doors = self.put_the_doors(dungeon_id)
+                                msg += msg_doors
+                            else:
+                                dungeon_id = '{}{}'.format(str(i), str(pointofview))
+                                msg_doors = self.put_the_doors(dungeon_id)
+                                msg += msg_doors
+
+                        elif i != path[index_number] and i in self.POINT_OF_VIEW_EXPLORED:
+                                msg += "You can come back on your owm passes (you can walk to POV {})\n".format(str(i))
+
+                        elif i == path[index_number] and i in self.POINT_OF_VIEW_EXPLORED:
+                                msg += "No way to go on....the pass is blocked (The dungeon is collapse to POV {}".format(str(i))
+
+                        elif i != path[index_number] and i not in self.POINT_OF_VIEW_EXPLORED:
+                                msg += "A collapse blocks access to this part of the dungeon (Put a collapse blocks to POV {})\n".format(str(i))
+                                    #"The dungeon continues through the darkness but the roof doesn't appear solid,you can walk to POV {} if you obtain a shield after launching a combat dice".format(str(i))
+
+
+        return msg
+
 
 app = QtWidgets.QApplication(sys.argv)
 

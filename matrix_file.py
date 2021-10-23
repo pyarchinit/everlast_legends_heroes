@@ -143,6 +143,10 @@ def how_is_the_dungeon(pv, pa):
             if i == path[-1]:
                 print("The dungeon continues through the darkness, (you can walk to POV {} )".format(str(i)))
 
+
+
+
+
 def push_button_create_the_mission(s, a, m):
     #INSERT VALUES
     start = s #CHOOSED RANDOMLY BY THE GAME
@@ -164,7 +168,6 @@ def push_button_create_the_mission(s, a, m):
 
     half = len(the_primary_path) // 2
     the_secondary_path_temp = the_primary_path[0:half]
-
     for i in points_of_view.keys():
         if i not in the_primary_path:
             the_secondary_arrive = i
@@ -207,11 +210,11 @@ def put_the_doors(dungeon_id):
             print("No doors for room {}".format(str(i)))
 
 
-start_from =  'D' #randomly selected by the app from point of views kesy
+start_from = 'D' #randomly selected by the app from point of views kesy
 arrive_to = 'F' #randomly selected by the app from point of views kesy
 min_path = 4 #randomly selected by the app between 3 and 6
-#the_path = push_button_create_the_mission(start_from, arrive_to, min_path)
-the_path = ['D', '4', 'H', '5', 'E', '6', 'F']
+the_path = push_button_create_the_mission(start_from, arrive_to, min_path)
+#the_path = ['D', '4', 'H', '5', 'E', '6', 'F']
 how_is_the_dungeon('D', the_path)
 put_the_doors('D4')
 
