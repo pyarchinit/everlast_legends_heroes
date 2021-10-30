@@ -233,10 +233,8 @@ class Ui(QtWidgets.QMainWindow):
 
 
     def on_pushButton_aisles_pressed(self):
-        self.textEdit_traps.setText("")
-        current_turn = int(self.lineEdit_round.text())
-        self.textEdit_aisles.setText("")
         """
+
         if self.radioButton_aisles_not_explored.isChecked() == True:
             if current_turn == 1 or current_turn == 2:
                 msg_num = self.HQ_SOLO.random_numbers()
@@ -248,20 +246,26 @@ class Ui(QtWidgets.QMainWindow):
         else:
             msg = self.HQ_SOLO.random_monsters_on_aisles(self.CURRENT_ROUND)
         """
-
+        msg = ""
+        self.textEdit_traps.setText("")
         self.textEdit_aisles.setText("")
+        current_POV = self.comboBox_pov.currentText() ##TODO  AGGIUNGERE IL DUNGEOM SECONDARIO
+        #if self.radioButton_aisles_not_explored.isChecked() == True:
+        if current_POV not in self.HQ_SOLO.POINT_OF_VIEW_EXPLORED:
+            ###TODO Spostare
+            self.HQ_SOLO.POINT_OF_VIEW_EXPLORED.append(current_POV)
+            msg += self.HQ_SOLO.how_is_the_dungeon(current_POV, self.CURRENT_ROUND)
+            ###TODO SPOSTARE
+            #self.textEdit_aisles.setText(str(msg)+the_dungeon) OLD AISLES MESSAGES
+            msg += '\n'+self.HQ_SOLO.random_monsters_on_aisles(self.CURRENT_ROUND)
+        else:
+            msg += self.HQ_SOLO.random_monsters_on_aisles(self.CURRENT_ROUND)
 
-        ###TODO Spostare
-        current_POV = self.comboBox_pov.currentText()
-        self.HQ_SOLO.POINT_OF_VIEW_EXPLORED.append(current_POV)
-        the_dungeon = self.HQ_SOLO.how_is_the_dungeon(current_POV)
-        ###TODO SPOSTARE
-        print("TXT DUNGEON")
-        #self.textEdit_aisles.setText(str(msg)+the_dungeon) OLD AISLES MESSAGES
-        self.textEdit_aisles.setText(the_dungeon)
 
         random_trap = self.HQ_SOLO.random_trap(self.CURRENT_ROUND)
         self.textEdit_traps.setText(random_trap)
+        self.textEdit_aisles.setText(msg)
+        self.set_chronicle(msg)
         self.set_chronicle(random_trap)
 
     def on_pushButton_treasures_finds_pressed(self):
@@ -381,9 +385,6 @@ class Ui(QtWidgets.QMainWindow):
         self.set_chronicle(random_trap)
         self.set_chronicle(msg_room)
         self.set_chronicle(str(msg_temp[1]))
-
-
-
 
     def on_pushButton_monster_attack_pressed(self):
         self.textEdit_combat_text.setText("")

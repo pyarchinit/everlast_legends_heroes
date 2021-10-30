@@ -93,8 +93,8 @@ class Heroquest_solo:
                                    5:db_monsters_charged[4][4],
                                    6:db_monsters_charged[5][4],
                                    7:db_monsters_charged[6][4],
-                                   8:db_monsters_charged[8][4],
-                                   9:db_monsters_charged[7][4]}
+                                   8:db_monsters_charged[7][4],
+                                   9:db_monsters_charged[8][4]}
 
     MONSTERS_CATEGORY = {1:db_monsters_charged[0][1],
                          2:db_monsters_charged[1][1],
@@ -569,7 +569,7 @@ class Heroquest_solo:
         elif self.MISSION_PERCENT_MADE >= 20:
             comparison_value = 18
         else:
-            comparison_value = 21
+            comparison_value = 15
 
         if rn >= comparison_value:
 
@@ -636,27 +636,51 @@ class Heroquest_solo:
         return door_msg
 
 
-    def how_is_the_dungeon(self, pv):
+    def how_is_the_dungeon(self, pv, r):
         pointofview = pv
-        path = self.PRIMARY_PATH
+        round = r
+        msg = ''
+
+        if pointofview in self.PRIMARY_PATH and pointofview == self.THE_SECONDARY_START:
+            print("hitd_1")
+            path = self.PRIMARY_PATH
+            msg += self.run_how_is_the_dungeon(pointofview, path, round)
+            path = self.SECONDARY_PATH
+            msg += self.run_how_is_the_dungeon(pointofview, path, round)
+            return msg
+        elif pointofview in self.SECONDARY_PATH:
+            print("hitd_2")
+            path = self.SECONDARY_PATH
+            msg += self.run_how_is_the_dungeon(pointofview, path, round)
+            return msg
+        elif pointofview in self.PRIMARY_PATH:
+            print("hitd_3")
+            path = self.PRIMARY_PATH
+            print("hitd_3.1")
+            msg += self.run_how_is_the_dungeon(pointofview, path, round)
+            return msg
+
+    def run_how_is_the_dungeon(self, pov, p, r):
+        pointofview = pov
+        path = p
+        round = r
 
         single_points = self.POINT_OF_VIEW[pointofview]
 
-        msg = '\nMessaggi dungeon e pov\n'
+        msg = self.CONFIG_DICT['dungeon_msg_00'].format(str(round))
 
         if pointofview not in path:
             print("POV 1")
-            msg += self.CONFIG_DICT['dungeon_msg_09'].format(str(i))
+            msg += self.CONFIG_DICT['dungeon_msg_09']
+            print("POV 111")
             #msg += "This is a Dead-end road...you can only con back. Put Rocks to any other point of view"
         elif pointofview not in path and i in self.POINT_OF_VIEW_EXPLORED:
             print("POV 2")
-            msg += self.CONFIG_DICT['dungeon_msg_10'].format(
-                str(i))
+            msg += self.CONFIG_DICT['dungeon_msg_10'].format(str(i))
             #msg += "This is a strange place ... The road is blocked to POV {} \n".format(str(i))
         elif pointofview == path[-1]:
             print("POV 3")
-            msg += self.CONFIG_DICT['dungeon_msg_11'].format(
-                str(i))
+            msg += self.CONFIG_DICT['dungeon_msg_11']
             #msg += "This is a Dead-end road...you can only con back. Put Rocks to any other point of view"
         else:
             for i in single_points:
@@ -665,9 +689,6 @@ class Heroquest_solo:
                     msg += self.CONFIG_DICT['dungeon_msg_07'].format(str(i))
                 else:
                     if i == path[-1] and pointofview != path[0]:
-                        print("POV 5")
-                        print(str(self.PRIMARY_PATH))
-                        print(str(self.POINT_OF_VIEW_EXPLORED))
                         msg += self.CONFIG_DICT[
                             'dungeon_msg_08'].format(str(i))
                         if i.isdigit() == True:
@@ -678,7 +699,6 @@ class Heroquest_solo:
                             dungeon_id = '{}{}'.format(str(i), str(pointofview))
                             msg_doors = self.put_the_doors(dungeon_id)
                             msg += msg_doors
-
                     else:
                         print("POV 6")
                         index_number = path.index(pointofview)+1
@@ -713,7 +733,6 @@ class Heroquest_solo:
 
                                     #"The dungeon continues through the darkness but the roof doesn't appear solid,you can walk to POV {} if you obtain a shield after launching a combat dice".format(str(i))
 
-        print("POV 12")
         return msg
 
 
@@ -759,6 +778,20 @@ class Heroquest_solo:
         while len(self.SECONDARY_PATH) >= len(self.PRIMARY_PATH) or self.THE_SECONDARY_ARRIVE != self.SECONDARY_PATH[-1]:
             self.SECONDARY_PATH = self.find_route(self.THE_SECONDARY_START, self.THE_SECONDARY_ARRIVE)
         #return self.PRIMARY_PATH
+        print("secondary path")
+        print(str(self.SECONDARY_PATH))
+        ############# clean the path ###################
+        third_path_temp = []
+        for i in self.SECONDARY_PATH:
+            if i in self.PRIMARY_PATH and self.SECONDARY_PATH[self.SECONDARY_PATH.index(i) + 1] not in self.PRIMARY_PATH:
+                third_path_temp.append(i)
+            elif i not in self.PRIMARY_PATH:
+                third_path_temp.append(i)
+
+        self.SECONDARY_PATH = third_path_temp
+        self.THE_SECONDARY_START = self.SECONDARY_PATH[0]
+        self.THE_SECONDARY_ARRIVE = self.SECONDARY_PATH[-1]
+
 
     def find_route(self, b, a):
         start = b
