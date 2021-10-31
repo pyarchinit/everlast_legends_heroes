@@ -155,6 +155,13 @@ class Ui(QtWidgets.QMainWindow):
         self.comboBox_pov.clear()
         self.comboBox_pov.addItems(self.POV_LIST)
 
+        ###########CHARGE ROOM NUMBERS ############
+
+        self.ROOMS_NUMBERS_LIST =self.HQ_SOLO.charge_rooms_numbers()
+
+        self.comboBox_room_n.clear()
+        self.comboBox_room_n.addItems(self.ROOMS_NUMBERS_LIST)
+
 
     def on_pushButton_the_mission_pressed(self):
         mission_choosed = self.comboBox_choose_adventure.currentText()
@@ -196,7 +203,7 @@ class Ui(QtWidgets.QMainWindow):
 
         #################CREATE THE DUNGEON####################
         #self.create_the_dungeon(self.START_FROM, self.ARRIVE_TO,self.MIN_PATH)
-        self.HQ_SOLO.create_the_dungeon('D', '3', 5) #add random choice
+        self.HQ_SOLO.create_the_dungeon('1', 'C', 5) #add random choice
 
         self.set_chronicle(the_mission_text)
         the_primary_path_txt = 'The primary path is:\n{}'.format(self.HQ_SOLO.PRIMARY_PATH)
@@ -233,24 +240,11 @@ class Ui(QtWidgets.QMainWindow):
 
 
     def on_pushButton_aisles_pressed(self):
-        """
 
-        if self.radioButton_aisles_not_explored.isChecked() == True:
-            if current_turn == 1 or current_turn == 2:
-                msg_num = self.HQ_SOLO.random_numbers()
-                while (msg_num) >= 21:
-                    msg_num = self.HQ_SOLO.random_numbers()  # return always door at first and second turn
-                msg = self.HQ_SOLO.aisles(msg_num)
-            else:
-                msg = self.HQ_SOLO.aisles(self.HQ_SOLO.random_numbers())
-        else:
-            msg = self.HQ_SOLO.random_monsters_on_aisles(self.CURRENT_ROUND)
-        """
         msg = ""
         self.textEdit_traps.setText("")
         self.textEdit_aisles.setText("")
         current_POV = self.comboBox_pov.currentText() ##TODO  AGGIUNGERE IL DUNGEOM SECONDARIO
-        #if self.radioButton_aisles_not_explored.isChecked() == True:
         if current_POV not in self.HQ_SOLO.POINT_OF_VIEW_EXPLORED:
             ###TODO Spostare
             self.HQ_SOLO.POINT_OF_VIEW_EXPLORED.append(current_POV)
@@ -331,18 +325,26 @@ class Ui(QtWidgets.QMainWindow):
 
 
     def on_pushButton_rooms_pressed(self):
+        ####NEW CODE############
+        msg_room = ''
+        random_trap = ''
         self.textEdit_traps.setText("")
         self.textEdit_room_description.setText('')
         self.textEdit_monsters.setText('')
-        if self.radioButton_explored.isChecked() == True:
+        room_to_explore = self.comboBox_room_n.currentText()
+        if room_to_explore in self.HQ_SOLO.ROOMS_EXPLORED:
+            print("room just explored")
+            print(str(self.HQ_SOLO.ROOMS_EXPLORED))
             room_explored = 1
             random_trap = self.HQ_SOLO.random_trap(self.CURRENT_ROUND)
             self.textEdit_traps.setText(random_trap)
             self.set_chronicle(random_trap)
         else:
             room_explored = 0
+            self.HQ_SOLO.ROOMS_EXPLORED.append(room_to_explore)
         current_turn = int(self.lineEdit_round.text())
-        msg_temp = self.HQ_SOLO.room_generator(self.lineEdit_room_dimension.text(), current_turn,room_explored)
+        room_dimension = str(self.HQ_SOLO.ROOMS_NUM_TILES[str(room_to_explore)])
+        msg_temp = self.HQ_SOLO.room_generator(room_dimension, current_turn,room_explored)
         if current_turn == 1 or current_turn == 2:
             msg_room = self.HQ_SOLO.CONFIG_DICT['aux_msg_1'].format(msg_temp[0])
             random_trap = self.HQ_SOLO.random_trap(self.CURRENT_ROUND)

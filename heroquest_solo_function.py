@@ -34,10 +34,10 @@ from permutations_iter import Permutation_class
 class Heroquest_solo:
     """main class for variables management"""
     rng = random.SystemRandom()
-    TOTAL_NUMBER_OF_TURNS = rng.randint(7, 12)
+    TOTAL_NUMBER_OF_TURNS = rng.randint(7, 15   )
 
     rng = random.SystemRandom()
-    MAX_ROOM_COUNTER = rng.randint(5, 10)
+    MAX_ROOM_COUNTER = rng.randint(10, 15)
 
     CURRENT_ROOM_COUNTER = 0
 
@@ -115,9 +115,11 @@ class Heroquest_solo:
 
     POV_LIST = []
 
+    ROOMS_NUMBERS_LIST = []
+
     PRIMARY_PATH = []
-    START_FROM = 'D'
-    ARRIVE_TO = 'F'  # randomly selected by the app from point of views kesy
+    START_FROM = 'E'
+    ARRIVE_TO = 'C'  # randomly selected by the app from point of views kesy
     MIN_PATH = 4  # randomly selected by the app between 3 and 6
 
     SECONDARY_PATH = []
@@ -125,7 +127,11 @@ class Heroquest_solo:
     THE_SECONDARY_ARRIVE = ''
     THE_SECONDARY_MIN_PATH = ''
 
+    COMPLEX_PATH = []
+
     POINT_OF_VIEW_EXPLORED = []
+
+    ROOMS_EXPLORED = []
 
     POINT_OF_VIEW = {
         'A': ('1', '4'),
@@ -223,6 +229,30 @@ class Heroquest_solo:
         'E1', 'E5', 'E6', 'F2', 'F6', 'F7', 'G3', 'G7', 'G8',
         'H4', 'H5', 'H8')}
 
+    ROOMS_NUM_TILES = {
+        '101': 12,
+        '102': 12,
+        '103': 15,
+        '104': 20,
+        '105': 20,
+        '201': 16,
+        '202': 16,
+        '203': 15,
+        '204': 16,
+        '205': 16,
+        '301': 16,
+        '302': 12,
+        '303': 20,
+        '304': 16,
+        '305': 15,
+        '401': 16,
+        '402': 20,
+        '403': 15,
+        '404': 16,
+        '405': 6,
+        '406': 6,
+        '501': 30}
+
 
 
     def __init__(self, cd):
@@ -257,6 +287,11 @@ class Heroquest_solo:
         for keys in self.POINT_OF_VIEW.keys():
             self.POV_LIST.append(keys)
         return self.POV_LIST
+
+    def charge_rooms_numbers(self):
+        for keys in self.ROOMS_NUM_TILES.keys():
+            self.ROOMS_NUMBERS_LIST.append(keys)
+        return self.ROOMS_NUMBERS_LIST
 
     def random_numbers(self):
         """ a random number generator based on four D6.
@@ -613,6 +648,9 @@ class Heroquest_solo:
         dungeon_id = d
         print('DOOR 1')
         rooms_list = self.DUNGEON_TO_ROOM[dungeon_id]
+        for i in rooms_list:
+            if i in self.ROOMS_EXPLORED:
+                rooms_list.remove(i)
         door_msg = ''
         print('DOOR 2')
         for room_num in rooms_list:
@@ -641,22 +679,21 @@ class Heroquest_solo:
         round = r
         msg = ''
 
+        #SE IL PUNTO DI VISTA CORRENTE FA PARTE DEL PATH PRIMARIO ED E' LA PARTEZA DEL SECONDARIO
         if pointofview in self.PRIMARY_PATH and pointofview == self.THE_SECONDARY_START:
-            print("hitd_1")
             path = self.PRIMARY_PATH
             msg += self.run_how_is_the_dungeon(pointofview, path, round)
-            path = self.SECONDARY_PATH
-            msg += self.run_how_is_the_dungeon(pointofview, path, round)
+            #path = self.SECONDARY_PATH
+            #msg += self.run_how_is_the_dungeon(pointofview, path, round)
             return msg
+        #SE IL PUNTO DI VISTA CORRENTE E' PRESENTE NEL PATH SECONDARIO
         elif pointofview in self.SECONDARY_PATH:
-            print("hitd_2")
             path = self.SECONDARY_PATH
             msg += self.run_how_is_the_dungeon(pointofview, path, round)
             return msg
+        #SE IL PATH CORRENTE E' PRESENTE NEL PATH PRIMARIO
         elif pointofview in self.PRIMARY_PATH:
-            print("hitd_3")
             path = self.PRIMARY_PATH
-            print("hitd_3.1")
             msg += self.run_how_is_the_dungeon(pointofview, path, round)
             return msg
 
@@ -665,73 +702,87 @@ class Heroquest_solo:
         path = p
         round = r
 
+        #carica i singoli punti di vista legati al punto di vista corrente
         single_points = self.POINT_OF_VIEW[pointofview]
 
         msg = self.CONFIG_DICT['dungeon_msg_00'].format(str(round))
 
-        if pointofview not in path:
+        #se il punto di vista non fa parte del di nessuno dei due path = VICOLO CIECO
+        if pointofview not in self.COMPLEX_PATH:
             print("POV 1")
             msg += self.CONFIG_DICT['dungeon_msg_09']
             print("POV 111")
             #msg += "This is a Dead-end road...you can only con back. Put Rocks to any other point of view"
-        elif pointofview not in path and i in self.POINT_OF_VIEW_EXPLORED:
+
+        #se il punto di vista corrente non è nel path corrente e risulta già esplorato
+        elif pointofview not in path and pointofview in self.POINT_OF_VIEW_EXPLORED:
             print("POV 2")
-            msg += self.CONFIG_DICT['dungeon_msg_10'].format(str(i))
+            msg += self.CONFIG_DICT['dungeon_msg_10']
             #msg += "This is a strange place ... The road is blocked to POV {} \n".format(str(i))
+        #se il punto correte è l'ultimo del path che si sta seguendo
         elif pointofview == path[-1]:
             print("POV 3")
             msg += self.CONFIG_DICT['dungeon_msg_11']
             #msg += "This is a Dead-end road...you can only con back. Put Rocks to any other point of view"
-        else:
-            for i in single_points:
-                if i not in path:
-                    print("POV 4")
-                    msg += self.CONFIG_DICT['dungeon_msg_07'].format(str(i))
+        #se il punto corrente corrisponde alla biforcazione
+        elif pointofview == self.THE_SECONDARY_START:
+            try:
+                next_pov_primary = self.PRIMARY_PATH[self.PRIMARY_PATH.index(pointofview)+1]
+            except:
+                pass
+            next_pov_secondary = self.SECONDARY_PATH[self.SECONDARY_PATH.index(pointofview)+1]
+            msg += self.CONFIG_DICT['dungeon_msg_12'].format(str(next_pov_primary),str(next_pov_secondary) )
+
+        #else:
+        for i in single_points:
+            if i not in self.COMPLEX_PATH:
+                print("POV 4")
+                msg += self.CONFIG_DICT['dungeon_msg_07'].format(str(i))
+            else:
+                if i == path[-1] and pointofview != path[0]:
+                    msg += self.CONFIG_DICT[
+                        'dungeon_msg_08'].format(str(i))
+                    if i.isdigit() == True:
+                        dungeon_id = '{}{}'.format(str(pointofview), str(i))
+                        msg_doors = self.put_the_doors(dungeon_id)
+                        msg += msg_doors
+                    else:
+                        dungeon_id = '{}{}'.format(str(i), str(pointofview))
+                        msg_doors = self.put_the_doors(dungeon_id)
+                        msg += msg_doors
                 else:
-                    if i == path[-1] and pointofview != path[0]:
-                        msg += self.CONFIG_DICT[
-                            'dungeon_msg_08'].format(str(i))
+                    print("POV 6")
+                    index_number = path.index(pointofview)+1
+                    if i == path[index_number] and i not in self.POINT_OF_VIEW_EXPLORED :  #IF i the next pov
+                        print("POV 7")
+                        msg += self.CONFIG_DICT['dungeon_msg_03'].format(str(i))
+                        print("POV 7.1")
                         if i.isdigit() == True:
+                            print("POV 7.2")
                             dungeon_id = '{}{}'.format(str(pointofview), str(i))
+                            print("POV 7.3")
                             msg_doors = self.put_the_doors(dungeon_id)
                             msg += msg_doors
                         else:
+                            print("POV 7.3")
                             dungeon_id = '{}{}'.format(str(i), str(pointofview))
                             msg_doors = self.put_the_doors(dungeon_id)
                             msg += msg_doors
-                    else:
-                        print("POV 6")
-                        index_number = path.index(pointofview)+1
-                        if i == path[index_number] and i not in self.POINT_OF_VIEW_EXPLORED :  #IF i the next pov
-                            print("POV 7")
-                            msg += self.CONFIG_DICT['dungeon_msg_03'].format(str(i))
-                            print("POV 7.1")
-                            if i.isdigit() == True:
-                                print("POV 7.2")
-                                dungeon_id = '{}{}'.format(str(pointofview), str(i))
-                                print("POV 7.3")
-                                msg_doors = self.put_the_doors(dungeon_id)
-                                msg += msg_doors
-                            else:
-                                print("POV 7.3")
-                                dungeon_id = '{}{}'.format(str(i), str(pointofview))
-                                msg_doors = self.put_the_doors(dungeon_id)
-                                msg += msg_doors
 
-                        elif i != path[index_number] and i in self.POINT_OF_VIEW_EXPLORED:
-                            print("POV 8")
-                            msg += self.CONFIG_DICT['dungeon_msg_04'].format(str(i))
+                    elif i != path[index_number] and i in self.POINT_OF_VIEW_EXPLORED:
+                        print("POV 8")
+                        msg += self.CONFIG_DICT['dungeon_msg_04'].format(str(i))
 
 
-                        elif i == path[index_number] and i in self.POINT_OF_VIEW_EXPLORED:
-                            print("POV 9")
-                            msg += self.CONFIG_DICT['dungeon_msg_05'].format(str(i))
+                    elif i == path[index_number] and i in self.POINT_OF_VIEW_EXPLORED and i != self.THE_SECONDARY_START:
+                        print("POV 9")
+                        msg += self.CONFIG_DICT['dungeon_msg_05'].format(str(i))
 
-                        elif i != path[index_number] and i not in self.POINT_OF_VIEW_EXPLORED:
-                            print("POV 10")
-                            msg += self.CONFIG_DICT['dungeon_msg_06'].format(str(i))
+                    elif i != path[index_number] and i not in self.POINT_OF_VIEW_EXPLORED and i != self.THE_SECONDARY_START and i not in self.SECONDARY_PATH:
+                        print("POV 10")
+                        msg += self.CONFIG_DICT['dungeon_msg_06'].format(str(i))
 
-                                    #"The dungeon continues through the darkness but the roof doesn't appear solid,you can walk to POV {} if you obtain a shield after launching a combat dice".format(str(i))
+                                #"The dungeon continues through the darkness but the roof doesn't appear solid,you can walk to POV {} if you obtain a shield after launching a combat dice".format(str(i))
 
         return msg
 
@@ -791,6 +842,8 @@ class Heroquest_solo:
         self.SECONDARY_PATH = third_path_temp
         self.THE_SECONDARY_START = self.SECONDARY_PATH[0]
         self.THE_SECONDARY_ARRIVE = self.SECONDARY_PATH[-1]
+
+        self.COMPLEX_PATH = self.PRIMARY_PATH + self.SECONDARY_PATH
 
 
     def find_route(self, b, a):
@@ -860,54 +913,6 @@ class Heroquest_solo:
 
             return '{} {}'.format(msg_1, self.CONFIG_DICT['aisles_msg_8'])
 
-    """
-    def aisles_old(self, rv):
-        #sistem for discover aisles
-        self.rv = rv #recive a random number beetween 4 and 24 for number of doors
-        print("Randvalue"+str(self.rv))
-        self.LR_n = self.r_num.randint(1, 2) #select beetween left ora right
-        rock_msg_value = self.random_numbers()
-
-        #generate a rock message and a monster
-        if rock_msg_value > 0 and rock_msg_value <= 15:
-            rocks_msg = self.CONFIG_DICT['aisles_msg_1']
-        elif rock_msg_value > 15 and rock_msg_value <= 18:
-            rocks_msg = self.CONFIG_DICT['aisles_msg_2']
-        else:
-            rocks_msg = self.CONFIG_DICT['aisles_msg_3'].format(self.monsters_dict[self.r_num.randint(1, 7)])
-
-        #aisles generators with doors
-        if self.rv > 1 and self.rv <= 12 and self.FORNITURES_QTY_DICT[11] >= 1:  #one door
-            msg_1 = self.CONFIG_DICT['aisles_msg_4'].format(self.position_dict[self.LR_n], rocks_msg)
-            new_doors_residue = self.FORNITURES_QTY_DICT[11] - 1
-            self.FORNITURES_QTY_DICT[11] = new_doors_residue
-
-            return '{} {}'.format(msg_1, self.CONFIG_DICT['aisles_msg_8'])
-
-        elif self.rv > 12 and self.rv <= 14 and self.FORNITURES_QTY_DICT[11] >= 2: #two doors
-            return self.CONFIG_DICT['aisles_msg_7']
-
-
-
-        elif self.rv > 14 and self.rv <= 19 or self.FORNITURES_QTY_DICT[11] == 0: #NO DOORS
-            msg_1 = self.CONFIG_DICT['aisles_msg_5'].format(
-                self.position_dict[self.r_num.randint(1, 2)],
-                self.position_dict[self.r_num.randint(1, 2)],
-                rocks_msg)
-            new_doors_residue = self.FORNITURES_QTY_DICT[11] - 2
-            self.FORNITURES_QTY_DICT[11] = new_doors_residue
-            return '{} {}'.format(msg_1, self.CONFIG_DICT[
-                'aisles_msg_8'])
-
-
-        elif self.rv > 19 and self.rv <= 24 and self.FORNITURES_QTY_DICT[11] >= 3:  #three door
-            print("tre porte")
-            msg_1 = self.CONFIG_DICT['aisles_msg_6'].format(self.position_dict[self.r_num.randint(1, 2)], self.position_dict[self.r_num.randint(1, 2)], self.position_dict[self.r_num.randint(1, 2)], rocks_msg)
-            new_doors_residue = self.FORNITURES_QTY_DICT[11] - 3
-            self.FORNITURES_QTY_DICT[11] = new_doors_residue
-
-            return '{} {}'.format(msg_1, self.CONFIG_DICT['aisles_msg_8'])
-        """
 
     def treasures(self, rv):
         self.rv = rv
