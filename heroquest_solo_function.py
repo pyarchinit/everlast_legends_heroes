@@ -118,8 +118,8 @@ class Heroquest_solo:
     ROOMS_NUMBERS_LIST = []
 
     PRIMARY_PATH = []
-    START_FROM = 'E'
-    ARRIVE_TO = 'C'  # randomly selected by the app from point of views kesy
+    START_FROM = ''
+    ARRIVE_TO = ''  # randomly selected by the app from point of views kesy
     MIN_PATH = 4  # randomly selected by the app between 3 and 6
 
     SECONDARY_PATH = []
@@ -675,39 +675,112 @@ class Heroquest_solo:
 
 
     def how_is_the_dungeon(self, pv, r):
+
+        ### TODO RUN HOW IS THE DUNGEON
+
         pointofview = pv
         round = r
         msg = ''
 
-        #SE IL PUNTO DI VISTA CORRENTE FA PARTE DEL PATH PRIMARIO ED E' LA PARTEZA DEL SECONDARIO
-        if pointofview in self.PRIMARY_PATH and pointofview == self.THE_SECONDARY_START:
-            path = self.PRIMARY_PATH
-            msg += self.run_how_is_the_dungeon(pointofview, path, round)
-            #path = self.SECONDARY_PATH
-            #msg += self.run_how_is_the_dungeon(pointofview, path, round)
-            return msg
-        #SE IL PUNTO DI VISTA CORRENTE E' PRESENTE NEL PATH SECONDARIO
-        elif pointofview in self.SECONDARY_PATH:
-            path = self.SECONDARY_PATH
-            msg += self.run_how_is_the_dungeon(pointofview, path, round)
-            return msg
-        #SE IL PATH CORRENTE E' PRESENTE NEL PATH PRIMARIO
-        elif pointofview in self.PRIMARY_PATH:
-            path = self.PRIMARY_PATH
-            msg += self.run_how_is_the_dungeon(pointofview, path, round)
-            return msg
-
-    def run_how_is_the_dungeon(self, pov, p, r):
-        pointofview = pov
-        path = p
-        round = r
-
-        #carica i singoli punti di vista legati al punto di vista corrente
-        single_points = self.POINT_OF_VIEW[pointofview]
-
         msg = self.CONFIG_DICT['dungeon_msg_00'].format(str(round))
 
-        #se il punto di vista non fa parte del di nessuno dei due path = VICOLO CIECO
+        print("the primary start")
+        print(str(self.START_FROM))
+        print("the primary arrive")
+        print(str(self.ARRIVE_TO))
+        print("the secondary start")
+        print(str(self.THE_SECONDARY_START))
+        print("the secondary arrive")
+        print(str(self.THE_SECONDARY_ARRIVE))
+
+
+        #ESTENSIONE DEL PRIMO PATH DAL PRIMO A PARTIRE DAL PRIMO PUNTO DEL PRIMARY PATH
+        if pointofview == self.START_FROM and pointofview == self.THE_SECONDARY_START:
+            pov_direction = self.run_how_is_the_dungeon(pointofview, 1)
+            msg += 'Per ora la strada sembra libera. {} '.format(str(pov_direction))
+            return msg
+
+        # ESTENSIONE DALL'ULTIMO PUNTO DEL PRIMARY PATH
+        elif pointofview == self.ARRIVE_TO and pointofview == self.THE_SECONDARY_START:
+            pov_direction = self.run_how_is_the_dungeon(pointofview, 2)
+            msg += 'Puoi proseguire verso il prossimo POV {} del second path'.format(str(pov_direction[0]))
+            return msg
+
+        #BIFORCAZIONE AL CENTRO se il punto corrente corrisponde a qualcosa in primary path e inizio del secondario: alla biforcazione
+        elif pointofview in self.PRIMARY_PATH and pointofview == self.THE_SECONDARY_START:
+            print("biforc 0")
+            pov_direction = self.run_how_is_the_dungeon(pointofview, 3)
+            print("biforc 1")
+            msg += "il percorso si biforca. Puoi proseguire verso il POV {} e il POV {}".format(str(pov_direction[0]), str(pov_direction[1])) #self.CONFIG_DICT['dungeon_msg_12'].format(str(next_pov_primary),str(next_pov_secondary))
+
+            return msg
+
+
+        elif pointofview == self.START_FROM:
+            pov_direction = self.run_how_is_the_dungeon(pointofview, 4)
+            msg += 'Puoi proseguire verso il prossimo POV  del primary path dal PRIMO PUNTO'.format(str(pov_direction))
+            return msg
+
+        elif pointofview == self.ARRIVE_TO:
+            msg += 'Sei nel vicolo cieco del primary path'
+            return msg
+
+        elif pointofview == self.THE_SECONDARY_ARRIVE:
+            msg += 'Sei nel vicolo cieco del secondary path'
+            return msg
+
+        elif pointofview in self.PRIMARY_PATH:
+            msg += 'Puoi proseguire verso il prossimo POV del primary path'
+            return msg
+
+        elif pointofview in self.SECONDARY_PATH:
+            msg += 'Puoi proseguire verso il prossimo POV del secondary path'
+            return msg
+
+        elif pointofview not in self.COMPLEX_PATH:
+            msg += 'Sembra un vicolo cieco verso ogni altro punto'
+            return msg
+
+
+    def run_how_is_the_dungeon(self, pov, sn):
+        self.pointofview_l = pov
+        self.system_number = sn
+
+        #carica i singoli punti di vista legati al punto di vista corrente
+        single_points = self.POINT_OF_VIEW[self.pointofview_l]
+
+        msg = ''
+
+        if self.system_number == 1:
+            pov_1 = self.PRIMARY_PATH[1]
+            pov_2 = self.SECONDARY_PATH[1]
+
+            for i in single_points:
+                if i == pov_1 or i == pov_2:
+                    msg += 'La via prosegue verso il POV {}.'.format(str(i))
+                else:
+                    msg += 'Metti un segnalino crollo verso il POV {}'.format(str(i))
+
+            return msg
+
+        if self.system_number == 2:
+            pov_1 = self.SECONDARY_PATH[1]
+            res = [pov_1]
+            return res
+
+        if self.system_number == 3:
+            pov_1 = self.PRIMARY_PATH[self.PRIMARY_PATH.index(self.pointofview_l)+1]
+            pov_2 = self.SECONDARY_PATH[1]
+            res = [pov_1, pov_2]
+            return res
+
+        #TODO realizzare gli altri casi
+
+
+
+
+        """
+        #se il punto di vista non fa parte di nessuno dei due path = VICOLO CIECO
         if pointofview not in self.COMPLEX_PATH:
             print("POV 1")
             msg += self.CONFIG_DICT['dungeon_msg_09']
@@ -719,11 +792,13 @@ class Heroquest_solo:
             print("POV 2")
             msg += self.CONFIG_DICT['dungeon_msg_10']
             #msg += "This is a strange place ... The road is blocked to POV {} \n".format(str(i))
+
         #se il punto correte è l'ultimo del path che si sta seguendo
-        elif pointofview == path[-1]:
+        elif pointofview == path[-1] or pointofview == self.ARRIVE_TO or pointofview == self.THE_SECONDARY_ARRIVE:
             print("POV 3")
             msg += self.CONFIG_DICT['dungeon_msg_11']
             #msg += "This is a Dead-end road...you can only con back. Put Rocks to any other point of view"
+
         #se il punto corrente corrisponde alla biforcazione
         elif pointofview == self.THE_SECONDARY_START:
             try:
@@ -731,17 +806,26 @@ class Heroquest_solo:
             except:
                 pass
             next_pov_secondary = self.SECONDARY_PATH[self.SECONDARY_PATH.index(pointofview)+1]
-            msg += self.CONFIG_DICT['dungeon_msg_12'].format(str(next_pov_primary),str(next_pov_secondary) )
+            msg += self.CONFIG_DICT['dungeon_msg_12'].format(str(next_pov_primary),str(next_pov_secondary))
+
+
+        elif pointofview == self.THE_SECONDARY_ARRIVE:
+            msg += self.CONFIG_DICT['dungeon_msg_11']
 
         #else:
+        #per ogni punto di vista legato al punto di vista corrente
         for i in single_points:
             if i not in self.COMPLEX_PATH:
+                #STRADA BLOCCATA VERSO OGNI ALTRA VIA...vi state smarrendo
                 print("POV 4")
-                msg += self.CONFIG_DICT['dungeon_msg_07'].format(str(i))
+                msg += self.CONFIG_DICT['dungeon_msg_13'].format(str(i))
             else:
+                #se il POV fa parte dei percorsi
+
+                #se il POV è l'ultimo del path corrente e il punto di vista è diverso dal pov iniziale del path corrente
+                #si può preseguire
                 if i == path[-1] and pointofview != path[0]:
-                    msg += self.CONFIG_DICT[
-                        'dungeon_msg_08'].format(str(i))
+                    msg += self.CONFIG_DICT['dungeon_msg_08'].format(str(i))
                     if i.isdigit() == True:
                         dungeon_id = '{}{}'.format(str(pointofview), str(i))
                         msg_doors = self.put_the_doors(dungeon_id)
@@ -752,39 +836,42 @@ class Heroquest_solo:
                         msg += msg_doors
                 else:
                     print("POV 6")
-                    index_number = path.index(pointofview)+1
-                    if i == path[index_number] and i not in self.POINT_OF_VIEW_EXPLORED :  #IF i the next pov
-                        print("POV 7")
-                        msg += self.CONFIG_DICT['dungeon_msg_03'].format(str(i))
-                        print("POV 7.1")
-                        if i.isdigit() == True:
-                            print("POV 7.2")
-                            dungeon_id = '{}{}'.format(str(pointofview), str(i))
-                            print("POV 7.3")
-                            msg_doors = self.put_the_doors(dungeon_id)
-                            msg += msg_doors
-                        else:
-                            print("POV 7.3")
-                            dungeon_id = '{}{}'.format(str(i), str(pointofview))
-                            msg_doors = self.put_the_doors(dungeon_id)
-                            msg += msg_doors
+                    try:
+                        index_number = path.index(pointofview)+1
+                        #se il punto di vista che si vede dal POV corrente successivo è uguale al
+                        #pov successivo nel path corrente e non è stato esplorato metti le porte
+                        if i == path[index_number] and i not in self.POINT_OF_VIEW_EXPLORED :  #IF i the next pov
+                            print("POV 7")
+                            msg += self.CONFIG_DICT['dungeon_msg_03'].format(str(i))
+                            print("POV 7.1")
+                            if i.isdigit() == True:
+                                print("POV 7.2")
+                                dungeon_id = '{}{}'.format(str(pointofview), str(i))
+                                print("POV 7.3")
+                                msg_doors = self.put_the_doors(dungeon_id)
+                                msg += msg_doors
+                            else:
+                                print("POV 7.3")
+                                dungeon_id = '{}{}'.format(str(i), str(pointofview))
+                                msg_doors = self.put_the_doors(dungeon_id)
+                                msg += msg_doors
+                        # se il punto di vista che si vede dal POV corrente successivo è uguale al
+                        #è diverso dai punti fi vista successivi del path corrente e i è stato esplorato
+                        elif i != path[index_number] and i in self.POINT_OF_VIEW_EXPLORED:
+                            print("POV 8")
+                            msg += self.CONFIG_DICT['dungeon_msg_04'].format(str(i))
 
-                    elif i != path[index_number] and i in self.POINT_OF_VIEW_EXPLORED:
-                        print("POV 8")
-                        msg += self.CONFIG_DICT['dungeon_msg_04'].format(str(i))
+                        elif i == path[index_number] and i in self.POINT_OF_VIEW_EXPLORED and i != self.THE_SECONDARY_START:
+                            print("POV 9")
+                            msg += self.CONFIG_DICT['dungeon_msg_05'].format(str(i))
 
-
-                    elif i == path[index_number] and i in self.POINT_OF_VIEW_EXPLORED and i != self.THE_SECONDARY_START:
-                        print("POV 9")
-                        msg += self.CONFIG_DICT['dungeon_msg_05'].format(str(i))
-
-                    elif i != path[index_number] and i not in self.POINT_OF_VIEW_EXPLORED and i != self.THE_SECONDARY_START and i not in self.SECONDARY_PATH:
-                        print("POV 10")
-                        msg += self.CONFIG_DICT['dungeon_msg_06'].format(str(i))
-
-                                #"The dungeon continues through the darkness but the roof doesn't appear solid,you can walk to POV {} if you obtain a shield after launching a combat dice".format(str(i))
-
-        return msg
+                        elif i != path[index_number] and i not in self.POINT_OF_VIEW_EXPLORED and i != self.THE_SECONDARY_START and i not in self.SECONDARY_PATH:
+                            print("POV 10")
+                            msg += self.CONFIG_DICT['dungeon_msg_06'].format(str(i))
+                    except:
+                        pass
+                                    #"The dungeon continues through the darkness but the roof doesn't appear solid,you can walk to POV {} if you obtain a shield after launching a combat dice".format(str(i))
+                    """
 
 
     def create_the_dungeon(self, s, a, m):
@@ -828,10 +915,7 @@ class Heroquest_solo:
         self.SECONDARY_PATH = self.find_route(self.THE_SECONDARY_START,self.THE_SECONDARY_ARRIVE)
         while len(self.SECONDARY_PATH) >= len(self.PRIMARY_PATH) or self.THE_SECONDARY_ARRIVE != self.SECONDARY_PATH[-1]:
             self.SECONDARY_PATH = self.find_route(self.THE_SECONDARY_START, self.THE_SECONDARY_ARRIVE)
-        #return self.PRIMARY_PATH
-        print("secondary path")
-        print(str(self.SECONDARY_PATH))
-        ############# clean the path ###################
+
         third_path_temp = []
         for i in self.SECONDARY_PATH:
             if i in self.PRIMARY_PATH and self.SECONDARY_PATH[self.SECONDARY_PATH.index(i) + 1] not in self.PRIMARY_PATH:
@@ -840,6 +924,10 @@ class Heroquest_solo:
                 third_path_temp.append(i)
 
         self.SECONDARY_PATH = third_path_temp
+
+        self.START_FROM = self.PRIMARY_PATH[0]
+        self.ARRIVE_TO = self.PRIMARY_PATH[-1]
+
         self.THE_SECONDARY_START = self.SECONDARY_PATH[0]
         self.THE_SECONDARY_ARRIVE = self.SECONDARY_PATH[-1]
 
