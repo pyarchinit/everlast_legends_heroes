@@ -697,13 +697,16 @@ class Heroquest_solo:
         #ESTENSIONE DEL PRIMO PATH DAL PRIMO A PARTIRE DAL PRIMO PUNTO DEL PRIMARY PATH
         if pointofview == self.START_FROM and pointofview == self.THE_SECONDARY_START:
             pov_direction = self.run_how_is_the_dungeon(pointofview, 1)
-            msg += 'Per ora la strada sembra libera. {} '.format(str(pov_direction))
+            msg += 'Per ora la strada sembra libera. {}'.format(str(pov_direction))
+            self.POINT_OF_VIEW_EXPLORED.append(pointofview)
             return msg
 
         # ESTENSIONE DALL'ULTIMO PUNTO DEL PRIMARY PATH
         elif pointofview == self.ARRIVE_TO and pointofview == self.THE_SECONDARY_START:
             pov_direction = self.run_how_is_the_dungeon(pointofview, 2)
-            msg += 'Puoi proseguire verso il prossimo POV {} del second path'.format(str(pov_direction[0]))
+            msg += 'Sembrava un vicolo cieco, ma sembra esserci un altro cunicolo. {}'.format(str(pov_direction))
+            self.POINT_OF_VIEW_EXPLORED.append(pointofview)
+
             return msg
 
         #BIFORCAZIONE AL CENTRO se il punto corrente corrisponde a qualcosa in primary path e inizio del secondario: alla biforcazione
@@ -711,34 +714,47 @@ class Heroquest_solo:
             print("biforc 0")
             pov_direction = self.run_how_is_the_dungeon(pointofview, 3)
             print("biforc 1")
-            msg += "il percorso si biforca. Puoi proseguire verso il POV {} e il POV {}".format(str(pov_direction[0]), str(pov_direction[1])) #self.CONFIG_DICT['dungeon_msg_12'].format(str(next_pov_primary),str(next_pov_secondary))
+
+            msg += "il percorso si biforca. {}".format(str(pov_direction)) #self.CONFIG_DICT['dungeon_msg_12'].format(str(next_pov_primary),str(next_pov_secondary))
+            self.POINT_OF_VIEW_EXPLORED.append(pointofview)
 
             return msg
-
 
         elif pointofview == self.START_FROM:
             pov_direction = self.run_how_is_the_dungeon(pointofview, 4)
-            msg += 'Puoi proseguire verso il prossimo POV  del primary path dal PRIMO PUNTO'.format(str(pov_direction))
+            msg += 'Puoi proseguire verso il prossimo POV del primary path dal PRIMO PUNTO. {}'.format(str(pov_direction))
+            self.POINT_OF_VIEW_EXPLORED.append(pointofview)
+
             return msg
 
         elif pointofview == self.ARRIVE_TO:
-            msg += 'Sei nel vicolo cieco del primary path'
+            pov_direction = self.run_how_is_the_dungeon(pointofview, 5)
+            msg += 'Sei nel vicolo cieco del primary path {}'.format(pov_direction)
+            self.POINT_OF_VIEW_EXPLORED.append(pointofview)
+
             return msg
 
         elif pointofview == self.THE_SECONDARY_ARRIVE:
-            msg += 'Sei nel vicolo cieco del secondary path'
+            pov_direction = self.run_how_is_the_dungeon(pointofview, 6)
+            msg += 'Sei nel vicolo cieco del secondary path. {}'.format(pov_direction)
+            self.POINT_OF_VIEW_EXPLORED.append(pointofview)
             return msg
 
         elif pointofview in self.PRIMARY_PATH:
-            msg += 'Puoi proseguire verso il prossimo POV del primary path'
+            pov_direction = self.run_how_is_the_dungeon(pointofview, 7)
+            msg += 'Puoi proseguire verso il prossimo POV del primary path. {}'.format(pov_direction)
+            self.POINT_OF_VIEW_EXPLORED.append(pointofview)
             return msg
 
         elif pointofview in self.SECONDARY_PATH:
-            msg += 'Puoi proseguire verso il prossimo POV del secondary path'
+            pov_direction = self.run_how_is_the_dungeon(pointofview, 8)
+            msg += 'Puoi proseguire verso il prossimo POV del primary path. {}'.format(pov_direction)
+            self.POINT_OF_VIEW_EXPLORED.append(pointofview)
             return msg
 
         elif pointofview not in self.COMPLEX_PATH:
-            msg += 'Sembra un vicolo cieco verso ogni altro punto'
+            msg += 'Sembra un vicolo cieco verso ogni altro punto. Metti un segnalino crollo verso ogni altro POV distante almeno 2 caselle dall\'eroe.'
+            self.POINT_OF_VIEW_EXPLORED.append(pointofview)
             return msg
 
 
@@ -765,14 +781,76 @@ class Heroquest_solo:
 
         if self.system_number == 2:
             pov_1 = self.SECONDARY_PATH[1]
-            res = [pov_1]
-            return res
+
+            for i in single_points:
+                if i == pov_1:
+                    msg += 'La via prosegue verso il POV {}.'.format(str(i))
+                else:
+                    msg += 'Da questa parte il soffitto a ceduto. Metti un segnalino crollo verso il POV {}'.format(str(i))
+
+            return msg
 
         if self.system_number == 3:
             pov_1 = self.PRIMARY_PATH[self.PRIMARY_PATH.index(self.pointofview_l)+1]
+            pov_3 = self.PRIMARY_PATH[self.PRIMARY_PATH.index(self.pointofview_l)-1]
             pov_2 = self.SECONDARY_PATH[1]
-            res = [pov_1, pov_2]
-            return res
+
+            for i in single_points:
+                if i == pov_1 or i == pov_2 or i == pov_3 :
+                    if i in self.POINT_OF_VIEW_EXPLORED:
+                        msg += 'Puoi tornare verso il POV {}.'.format(str(i))
+                    else:
+                        msg += 'La via prosegue verso il POV {}.'.format(str(i))
+                else:
+                    msg += 'La nuda roccia ti sbarra la strada. Metti un segnalino crollo verso il POV {}'.format(str(i))
+
+            return msg
+
+        if self.system_number == 4:
+            pov_1 = self.START_FROM
+            for i in single_points:
+                if str(i) in self.PRIMARY_PATH:
+                    msg += 'La via prosegue verso il POV {}.'.format(str(i))
+                else:
+                    msg += 'Da questa parte il soffitto a ceduto. ' \
+                           'Metti un segnalino crollo verso il POV {}.\n'.format(str(i))
+            return msg
+
+        if self.system_number == 5:
+            msg = 'Da questa parte il soffitto a ceduto. '
+            for i in single_points:
+                msg += 'Metti un segnalino crollo verso il POV {}. \n'.format(str(i))
+
+            return msg
+
+        if self.system_number == 6:
+            msg = 'Da questa parte il soffitto a ceduto. '
+            for i in single_points:
+                msg += 'Metti un segnalino crollo verso il POV {}. \n'.format(str(i))
+
+            return msg
+
+        if self.system_number == 7:
+            for i in single_points:
+                if str(i) == self.PRIMARY_PATH[self.PRIMARY_PATH.index(self.pointofview_l)+1] or str(i) == self.PRIMARY_PATH[self.PRIMARY_PATH.index(self.pointofview_l)-1]:
+                    msg += 'La via prosegue verso il POV {}.'.format(str(i))
+                else:
+                    msg += 'Da questa parte il soffitto a ceduto. ' \
+                           'Metti un segnalino crollo verso il POV {}.\n'.format(str(i))
+            return msg
+
+
+        if self.system_number == 8:
+            for i in single_points:
+                if str(i) == self.SECONDARY_PATH[self.SECONDARY_PATH.index(self.pointofview_l)+1] or str(i) == self.SECONDARY_PATH[self.SECONDARY_PATH.index(self.pointofview_l)-1]:
+                    msg += 'La via prosegue verso il POV {}.'.format(str(i))
+                else:
+                    msg += 'Da questa parte il soffitto a ceduto. ' \
+                           'Metti un segnalino crollo verso il POV {}.\n'.format(str(i))
+            return msg
+
+
+
 
         #TODO realizzare gli altri casi
 
