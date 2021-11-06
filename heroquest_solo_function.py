@@ -656,7 +656,7 @@ class Heroquest_solo:
         for room_num in rooms_list:
             num = self.random_numbers()
             print('DOOR 3')
-            if num >=10 and num <= 18 and self.FORNITURES_QTY_DICT[11] >= 1:
+            if num >16 and self.FORNITURES_QTY_DICT[11] >= 1:
                 door_type_msg = self.r_num.randint(1, 2)
                 print('DOOR 4')
                 if door_type_msg == 1:
@@ -696,13 +696,17 @@ class Heroquest_solo:
 
         #ESTENSIONE DEL PRIMO PATH DAL PRIMO A PARTIRE DAL PRIMO PUNTO DEL PRIMARY PATH
         if pointofview == self.START_FROM and pointofview == self.THE_SECONDARY_START:
+            print(str("soluzione 1"))
             pov_direction = self.run_how_is_the_dungeon(pointofview, 1)
+            print(str("soluzione 1.2"))
             msg += 'Per ora la strada sembra libera. {}'.format(str(pov_direction))
             self.POINT_OF_VIEW_EXPLORED.append(pointofview)
             return msg
 
         # ESTENSIONE DALL'ULTIMO PUNTO DEL PRIMARY PATH
         elif pointofview == self.ARRIVE_TO and pointofview == self.THE_SECONDARY_START:
+            print(str("soluzione 2"))
+
             pov_direction = self.run_how_is_the_dungeon(pointofview, 2)
             msg += 'Sembrava un vicolo cieco, ma sembra esserci un altro cunicolo. {}'.format(str(pov_direction))
             self.POINT_OF_VIEW_EXPLORED.append(pointofview)
@@ -711,7 +715,7 @@ class Heroquest_solo:
 
         #BIFORCAZIONE AL CENTRO se il punto corrente corrisponde a qualcosa in primary path e inizio del secondario: alla biforcazione
         elif pointofview in self.PRIMARY_PATH and pointofview == self.THE_SECONDARY_START:
-            print("biforc 0")
+            print(str("soluzione 3"))
             pov_direction = self.run_how_is_the_dungeon(pointofview, 3)
             print("biforc 1")
 
@@ -721,6 +725,8 @@ class Heroquest_solo:
             return msg
 
         elif pointofview == self.START_FROM:
+            print(str("soluzione 4"))
+
             pov_direction = self.run_how_is_the_dungeon(pointofview, 4)
             msg += 'Puoi proseguire verso il prossimo POV del primary path dal PRIMO PUNTO. {}'.format(str(pov_direction))
             self.POINT_OF_VIEW_EXPLORED.append(pointofview)
@@ -728,6 +734,8 @@ class Heroquest_solo:
             return msg
 
         elif pointofview == self.ARRIVE_TO:
+            print(str("soluzione 5"))
+
             pov_direction = self.run_how_is_the_dungeon(pointofview, 5)
             msg += 'Sei nel vicolo cieco del primary path {}'.format(pov_direction)
             self.POINT_OF_VIEW_EXPLORED.append(pointofview)
@@ -735,12 +743,16 @@ class Heroquest_solo:
             return msg
 
         elif pointofview == self.THE_SECONDARY_ARRIVE:
+            print(str("soluzione 6"))
+
             pov_direction = self.run_how_is_the_dungeon(pointofview, 6)
             msg += 'Sei nel vicolo cieco del secondary path. {}'.format(pov_direction)
             self.POINT_OF_VIEW_EXPLORED.append(pointofview)
             return msg
 
         elif pointofview in self.PRIMARY_PATH:
+            print(str("soluzione 7"))
+
             pov_direction = self.run_how_is_the_dungeon(pointofview, 7)
             msg += 'Puoi proseguire verso il prossimo POV del primary path. {}'.format(pov_direction)
             self.POINT_OF_VIEW_EXPLORED.append(pointofview)
@@ -768,12 +780,21 @@ class Heroquest_solo:
         msg = ''
 
         if self.system_number == 1:
+            print(str("sistema 1"))
             pov_1 = self.PRIMARY_PATH[1]
             pov_2 = self.SECONDARY_PATH[1]
 
             for i in single_points:
                 if i == pov_1 or i == pov_2:
                     msg += 'La via prosegue verso il POV {}.'.format(str(i))
+                    if i.isdigit() is True:
+                        dungeon_id = '{}{}'.format(str(self.pointofview_l), str(i))
+                        msg_doors = self.put_the_doors(dungeon_id)
+                        msg += msg_doors
+                    else:
+                        dungeon_id = '{}{}'.format(str(i), str(self.pointofview_l))
+                        msg_doors = self.put_the_doors(dungeon_id)
+                        msg += msg_doors
                 else:
                     msg += 'Metti un segnalino crollo verso il POV {}'.format(str(i))
 
@@ -785,6 +806,18 @@ class Heroquest_solo:
             for i in single_points:
                 if i == pov_1:
                     msg += 'La via prosegue verso il POV {}.'.format(str(i))
+                    if i.isdigit() is True:
+                        dungeon_id = '{}{}'.format(
+                            str(self.pointofview_l), str(i))
+                        msg_doors = self.put_the_doors(
+                            dungeon_id)
+                        msg += msg_doors
+                    else:
+                        dungeon_id = '{}{}'.format(str(i), str(
+                            self.pointofview_l))
+                        msg_doors = self.put_the_doors(
+                            dungeon_id)
+                        msg += msg_doors
                 else:
                     msg += 'Da questa parte il soffitto a ceduto. Metti un segnalino crollo verso il POV {}'.format(str(i))
 
@@ -801,6 +834,20 @@ class Heroquest_solo:
                         msg += 'Puoi tornare verso il POV {}.'.format(str(i))
                     else:
                         msg += 'La via prosegue verso il POV {}.'.format(str(i))
+                        if i.isdigit() is True:
+                            dungeon_id = '{}{}'.format(
+                                str(self.pointofview_l), str(i))
+                            msg_doors = self.put_the_doors(
+                                dungeon_id)
+                            msg += msg_doors
+                        else:
+                            dungeon_id = '{}{}'.format(str(i),
+                                                       str(
+                                                           self.pointofview_l))
+                            msg_doors = self.put_the_doors(
+                                dungeon_id)
+                            msg += msg_doors
+
                 else:
                     msg += 'La nuda roccia ti sbarra la strada. Metti un segnalino crollo verso il POV {}'.format(str(i))
 
@@ -811,6 +858,18 @@ class Heroquest_solo:
             for i in single_points:
                 if str(i) in self.PRIMARY_PATH:
                     msg += 'La via prosegue verso il POV {}.'.format(str(i))
+                    if i.isdigit() is True:
+                        dungeon_id = '{}{}'.format(
+                            str(self.pointofview_l), str(i))
+                        msg_doors = self.put_the_doors(
+                            dungeon_id)
+                        msg += msg_doors
+                    else:
+                        dungeon_id = '{}{}'.format(str(i), str(
+                            self.pointofview_l))
+                        msg_doors = self.put_the_doors(
+                            dungeon_id)
+                        msg += msg_doors
                 else:
                     msg += 'Da questa parte il soffitto a ceduto. ' \
                            'Metti un segnalino crollo verso il POV {}.\n'.format(str(i))
@@ -834,6 +893,18 @@ class Heroquest_solo:
             for i in single_points:
                 if str(i) == self.PRIMARY_PATH[self.PRIMARY_PATH.index(self.pointofview_l)+1] or str(i) == self.PRIMARY_PATH[self.PRIMARY_PATH.index(self.pointofview_l)-1]:
                     msg += 'La via prosegue verso il POV {}.'.format(str(i))
+                    if i.isdigit() is True:
+                        dungeon_id = '{}{}'.format(
+                            str(self.pointofview_l), str(i))
+                        msg_doors = self.put_the_doors(
+                            dungeon_id)
+                        msg += msg_doors
+                    else:
+                        dungeon_id = '{}{}'.format(str(i), str(
+                            self.pointofview_l))
+                        msg_doors = self.put_the_doors(
+                            dungeon_id)
+                        msg += msg_doors
                 else:
                     msg += 'Da questa parte il soffitto a ceduto. ' \
                            'Metti un segnalino crollo verso il POV {}.\n'.format(str(i))
@@ -844,6 +915,18 @@ class Heroquest_solo:
             for i in single_points:
                 if str(i) == self.SECONDARY_PATH[self.SECONDARY_PATH.index(self.pointofview_l)+1] or str(i) == self.SECONDARY_PATH[self.SECONDARY_PATH.index(self.pointofview_l)-1]:
                     msg += 'La via prosegue verso il POV {}.'.format(str(i))
+                    if i.isdigit() is True:
+                        dungeon_id = '{}{}'.format(
+                            str(self.pointofview_l), str(i))
+                        msg_doors = self.put_the_doors(
+                            dungeon_id)
+                        msg += msg_doors
+                    else:
+                        dungeon_id = '{}{}'.format(str(i), str(
+                            self.pointofview_l))
+                        msg_doors = self.put_the_doors(
+                            dungeon_id)
+                        msg += msg_doors
                 else:
                     msg += 'Da questa parte il soffitto a ceduto. ' \
                            'Metti un segnalino crollo verso il POV {}.\n'.format(str(i))

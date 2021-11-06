@@ -27,6 +27,7 @@ from builtins import range
 from PyQt5.QtWidgets import QApplication, QDialog, QMessageBox, QTableWidgetItem
 from PyQt5.uic import loadUiType
 from delegateComboBox import ComboBoxDelegate
+
 import os
 import sqlite3
 
@@ -41,9 +42,16 @@ class HQL_MAP(QDialog, MAIN_DIALOG_CLASS):
     CURSOR = CONNECTION.cursor()
     OPTION_SAVE = 1
 
+
     def __init__(self, parent=None, db=None):
         QDialog.__init__(self, parent)
         self.setupUi(self)
+
+    def on_pushButton_pov3_pressed(self):
+        print("gigi")
+        #self.UI.textEdit_room_description.setText("puppa")
+
+
 
 
 
@@ -52,4 +60,6 @@ if __name__ == '__main__':
     a = QApplication(sys.argv)
     dlg = HQL_MAP()
     dlg.show()
+
+
     sys.exit(a.exec_())

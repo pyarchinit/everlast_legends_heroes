@@ -101,7 +101,8 @@ class Ui(QtWidgets.QMainWindow):
 
     def on_pushButton_map_pressed(self):
         map = HQL_MAP(self)
-        map.show()
+        map.exec_()
+        #map.show()
 
     def on_pushButton_settings_pressed(self):
         dlg = AdventurePanelSettings(self)
@@ -221,14 +222,16 @@ class Ui(QtWidgets.QMainWindow):
 
 
     def on_pushButton_round_pressed(self):
-        self.textEdit_aisles.setText("")
-        self.textEdit_monsters.setText("")
-        self.textEdit_room_description.setText("")
-        self.textEdit_treasures_finder.setText("")
-        self.textEdit_treasures_description.setText("")
-        self.textEdit_treasure_cards_description.setText("")
-        self.textEdit_traps.setText("")
-        self.textEdit_secret_doors.setText("")
+        self.textEdit_messages.setText("")
+
+        #self.textEdit_aisles.setText("")
+        #self.textEdit_monsters.setText("")
+        #self.textEdit_room_description.setText("")
+        #self.textEdit_treasures_finder.setText("")
+        #self.textEdit_treasures_description.setText("")
+        #self.textEdit_treasure_cards_description.setText("")
+        #self.textEdit_traps.setText("")
+        #self.textEdit_secret_doors.setText("")
         self.textEdit_combat_text.setText("")
         self.CURRENT_ROUND = int(self.lineEdit_round.text())
         next_turn = self.CURRENT_ROUND+1
@@ -240,10 +243,10 @@ class Ui(QtWidgets.QMainWindow):
 
 
     def on_pushButton_aisles_pressed(self):
-
         msg = ""
-        self.textEdit_traps.setText("")
-        self.textEdit_aisles.setText("")
+        self.textEdit_messages.setText("")
+        #self.textEdit_traps.setText("")
+        #self.textEdit_aisles.setText("")
         current_POV = self.comboBox_pov.currentText() ##TODO  AGGIUNGERE IL DUNGEOM SECONDARIO
         if current_POV not in self.HQ_SOLO.POINT_OF_VIEW_EXPLORED:
             ###TODO Spostare
@@ -257,16 +260,22 @@ class Ui(QtWidgets.QMainWindow):
 
 
         random_trap = self.HQ_SOLO.random_trap(self.CURRENT_ROUND)
-        self.textEdit_traps.setText(random_trap)
-        self.textEdit_aisles.setText(msg)
+        message = "{}\n{}".format(random_trap, msg)
+        self.textEdit_messages.setText(message)
+
+        #self.textEdit_traps.setText(random_trap)
+        #self.textEdit_aisles.setText(msg)
+
+        #chronicle
         self.set_chronicle(msg)
         self.set_chronicle(random_trap)
 
     def on_pushButton_treasures_finds_pressed(self):
-        self.textEdit_traps.setText("")
-        self.textEdit_treasures_finder.setText("")
-        self.textEdit_treasures_description.setText("")
-        self.textEdit_treasure_cards_description.setText("")
+        #self.textEdit_traps.setText("")
+        #self.textEdit_treasures_finder.setText("")
+        #self.textEdit_treasures_description.setText("")
+        #self.textEdit_treasure_cards_description.setText("")
+
         res = self.HQ_SOLO.treasures(self.HQ_SOLO.random_numbers())
         msg = res[0]
         self.TREASURES_FINDS = res[1]
@@ -276,68 +285,96 @@ class Ui(QtWidgets.QMainWindow):
         else:
             self.pushButton_treasures_random.setEnabled(False)
             self.pushButton_treasure_card.setEnabled(True)
-        self.textEdit_treasures_finder.setText("")
-        self.textEdit_treasures_finder.setText(str(msg))
+        #self.textEdit_treasures_finder.setText("")
+        #self.textEdit_treasures_finder.setText(str(msg))
+
+        message = str(msg)
+        self.textEdit_messages.setText(message)
+
 
 
     def on_pushButton_treasure_card_pressed(self):
-        self.textEdit_traps.setText("")
-        self.textEdit_treasures_finder.setText("")
-        self.textEdit_treasures_description.setText("")
-        self.textEdit_treasure_cards_description.setText("")
+        #self.textEdit_traps.setText("")
+        #self.textEdit_treasures_finder.setText("")
+        #self.textEdit_treasures_description.setText("")
+        #self.textEdit_treasure_cards_description.setText("")
+
         msg = self.HQ_SOLO.treasure_card(self.HQ_SOLO.random_numbers())
-        self.textEdit_treasure_cards_description.setText("")
-        self.textEdit_treasure_cards_description.setText(str(msg))
+        #self.textEdit_treasure_cards_description.setText("")
+        #self.textEdit_treasure_cards_description.setText(str(msg))
+
+        message = str(msg)
+        self.textEdit_messages.setText(message)
+
+
         self.pushButton_treasure_card.setEnabled(False)
 
 
     def on_pushButton_treasures_random_pressed(self):
-        self.textEdit_traps.setText("")
-        self.textEdit_treasures_finder.setText("")
-        self.textEdit_treasures_description.setText("")
-        self.textEdit_treasure_cards_description.setText("")
+        #self.textEdit_traps.setText("")
+        #self.textEdit_treasures_finder.setText("")
+        #self.textEdit_treasures_description.setText("")
+        #self.textEdit_treasure_cards_description.setText("")
+
+
         forniture = self.comboBox_fornitures.currentText()
         msg = self.HQ_SOLO.treasure_random(self.HQ_SOLO.random_numbers(), forniture)
         self.pushButton_treasures_random.setEnabled(False)
         self.TREASURES_FINDS = 0
-        self.textEdit_treasures_description.setText(str(msg))
+
+        #self.textEdit_treasures_description.setText(str(msg))
+        #self.textEdit_traps.setText(random_trap)
+
         random_trap = self.HQ_SOLO.random_trap(self.CURRENT_ROUND)
-        self.textEdit_traps.setText(random_trap)
+        print("here")
+        message = "{}\n{}".format(str(msg),random_trap)
+        self.textEdit_messages.setText(message)
+
         self.set_chronicle(random_trap)
 
 
     def on_pushButton_traps_and_secret_doors_finder_pressed(self):
-        self.textEdit_traps.setText("")
+        #self.textEdit_traps.setText("")
         msg_traps = self.HQ_SOLO.traps(self.HQ_SOLO.random_numbers())
         msg_secret_door = self.HQ_SOLO.secret_doors(self.HQ_SOLO.random_numbers())
         if str(type(msg_secret_door)) == "<class 'list'>":
-            self.textEdit_secret_doors.setText(msg_secret_door[0])
-            self.textEdit_room_description.setText('')
-            self.textEdit_room_description.setText(msg_secret_door[1])
+            #self.textEdit_secret_doors.setText(msg_secret_door[0])
+            #self.textEdit_room_description.setText('')
+            #self.textEdit_room_description.setText(msg_secret_door[1])
+
+            message = "{}\n{}".format(msg_secret_door[0], msg_secret_door[1])
+            self.textEdit_messages.setText(message)
 
             self.set_chronicle(msg_secret_door[0]+msg_secret_door[1])
 
 
             self.textEdit_chronicle.setText(self.CHRONICLE)
         else:
-            self.textEdit_secret_doors.setText(msg_secret_door)
-        self.textEdit_traps.setText(str(msg_traps))
+            #self.textEdit_secret_doors.setText(msg_secret_door)
+            message = "{}".format(msg_secret_door)
+            self.textEdit_messages.setText(message)
+
+        #self.textEdit_traps.setText(str(msg_traps))
+        message = "{}".format(str(msg_traps))
+        self.textEdit_messages.setText(message)
 
 
     def on_pushButton_rooms_pressed(self):
         ####NEW CODE############
         msg_room = ''
         random_trap = ''
-        self.textEdit_traps.setText("")
-        self.textEdit_room_description.setText('')
-        self.textEdit_monsters.setText('')
+        #self.textEdit_traps.setText("")
+        #self.textEdit_room_description.setText('')
+        #self.textEdit_monsters.setText('')
+
+        self.textEdit_messages.setText("")
+
         room_to_explore = self.comboBox_room_n.currentText()
         if room_to_explore in self.HQ_SOLO.ROOMS_EXPLORED:
-            print("room just explored")
-            print(str(self.HQ_SOLO.ROOMS_EXPLORED))
             room_explored = 1
             random_trap = self.HQ_SOLO.random_trap(self.CURRENT_ROUND)
-            self.textEdit_traps.setText(random_trap)
+            #self.textEdit_traps.setText(random_trap)
+            msg_trap = random_trap
             self.set_chronicle(random_trap)
         else:
             room_explored = 0
@@ -348,7 +385,8 @@ class Ui(QtWidgets.QMainWindow):
         if current_turn == 1 or current_turn == 2:
             msg_room = self.HQ_SOLO.CONFIG_DICT['aux_msg_1'].format(msg_temp[0])
             random_trap = self.HQ_SOLO.random_trap(self.CURRENT_ROUND)
-            self.textEdit_traps.setText(random_trap)
+            #self.textEdit_traps.setText(random_trap)
+            msg_trap = random_trap
             self.set_chronicle(random_trap)
         else:
             if msg_temp[2] != '':
@@ -356,33 +394,42 @@ class Ui(QtWidgets.QMainWindow):
                 self.textEdit_chronicle.setText(self.CHRONICLE)
                 msg_room = msg_temp[2]
                 random_trap = self.HQ_SOLO.random_trap(self.CURRENT_ROUND)
-                self.textEdit_traps.setText(random_trap)
+                #self.textEdit_traps.setText(random_trap)
+                msg_trap = random_trap
                 self.set_chronicle(random_trap)
                 self.set_chronicle(msg_room)
             elif msg_temp[0] == '' and msg_temp[2] == '' and room_explored == 1:
                 msg_room = self.HQ_SOLO.CONFIG_DICT['aux_msg_7']
                 random_trap = self.HQ_SOLO.random_trap(self.CURRENT_ROUND)
-                self.textEdit_traps.setText(random_trap)
+                #self.textEdit_traps.setText(random_trap)
+                msg_trap = random_trap
                 self.set_chronicle(random_trap)
                 self.set_chronicle(msg_room)
             elif msg_temp[0] == '' and msg_temp[2] == '' and room_explored == 0:
                 msg_room = self.HQ_SOLO.CONFIG_DICT['aux_msg_6']
                 random_trap = self.HQ_SOLO.random_trap(self.CURRENT_ROUND)
-                self.textEdit_traps.setText(random_trap)
+                #self.textEdit_traps.setText(random_trap)
+                msg_trap = random_trap
                 self.set_chronicle(random_trap)
                 self.set_chronicle(msg_room)
             else:
                 msg_room = msg_temp[0]
                 random_trap = self.HQ_SOLO.random_trap(self.CURRENT_ROUND)
-                self.textEdit_traps.setText(random_trap)
+                #self.textEdit_traps.setText(random_trap)
+                msg_trap = random_trap
                 self.set_chronicle(random_trap)
                 self.set_chronicle(msg_room)
 
         msg_room = msg_room.replace(';.', '.')
 
-        self.textEdit_room_description.setText(str(msg_room))
 
-        self.textEdit_monsters.setText(str(msg_temp[1]))
+        #self.textEdit_room_description.setText(str(msg_room))
+        msg = random_trap + "\n"+ msg_room
+
+        #self.textEdit_monsters.setText(str(msg_temp[1]))
+        msg += str(msg_temp[1])
+
+        self.textEdit_messages.setText(msg)
 
         self.set_chronicle(random_trap)
         self.set_chronicle(msg_room)
