@@ -2,14 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f0731132-1647-4714-b667-c61b5640c3c3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/images_resources.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HQL_Map.png" beforeDir="false" afterPath="$PROJECT_DIR$/HQL_Map.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/heroquest_legends.ui" beforeDir="false" afterPath="$PROJECT_DIR$/heroquest_legends.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/heroquest_legends_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/heroquest_legends_main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/heroquest_solo_function.py" beforeDir="false" afterPath="$PROJECT_DIR$/heroquest_solo_function.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hq_map.ui" beforeDir="false" afterPath="$PROJECT_DIR$/hq_map.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hql_map_viewer.py" beforeDir="false" afterPath="$PROJECT_DIR$/hql_map_viewer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/languages/IT_it.txt" beforeDir="false" afterPath="$PROJECT_DIR$/languages/IT_it.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -141,33 +137,33 @@
     <session id="-2075459575">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="24" />
+          <entry key="project.closed" value="27" />
           <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.1" value="2" />
           <entry key="project.open.time.10" value="3" />
           <entry key="project.open.time.11" value="3" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.4" value="2" />
-          <entry key="project.open.time.5" value="3" />
+          <entry key="project.open.time.5" value="5" />
           <entry key="project.open.time.6" value="6" />
-          <entry key="project.open.time.7" value="2" />
+          <entry key="project.open.time.7" value="3" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="25" />
+          <entry key="project.opened" value="28" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="Python Console" value="227" />
+          <entry key="Python Console" value="254" />
           <entry key="md" value="47" />
-          <entry key="py" value="11616" />
-          <entry key="txt" value="2371" />
+          <entry key="py" value="12660" />
+          <entry key="txt" value="2808" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Markdown" value="47" />
-          <entry key="PLAIN_TEXT" value="2369" />
-          <entry key="Python" value="11843" />
+          <entry key="PLAIN_TEXT" value="2806" />
+          <entry key="Python" value="12914" />
           <entry key="Scratch" value="2" />
         </counts>
       </usages-collector>
@@ -175,7 +171,7 @@
         <counts>
           <entry key="md" value="1" />
           <entry key="png" value="1" />
-          <entry key="py" value="12" />
+          <entry key="py" value="13" />
           <entry key="svg" value="2" />
           <entry key="txt" value="22" />
         </counts>
@@ -185,7 +181,7 @@
           <entry key="Image" value="1" />
           <entry key="Markdown" value="1" />
           <entry key="PLAIN_TEXT" value="21" />
-          <entry key="Python" value="12" />
+          <entry key="Python" value="13" />
           <entry key="SVG" value="2" />
           <entry key="Scratch" value="1" />
         </counts>
@@ -206,11 +202,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/heroquest_legends_main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="328" column="19" selection-start-line="328" selection-start-column="19" selection-end-line="328" selection-end-column="19" />
+            <state relative-caret-position="264">
+              <caret line="388" column="39" selection-start-line="388" selection-start-column="25" selection-end-line="388" selection-end-column="39" />
               <folding>
                 <element signature="e#1111#1124#0" expanded="true" />
               </folding>
@@ -218,27 +214,13 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../pyarchinit/tabs/US_USM.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="3408" column="28" selection-start-line="3408" selection-start-column="28" selection-end-line="3408" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/HQL_Map.png">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/heroquest_solo_function.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="658" column="41" selection-start-line="658" selection-start-column="41" selection-end-line="658" selection-end-column="41" />
+            <state relative-caret-position="288">
+              <caret line="892" column="96" selection-start-line="892" selection-start-column="96" selection-end-line="892" selection-end-column="96" />
               <folding>
-                <marker date="1636154578083" expanded="true" signature="9852:9861" ph="..." />
+                <marker date="1636410293015" expanded="true" signature="9913:9922" ph="..." />
               </folding>
             </state>
           </provider>
@@ -256,8 +238,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/languages/IT_it_ob_c.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="19" column="15" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="15" />
+            <state relative-caret-position="312">
+              <caret line="13" column="68" selection-start-line="13" selection-start-column="68" selection-end-line="13" selection-end-column="68" />
             </state>
           </provider>
         </entry>
@@ -265,8 +247,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/languages/IT_it.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7416">
-              <caret line="309" selection-start-line="309" selection-end-line="309" />
+            <state relative-caret-position="272">
+              <caret line="12" column="2" selection-start-line="12" selection-start-column="2" selection-end-line="12" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -282,36 +264,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>dungeon_msg_03</find>
-      <find>dungeon_msg_04</find>
-      <find>dungeon</find>
-      <find>dungeon_msg_10</find>
-      <find>Un crollo blocca l'accesso a questa parte del sotterraneo. (Metti un segnalino crollo adiacente all'eroe verso i</find>
-      <find>già espl</find>
-      <find>PRIMARY_PATH_ARRIVE</find>
-      <find>Una luce innaturale illumina il passaggio</find>
-      <find>due strada</find>
-      <find>dungeon_msg_12</find>
-      <find>start</find>
-      <find>how_is_the_du</find>
-      <find>= 4</find>
-      <find>POINT_OF_VIEW_EXPLORED</find>
-      <find>doors</find>
+      <find>aisle</find>
+      <find>dun</find>
+      <find>A stento prosegui.</find>
+      <find>sistema 1</find>
+      <find>401</find>
+      <find>RHITD 7</find>
+      <find>Fetore e un senso di malessere aleggiano per il corridoio. A stento prosegui.</find>
+      <find>dungeon_msg_19</find>
+      <find>A4</find>
+      <find>B1</find>
+      <find>DUNGEON_TO_ROOM</find>
+      <find>la via pr</find>
+      <find>dungeo</find>
+      <find>la via prose</find>
+      <find>La via prose</find>
+      <find>COMPLEX</find>
+      <find>explored</find>
+      <find>DOORS_TO_ROOMS_APPLIED</find>
+      <find>Puoi tornare suoi tuoi passi verso il POV FOUR</find>
+      <find>non avevi notat</find>
+      <find>APPLI</find>
+      <find>dungeon_id</find>
       <find>put_the_doors</find>
-      <find>pointofview_l</find>
-      <find>put_the_Doors</find>
-      <find>map</find>
-      <find>Heroquest</find>
-      <find>HQL_MAP()</find>
-      <find>order</find>
-      <find>textEdit_room_description</find>
+      <find>Da questa parte il soffitto a ceduto. Metti un segnalino crollo verso il POV</find>
+      <find>FOUR</find>
+      <find>secret</find>
       <find>room</find>
-      <find>monster_2</find>
-      <find>dlg</find>
-      <find>HQL_MAP</find>
-      <find>textEdit</find>
-      <find>soluzione 1.2</find>
-      <find>pushButton_treasures_random</find>
+      <find>ROOMS_EXPLORED</find>
+      <find>ARRIVE</find>
+      <find>run_how_is_the_dungeon</find>
     </findStrings>
     <replaceStrings>
       <replace>treasures</replace>
@@ -371,16 +353,16 @@
         <option value="$PROJECT_DIR$/matrix_file.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.txt" />
         <option value="$PROJECT_DIR$/languages/IT_it_b.txt" />
-        <option value="$PROJECT_DIR$/languages/IT_it.txt" />
         <option value="$PROJECT_DIR$/languages/IT_it_ob_c.txt" />
-        <option value="$PROJECT_DIR$/heroquest_solo_function.py" />
         <option value="$PROJECT_DIR$/hql_map_viewer.py" />
         <option value="$PROJECT_DIR$/heroquest_legends_main.py" />
+        <option value="$PROJECT_DIR$/languages/IT_it.txt" />
+        <option value="$PROJECT_DIR$/heroquest_solo_function.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-153" />
+    <option name="x" value="-155" />
     <option name="y" value="175" />
     <option name="width" value="1555" />
     <option name="height" value="880" />
@@ -406,9 +388,9 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/Luca/Programmazione/pycharm_pj/everlast_legends_heroes/heroquest_solo_function.py" />
+    <property name="SearchEverywhereHistoryKey" value="se&#9;FILE&#9;file://C:/Users/Luca/Programmazione/pycharm_pj/everlast_legends_heroes/adventures_panel_settings.ui" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="TEXT&#10;Python" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../pyarchinit/tabs/US_USM.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../heroquest_legends/heroquest_legends_main.py" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
   </component>
@@ -624,7 +606,6 @@
     </recent_temporary>
   </component>
   <component name="StructureViewFactory">
-    <option name="AUTOSCROLL_MODE" value="false" />
     <option name="AUTOSCROLL_FROM_SOURCE" value="true" />
     <option name="ACTIVE_ACTIONS" value=",ALPHA_COMPARATOR,SHOW_INHERITED" />
   </component>
@@ -638,13 +619,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1609517498762</updated>
-    </task>
-    <task id="LOCAL-00027" summary="New treasure system: the treasures are related to the forniture">
-      <created>1617568385935</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1617568385935</updated>
     </task>
     <task id="LOCAL-00028" summary="Minor bug fixed. 0.7 Alpha">
       <created>1617570874083</created>
@@ -982,7 +956,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636065494340</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="New GUI Version!!!!">
+      <created>1636224755861</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1636224755861</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="TodoView">
@@ -999,15 +980,15 @@
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" sideWeight="0.2866557" side_tool="true" weight="0.1698612" />
-      <window_info content_ui="combo" x="637" y="197" width="262" height="470" id="Project" order="1" sideWeight="0.711501" visible="true" weight="0.1698612" />
-      <window_info id="Structure" order="2" sideWeight="0.28849903" side_tool="true" visible="true" weight="0.1698612" />
+      <window_info content_ui="combo" x="637" y="197" width="262" height="470" id="Project" order="1" sideWeight="0.33723196" visible="true" weight="0.1665565" />
+      <window_info active="true" id="Structure" order="2" sideWeight="0.662768" side_tool="true" visible="true" weight="0.1665565" />
       <window_info anchor="bottom" id="Terminal" order="0" sideWeight="0.4937211" weight="0.36149585" />
       <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.35228023" side_tool="true" weight="0.37811634" />
       <window_info anchor="bottom" id="Python Console" order="2" sideWeight="0.82947785" weight="0.3199446" />
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Find" order="4" weight="0.32963988" />
       <window_info anchor="bottom" id="Version Control" order="5" sideWeight="0.4937211" weight="0.43213296" />
-      <window_info active="true" anchor="bottom" id="Run" order="6" sideWeight="0.64771974" visible="true" weight="0.28947368" />
+      <window_info anchor="bottom" id="Run" order="6" sideWeight="0.64771974" visible="true" weight="0.28947368" />
       <window_info anchor="bottom" id="Debug" order="7" sideWeight="0.49504295" weight="0.53878117" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -1040,7 +1021,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Chronicle fields added... to be found the translation method" />
     <MESSAGE value="Syst" />
     <MESSAGE value="new_script for room generation" />
     <MESSAGE value="new random monsters on dugeon system and final room's monsters message system fixed." />
@@ -1065,7 +1045,8 @@
     <MESSAGE value="SECONDARY PATH SYSTEM updated 2" />
     <MESSAGE value="SECONDARY PATH SYSTEM updated 3" />
     <MESSAGE value="SECONDARY PATH SYSTEM updated 4" />
-    <option name="LAST_COMMIT_MESSAGE" value="SECONDARY PATH SYSTEM updated 4" />
+    <MESSAGE value="New GUI Version!!!!" />
+    <option name="LAST_COMMIT_MESSAGE" value="New GUI Version!!!!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1091,26 +1072,15 @@
           <log-expression expression="QMessageBox.warning(self, &quot;NOT GOOD!!!&quot;, str(e), QMessageBox.Ok)" language="Python" />
           <option name="timeStamp" value="5" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/heroquest_solo_function.py</url>
-          <line>716</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" log-message="true" suspend="NONE" type="python-line">
           <url>file://$PROJECT_DIR$/heroquest_solo_function.py</url>
-          <line>781</line>
+          <line>783</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/heroquest_solo_function.py</url>
-          <line>747</line>
+          <line>748</line>
           <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="NONE" type="python-line">
-          <url>file://$PROJECT_DIR$/heroquest_solo_function.py</url>
-          <line>798</line>
-          <log-expression expression="if i.isdigit() is True:" language="Python" />
-          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -1176,9 +1146,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/images/zombie.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/images/zombie.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -1350,37 +1317,10 @@
     <entry file="file://$PROJECT_DIR$/HQL_Map.svg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/IT_it_format.txt">
+    <entry file="file://$PROJECT_DIR$/../heroquest_legends/heroquest_legends_main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="51" selection-start-column="51" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/languages/IT_it_ob_c.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="19" column="15" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/languages/IT_it.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7416">
-          <caret line="309" selection-start-line="309" selection-end-line="309" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HQL_Map.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/heroquest_solo_function.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="658" column="41" selection-start-line="658" selection-start-column="41" selection-end-line="658" selection-end-column="41" />
-          <folding>
-            <marker date="1636154578083" expanded="true" signature="9852:9861" ph="..." />
-          </folding>
+        <state relative-caret-position="144">
+          <caret line="51" column="28" selection-start-line="51" selection-start-column="23" selection-end-line="51" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -1391,6 +1331,9 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/HQL_Map.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/hql_map_viewer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="648">
@@ -1398,12 +1341,43 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/IT_it_format.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="51" selection-start-column="51" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/languages/IT_it_ob_c.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="13" column="68" selection-start-line="13" selection-start-column="68" selection-end-line="13" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/languages/IT_it.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="12" column="2" selection-start-line="12" selection-start-column="2" selection-end-line="12" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/heroquest_legends_main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="328" column="19" selection-start-line="328" selection-start-column="19" selection-end-line="328" selection-end-column="19" />
+        <state relative-caret-position="264">
+          <caret line="388" column="39" selection-start-line="388" selection-start-column="25" selection-end-line="388" selection-end-column="39" />
           <folding>
             <element signature="e#1111#1124#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/heroquest_solo_function.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="892" column="96" selection-start-line="892" selection-start-column="96" selection-end-line="892" selection-end-column="96" />
+          <folding>
+            <marker date="1636410293015" expanded="true" signature="9913:9922" ph="..." />
           </folding>
         </state>
       </provider>
