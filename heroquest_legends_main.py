@@ -3,7 +3,7 @@
 
 """
 /***************************************************************************
-        Heroquest's Legends Solo by Mandor the Druid
+    Heroquest Legends Solo by Mandor the Druid
                              -------------------
     begin                : 2021-01-02
     copyright            : (C) 2021 by Luca Mandolesi
@@ -55,9 +55,9 @@ class Ui(QtWidgets.QMainWindow):
     local_language = locale.getdefaultlocale()
     #file_name = 'en_EN.txt'
     if local_language[0] == 'it_IT':
-        CONFIG = open('./languages/IT_it.txt', "r")
-    else :
-        CONFIG = open('./languages/EN_en.txt', "r")
+        CONFIG = open('./languages/IT_it.txt', "rb+")
+    else:
+        CONFIG = open('./languages/EN_en.txt', "rb+")
     data_config = CONFIG.read()
     CONFIG_DICT = eval(data_config)
     CONFIG.close()
@@ -345,26 +345,10 @@ class Ui(QtWidgets.QMainWindow):
         #self.textEdit_traps.setText("")
         msg_traps = self.HQ_SOLO.traps(self.HQ_SOLO.random_numbers())
         msg_secret_door = self.HQ_SOLO.secret_doors(self.HQ_SOLO.random_numbers())
-        if str(type(msg_secret_door)) == "<class 'list'>":
-            #self.textEdit_secret_doors.setText(msg_secret_door[0])
-            #self.textEdit_room_description.setText('')
-            #self.textEdit_room_description.setText(msg_secret_door[1])
-
-            message = "{}\n{}".format(msg_secret_door[0], msg_secret_door[1])
-            self.textEdit_messages.setText(message)
-
-            self.set_chronicle(msg_secret_door[0]+msg_secret_door[1])
-
-
-            self.textEdit_chronicle.setText(self.CHRONICLE)
-        else:
-            #self.textEdit_secret_doors.setText(msg_secret_door)
-            message = "{}".format(msg_secret_door)
-            self.textEdit_messages.setText(message)
-
-        #self.textEdit_traps.setText(str(msg_traps))
-        message = "{}".format(str(msg_traps))
+        message = self.CONFIG_DICT['traps_and_secret_doors_msg_1'].format(msg_traps, msg_secret_door[0], msg_secret_door[1])
         self.textEdit_messages.setText(message)
+        self.set_chronicle(message)
+        self.textEdit_chronicle.setText(self.CHRONICLE)
 
 
     def on_pushButton_rooms_pressed(self):

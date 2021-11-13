@@ -3,7 +3,7 @@
 
 """
 /***************************************************************************
-        Heroquest's Legends Solo by Mandor the Druid
+    Heroquest Legends Solo by Mandor the Druid
                              -------------------
     begin                : 2021-01-02
     copyright            : (C) 2021 by Luca Mandolesi
@@ -34,10 +34,10 @@ from permutations_iter import Permutation_class
 class Heroquest_solo:
     """main class for variables management"""
     rng = random.SystemRandom()
-    TOTAL_NUMBER_OF_TURNS = rng.randint(7, 15   )
+    TOTAL_NUMBER_OF_TURNS = rng.randint(10, 20)
 
     rng = random.SystemRandom()
-    MAX_ROOM_COUNTER = rng.randint(10, 15)
+    MAX_ROOM_COUNTER = rng.randint(6, 8)
 
     CURRENT_ROOM_COUNTER = 0
 
@@ -667,7 +667,7 @@ class Heroquest_solo:
             for room_num in rooms_list:
                 num = self.random_numbers()
                 print('DOOR 3')
-                if num >=14 and self.FORNITURES_QTY_DICT[11] >= 1:
+                if num >=14 and self.FORNITURES_QTY_DICT[11] >= 1 and room_num not in self.ROOMS_EXPLORED and room_num not in self.DOORS_TO_ROOMS_APPLIED:
                     self.DOORS_TO_ROOMS_APPLIED.append(str(room_num))
                     door_type_msg = self.r_num.randint(1, 2)
                     print('DOOR 4')
@@ -735,6 +735,7 @@ class Heroquest_solo:
             self.POINT_OF_VIEW_EXPLORED.append(pointofview)
 
             return msg
+
 
         elif pointofview == self.ARRIVE_TO:
             print("HITD 5")
@@ -895,16 +896,19 @@ class Heroquest_solo:
 
         if self.system_number == 6:
             print(str("RHITD 6"))
-            msg = 'Da questa parte il soffitto a ceduto. '
+            msg = 'Da questa parte il soffitto ha ceduto. '
             for i in single_points:
-                msg += 'Metti un segnalino crollo verso il POV {}. \n'.format(str(i))
+                if i not in self.COMPLEX_PATH:
+                    msg += 'Metti un segnalino crollo verso il POV {}. \n'.format(str(i))
 
             return msg
 
         if self.system_number == 7:
             print(str("RHITD 7"))
             for i in single_points:
-                if str(i) == self.PRIMARY_PATH[self.PRIMARY_PATH.index(self.pointofview_l)+1] or str(i) == self.PRIMARY_PATH[self.PRIMARY_PATH.index(self.pointofview_l)-1]:
+                if str(i) != self.PRIMARY_PATH[-2]:
+                    msg += 'La via verso il POV FIVE {} è chiusa. Metti un segnalino crollo'.format(str(i))
+                elif str(i) == self.PRIMARY_PATH[self.PRIMARY_PATH.index(self.pointofview_l)+1] or str(i) == self.PRIMARY_PATH[self.PRIMARY_PATH.index(self.pointofview_l)-1]:
                     msg += 'La via verso il POV FOUR {} è libera. \n'.format(str(i))
 
                     if i.isdigit() is True:
@@ -923,7 +927,6 @@ class Heroquest_solo:
                         self.DUNGEON_EXPLORED.append(dungeon_id)
                         if msg_doors != '' and i in self.POINT_OF_VIEW_EXPLORED:
                             msg += "Scrutando meglio indietro ti accorgi della presenza di porte che non avevi notato"
-                            "Scrutando meglio indietro ti accorgi della presenza di porte che non avevi notato"
                             msg += msg_doors
                             self.DUNGEON_EXPLORED.append(
                                 dungeon_id)
@@ -933,7 +936,7 @@ class Heroquest_solo:
                                 dungeon_id)
                 else:
                     if i not in self.COMPLEX_PATH:
-                        msg += 'EIGHT Da questa parte il soffitto a ceduto. Metti un segnalino crollo verso il POV {}.\n'.format(str(i))
+                        msg += 'EIGHT Da questa parte il soffitto ha ceduto. Metti un segnalino crollo verso il POV {}.\n'.format(str(i))
             return msg
 
 
@@ -958,7 +961,7 @@ class Heroquest_solo:
                         self.DUNGEON_EXPLORED.append(dungeon_id)
                 else:
                     if i not in self.COMPLEX_PATH:
-                        msg += 'Da questa parte il soffitto a ceduto. Metti un segnalino crollo verso il POV {}.\n'.format(str(i))
+                        msg += 'Da questa parte il soffitto ha ceduto. Metti un segnalino crollo verso il POV {}.\n'.format(str(i))
             return msg
 
 
@@ -1171,7 +1174,6 @@ class Heroquest_solo:
             return self.CONFIG_DICT['aisles_msg_7']
 
 
-
         elif self.rv > 14 and self.rv <= 19 or self.FORNITURES_QTY_DICT[11] == 0: #NO DOORS
             msg_1 = self.CONFIG_DICT['aisles_msg_5'].format(
                 self.position_dict[self.r_num.randint(1, 2)],
@@ -1248,17 +1250,18 @@ class Heroquest_solo:
         """Create random doors for aisles"""
         self.rv = rv
 
-        if self.rv >=23 and self.ESCAPE_FOUND == 0:
-            self.ESCAPE_FOUND = 1
-            return [self.CONFIG_DICT['secret_doors_msg_4'], self.SPECIAL_ROOM_CHARGED[1]] #Replace the number with THE_MISSION = RAND_NUM
 
-        if self.rv >= 1 and self.rv <= 14:
-            return self.CONFIG_DICT['secret_doors_msg_1'] #no secret doors
-        elif self.rv > 14 and self.rv <= 20 :
+        if self.rv >= 1 and self.rv <= 16:
+            msg = [self.CONFIG_DICT['secret_doors_msg_1'],''] #no secret doors
+        elif self.rv > 16 and self.rv <= 21:
             value_LR = self.r_num.randint(1, 3)
-            return self.CONFIG_DICT['secret_doors_msg_2'].format(self.position_dict[value_LR]) #find a secret doot
-        else:
-            return self.CONFIG_DICT['secret_doors_msg_3'] #find a trapdoor
+            msg = [self.CONFIG_DICT['secret_doors_msg_2'].format(self.position_dict[value_LR]),''] #find a secret doot
+        elif self.rv > 21 and self.rv <= 23:
+            msg = [self.CONFIG_DICT['secret_doors_msg_3'],''] #find a trapdoor
+        elif self.rv > 23 and self.ESCAPE_FOUND == 0:
+            self.ESCAPE_FOUND = 1
+            msg = [self.CONFIG_DICT['secret_doors_msg_4'], self.SPECIAL_ROOM_CHARGED[1]]
+        return msg
 
     def traps(self, rv):
         """search for traps"""
