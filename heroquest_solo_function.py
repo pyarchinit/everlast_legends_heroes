@@ -30,6 +30,11 @@ from permutations_iter import Permutation_class
 #TODO I MOSTRI SONO IN GRUPPO SE SI VEDONO RECIPROCAMENTE
 #TODO inserire sequenza di movimento mostri se quello con più punti attacco, quello che si muove di più
 #TODO quando si trova la stanza finale cambiare il testo dei mostri: vengono caricati dei mostri con la descrizione finale ma il testo può dire: nessun mostro in vista.
+#TODO quandi ci si trova a metà di un nuovo corridoio decidere come fare ad esplorarlo.
+#TODO far apparire più porte tra stanze
+#TODO aggiungere opzione per avere percorsi tra stanze e scegliere il numero della stanza finale
+#TODO far apparire più mostri nei corridoi
+#TODO come capire se si ripassa da un corridoio già esplorato?
 
 class Heroquest_solo:
     """main class for variables management"""

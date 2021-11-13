@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f0731132-1647-4714-b667-c61b5640c3c3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/heroquest_legends.ui" beforeDir="false" afterPath="$PROJECT_DIR$/heroquest_legends.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/heroquest_legends_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/heroquest_legends_main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/heroquest_solo_function.py" beforeDir="false" afterPath="$PROJECT_DIR$/heroquest_solo_function.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/languages/IT_it.txt" beforeDir="false" afterPath="$PROJECT_DIR$/languages/IT_it.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -157,15 +154,15 @@
         <counts>
           <entry key="Python Console" value="254" />
           <entry key="md" value="47" />
-          <entry key="py" value="13040" />
-          <entry key="txt" value="2981" />
+          <entry key="py" value="13413" />
+          <entry key="txt" value="3036" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Markdown" value="47" />
-          <entry key="PLAIN_TEXT" value="2979" />
-          <entry key="Python" value="13294" />
+          <entry key="PLAIN_TEXT" value="3034" />
+          <entry key="Python" value="13667" />
           <entry key="Scratch" value="2" />
         </counts>
       </usages-collector>
@@ -219,10 +216,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/heroquest_solo_function.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="36" column="42" selection-start-line="36" selection-start-column="42" selection-end-line="36" selection-end-column="42" />
+            <state relative-caret-position="387">
+              <caret line="36" column="51" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="51" />
               <folding>
-                <marker date="1636838004449" expanded="true" signature="9903:9912" ph="..." />
+                <marker date="1636838188710" expanded="true" signature="10234:10243" ph="..." />
               </folding>
             </state>
           </provider>
@@ -622,13 +619,6 @@
       <option name="presentableId" value="Default" />
       <updated>1609517498762</updated>
     </task>
-    <task id="LOCAL-00029" summary="Monster Class System added.&#10;The system allows to charge one or more classes of monster for real immersive settings of the adventure.">
-      <created>1617618470841</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1617618470841</updated>
-    </task>
     <task id="LOCAL-00030" summary="add .exe file of Versione 0.8 ALPHA">
       <created>1617624719856</created>
       <option name="number" value="00030" />
@@ -965,7 +955,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636410389102</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="More doors, dungeon and secret doors and traps options">
+      <created>1636838061247</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1636838061247</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1023,7 +1020,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="new_script for room generation" />
     <MESSAGE value="new random monsters on dugeon system and final room's monsters message system fixed." />
     <MESSAGE value="Settings Systems upgraded" />
     <MESSAGE value="Settings Systems upgraded - V0.9 exe uploaded" />
@@ -1048,7 +1044,8 @@
     <MESSAGE value="SECONDARY PATH SYSTEM updated 4" />
     <MESSAGE value="New GUI Version!!!!" />
     <MESSAGE value="New GUI Version e new settings" />
-    <option name="LAST_COMMIT_MESSAGE" value="New GUI Version e new settings" />
+    <MESSAGE value="More doors, dungeon and secret doors and traps options" />
+    <option name="LAST_COMMIT_MESSAGE" value="More doors, dungeon and secret doors and traps options" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1076,12 +1073,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" log-message="true" suspend="NONE" type="python-line">
           <url>file://$PROJECT_DIR$/heroquest_solo_function.py</url>
-          <line>784</line>
+          <line>789</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/heroquest_solo_function.py</url>
-          <line>749</line>
+          <line>754</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
@@ -1376,10 +1373,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/heroquest_solo_function.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="36" column="42" selection-start-line="36" selection-start-column="42" selection-end-line="36" selection-end-column="42" />
+        <state relative-caret-position="387">
+          <caret line="36" column="51" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="51" />
           <folding>
-            <marker date="1636838004449" expanded="true" signature="9903:9912" ph="..." />
+            <marker date="1636838188710" expanded="true" signature="10234:10243" ph="..." />
           </folding>
         </state>
       </provider>
