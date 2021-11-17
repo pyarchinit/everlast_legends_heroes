@@ -455,11 +455,15 @@ class Ui(QtWidgets.QMainWindow):
             msg_attack_choice_direction = msg_attack_choice.format(self.CONFIG_DICT['monster_direction_dict'][rng_base.randint(1, 4)])
 
             self.textEdit_combat_text.setText(str(msg_attack_choice_direction))
+            monster_attack_msg = 'Attacco del mostro:\n{}'.format(msg_attack_choice_direction)
+            self.set_chronicle(monster_attack_msg)
         else:
             msg_escape_list = self.CONFIG_DICT['attack_messages'][2]
             rng_base = random.SystemRandom()
             msg_escape = msg_escape_list[rng_base.randint(0, len(msg_escape_list)-1)]
             self.textEdit_combat_text.setText(msg_escape)
+            escape_message_msg = 'Attacco del mostro:\n{}'.format(msg_escape)
+            self.set_chronicle(escape_message_msg)
 
     def on_pushButton_hero_attack_pressed(self):
         #self.textEdit_traps.setText("")

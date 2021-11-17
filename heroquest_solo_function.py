@@ -39,10 +39,10 @@ from permutations_iter import Permutation_class
 class Heroquest_solo:
     """main class for variables management"""
     rng = random.SystemRandom()
-    TOTAL_NUMBER_OF_TURNS = rng.randint(10, 20)
+    TOTAL_NUMBER_OF_TURNS = rng.randint(10, 12)
 
     rng = random.SystemRandom()
-    MAX_ROOM_COUNTER = rng.randint(6, 8)
+    MAX_ROOM_COUNTER = rng.randint(5, 6)
 
     CURRENT_ROOM_COUNTER = 0
 
@@ -911,9 +911,7 @@ class Heroquest_solo:
         if self.system_number == 7:
             print(str("RHITD 7"))
             for i in single_points:
-                if str(i) != self.PRIMARY_PATH[-2]:
-                    msg += 'La via verso il POV FIVE {} è chiusa. Metti un segnalino crollo'.format(str(i))
-                elif str(i) == self.PRIMARY_PATH[self.PRIMARY_PATH.index(self.pointofview_l)+1] or str(i) == self.PRIMARY_PATH[self.PRIMARY_PATH.index(self.pointofview_l)-1]:
+                if str(i) == self.PRIMARY_PATH[self.PRIMARY_PATH.index(self.pointofview_l)+1] or str(i) == self.PRIMARY_PATH[self.PRIMARY_PATH.index(self.pointofview_l)-1]:
                     msg += 'La via verso il POV FOUR {} è libera. \n'.format(str(i))
 
                     if i.isdigit() is True:
@@ -939,6 +937,8 @@ class Heroquest_solo:
                             msg += msg_doors
                             self.DUNGEON_EXPLORED.append(
                                 dungeon_id)
+                elif str(i) != self.PRIMARY_PATH[-2]:
+                    msg += 'La via verso il POV FIVE {} è chiusa. Metti un segnalino crollo'.format(str(i))
                 else:
                     if i not in self.COMPLEX_PATH:
                         msg += 'EIGHT Da questa parte il soffitto ha ceduto. Metti un segnalino crollo verso il POV {}.\n'.format(str(i))
