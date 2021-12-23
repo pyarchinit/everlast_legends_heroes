@@ -1,6 +1,8 @@
-{
-'the_begin_msg': "GLI EROI INIZIANO L\'AVVENTURA DAL POV {}. METTI IN QUESTO PUTNO LE SCALE. PER VINCERE GLI EROI DEVONO TORNARE IN QUESTO PUNTO",
-'chronicle_msg': '-- TURNO {} -- \n --- {} ---- \n\n {} \n\n --- \n\n {}',
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+import json
+
+data = {
 'aisles_msg_1': "Dal fondo del corrido io arriva una luce fioca, forse troverai altre stanze?",
 'aisles_msg_2' : "Il soffitto è crollato e il corridoio è bloccato (blocca la strada con uno o più segnalini crollo accanto all'ultima porta). O tornare indietro o entrare. Che cosa ti dice di fare l\'istinto?",
 'aisles_msg_3' : "Il soffitto è crollato e il corridoio è bloccato dopo la porta (blocca la strada con uno o più segnalini crollo accanto all'ultima porta). Dal buio del corridoio arriva un rumore sinistro: sulla tua strada trovi {}",
@@ -28,24 +30,9 @@
 'dungeon_msg_16': "Il cunicolo sembra proseguire nel buio.\n {}",
 'dungeon_msg_17': "Sei arrivato in fondo a questo cunicolo.\n {}",
 'dungeon_msg_18': "Questa strada sembra non portare da nessuna parte.\n{}",
-'dungeon_msg_19': "Fetore e un senso di malessere aleggiano per il corridoio. A stento prosegui.\n {}",
+'dungeon_msg_19': "Fetore e un senso di malessere aleggiano per il corridoio. A stento prosegui.\n PIPPO {}",
 'dungeon_msg_20': "Sembra un vicolo cieco, solo pietre crollate e brandelli di muri si parano davanti a voi. Metti un segnalino crollo verso ogni altro POV non esplorato distante almeno 2 caselle dall\'eroe o dopo una porta.",
 'dungeon_msg_21': "La via prosegue verso il POV {}.",
-'dungeon_msg_22': "Non ci sono porte in questi corridoi.",
-'dungeon_msg_23': "Tonfi e rumori indistinti arrivano da qualche parte intorno a te.",
-'dungeon_msg_24': "Metti un segnalino crollo verso il POV {}",
-'dungeon_msg_25': "Da questa parte il soffitto ha ceduto. Metti un segnalino crollo verso il POV {}.",
-'dungeon_msg_26': "Puoi tornare verso il POV {}.",
-'dungeon_msg_27': "La nuda roccia ti sbarra la strada. Metti un segnalino crollo verso il POV {}",
-'dungeon_msg_28': "Da questa parte il soffitto ha ceduto. Metti un segnalino crollo verso gli altri POV (tranne quello da cui arrivi).",
-'dungeon_msg_29': "Da questa parte il soffitto ha ceduto.",
-'dungeon_msg_30': "La via verso il POV {} è libera. \n",
-'dungeon_msg_31': "Un click proviene dalle tue spalle. Un porta segreta si apre sulla stanza {}. Tra te e la porta appare un pozzo trabocchetto. Lancia un dado da combattimento per ogni punto mente. Se fai DUE schudi riesci a bloccare il meccanismo. Altrimenti piazza un segnalino trabocchette tra te e la porta.",
-'dungeon_msg_32': "Un mostro errante ti attacca provenendo dalla direzione della stanza {}.",
-'dungeon_msg_33': "Tutto tace alle tue spalle.",
-'dungeon_msg_34' : "Scrutando meglio indietro ti accorgi della presenza di porte che non avevi notato.",
-'dungeon_msg_35' : "La via verso il POV {} è chiusa. Metti un segnalino crollo",
-'dungeon_msg_36' : "La via prosegue verso il POV {}.",
 'treasures_msg_1' : "Pesca una carta dal mazzo dei Tesori.",
 'treasures_msg_2' : "Dopo una attenta ricerca forse hai trovato qualcosa. Scopri cosa contiere il tesoro.",
 'treasures_msg_3' : "Mentre cerchi tra vecchi stracci e ossa di sorcio, senti uno scatto: un dardo ti colpisce e perdi 1 punto corpo (Ignora questa istruzione se hai cercato trabocchetti in questa stanza.",
@@ -69,9 +56,9 @@
 'monsters_msg_3' : "Il mostro errante in questa avventura è ",
 'monsters_msg_4' : "Un mostro errante richiamato dai rumori appare alle tue spalle e ti attacca subito.",
 'monsters_msg_5' : "La felicità per aver trovato il tuo obbiettivo dura poco...Senti un fetore e un gorgoglio strano provenire dalle tue spalle. Un mostro errante ti coglie di sorpresa e ti attacca subito; pensi: Anche oggi tocca fare gli straordinari!",
-'monsters_msg_6':'Attacco del mostro:\n{}',
 'monsters_msg_close' : " prepararsi alla battaglia! Imbracciate le armi. Combattete! Cooombatteeette!",
 'monsters_msg_first_room' : "Tutto sembra tranquillo, ma il fetore del passaggio di qualche immonda creatura sembra molto chiaro. Meglio stare in allerta.",
+
 'position_dict': {1: 'a sinistra',
                   2: 'a destra',
                   3: 'sul fondo',
@@ -302,9 +289,6 @@
                        3: ['Il mostro con un rapido movimento raccoglie dei sassi da terra e te li scaglia in faccia infliggendoti 1 punto ferita (Ti difendi con un dado da combattimento)',
                            'Il mostro scarta di lato e ti coglie di sorpresa attancandoti (Lancia un dado da combattimento in attacco per il mostro. L\'eroe si difende normalmente.)']
                            },
-  'raid_message_1' :  'Il mostro porta con sè gli altri mostri e si precipita attraverso un passaggio segreto alla stanza {}. Se ci sono eroi dentro, ognuno di loro subisce un attacco da tutti i mostri. Mettete le porte segrete nelle due stanze per ricordare che sono unite da un tunnel segreto. ',
-  'raid_message_2' :  'Il mostro si precpita attraverso un passaggio segreto alla stanza {}. Se ci sono eroi dentro li attacca subito. Mettete le porte segrete nelle due stanze per ricordare che sono unite da un tunnel segreto.',
-
 
   'choice_dict' : {1:'più vicino {}',
                    2:'più lontano {}',
@@ -337,3 +321,13 @@
   'monster_types'  : ['orc','not_dead','magical']
 
 }
+
+
+# Serializing json
+json_object = json.dumps(data, indent = 4)
+# Writing to sample.json
+with open("sample.json", "w") as outfile:
+    outfile.write(json_object)
+
+
+

@@ -4,11 +4,11 @@
 """
 /***************************************************************************
     Heroquest Legends Solo by Mandor the Druid
-                             -------------------
+                              -------------------
     begin                : 2021-01-02
     copyright            : (C) 2021 by Luca Mandolesi
     email                : mandoluca at gmail.com
-    version              : 0.91 ALPHA
+    version              : 0.95 ALPHA
  ***************************************************************************/
 
 /***************************************************************************
@@ -53,6 +53,39 @@ class Heroquest_solo:
     FIRST_ROOM = 0
 
     CONFIG_DICT = ''
+
+
+    THE_MISSION = ''
+
+    SPECIAL_ROOM_CHARGED = ''
+
+    MONSTER_CLASS = ''
+
+    POV_LIST = []
+
+    ROOMS_NUMBERS_LIST = []
+
+    PRIMARY_PATH = []
+    START_FROM = ''
+    ARRIVE_TO = ''  # randomly selected by the app from point of views kesy
+    MIN_PATH = 4  # randomly selected by the app between 3 and 6
+
+    SECONDARY_PATH = []
+    THE_SECONDARY_START = ''
+    THE_SECONDARY_ARRIVE = ''
+    THE_SECONDARY_MIN_PATH = ''
+
+    COMPLEX_PATH = []
+
+    POINT_OF_VIEW_EXPLORED = []
+
+    DUNGEON_EXPLORED = []
+
+    ROOMS_EXPLORED_LAST_TURN = 0
+
+    DOORS_TO_ROOMS_APPLIED = []
+
+    ROOMS_EXPLORED = []
 
     CONNECTION = sqlite3.connect('./db_heroquest_legends.sqlite')
     CURSOR = CONNECTION.cursor()
@@ -111,37 +144,6 @@ class Heroquest_solo:
                          8:db_monsters_charged[7][1],
                          9:db_monsters_charged[8][1]
                          }
-
-    THE_MISSION = ''
-
-    SPECIAL_ROOM_CHARGED = ''
-
-    MONSTER_CLASS = ''
-
-    POV_LIST = []
-
-    ROOMS_NUMBERS_LIST = []
-
-    PRIMARY_PATH = []
-    START_FROM = ''
-    ARRIVE_TO = ''  # randomly selected by the app from point of views kesy
-    MIN_PATH = 4  # randomly selected by the app between 3 and 6
-
-    SECONDARY_PATH = []
-    THE_SECONDARY_START = ''
-    THE_SECONDARY_ARRIVE = ''
-    THE_SECONDARY_MIN_PATH = ''
-
-    COMPLEX_PATH = []
-
-    POINT_OF_VIEW_EXPLORED = []
-
-    DUNGEON_EXPLORED = []
-
-
-    DOORS_TO_ROOMS_APPLIED = []
-
-    ROOMS_EXPLORED = []
 
     POINT_OF_VIEW = {
         'A': ('1', '4'),
@@ -462,16 +464,26 @@ class Heroquest_solo:
             if self.room_explored == 0: #if the room is not explored
                 count = 0 #counter
                 for i in range(forniture_numbers):
-                    rng_1 = random.SystemRandom()
-                    id_forniture_rand_1 = rng_1.randint(0, 6)
+                    rng_0 = random.SystemRandom()
+                    alea = rng_0.randint(1, 6)
+                    print("--------------------------")
+                    print("alea: {}".format(str(alea)))
+                    if alea <= 2:
+                        rng_1 = random.SystemRandom()
+                        id_forniture_rand = rng_1.randint(11, 12)
+                    else:
+                        rng_1 = random.SystemRandom()
+                        id_forniture_rand_1 = rng_1.randint(0, 6)
 
-                    rng_2 = random.SystemRandom()
-                    id_forniture_rand_2 = rng_2.randint(1, 7)  #create a random ID for fornitures between 1 and 13
+                        rng_2 = random.SystemRandom()
+                        id_forniture_rand_2 = rng_2.randint(1, 7)  #create a random ID for fornitures between 1 and 13
 
-                    id_forniture_rand = id_forniture_rand_1+id_forniture_rand_2
+                        id_forniture_rand = id_forniture_rand_1+id_forniture_rand_2
 
                     #verify if the fornitures is still present
+                    print("forniture residue id: {}".format(str(id_forniture_rand)))
                     forniture_residue = self.FORNITURES_QTY_DICT[id_forniture_rand]
+
                     if forniture_residue > 0:
                         # charge from DB the selected fornitures
                         res = self.CURSOR.execute("SELECT * FROM fornitures WHERE id_forniture = %d" % id_forniture_rand)
@@ -689,7 +701,7 @@ class Heroquest_solo:
                     pass
                     #door_msg += "No doors for room {}. \n".format(str(room_num))
         else:
-            door_msg = "Non ci sono porte in questi corridoi."
+            door_msg = self.CONFIG_DICT['dungeon_msg_22']
         return door_msg
 
 
@@ -785,7 +797,7 @@ class Heroquest_solo:
         #carica i singoli punti di vista legati al punto di vista corrente
         single_points = self.POINT_OF_VIEW[self.pointofview_l]
 
-        msg = 'Tonfi e rumori indistinti arrivano da qualche parte intorno a te. '
+        msg = self.CONFIG_DICT['dungeon_msg_23']
 
         if self.system_number == 1:
             print(str("RHITD 1"))
@@ -804,17 +816,17 @@ class Heroquest_solo:
                         msg_doors = self.put_the_doors(dungeon_id)
                         msg += msg_doors
                 else:
-                    msg += 'Metti un segnalino crollo verso il POV {}'.format(str(i))
+                    if i not in self.POINT_OF_VIEW_EXPLORED:
+                        msg += self.CONFIG_DICT['dungeon_msg_24'].format(str(i))
 
             return msg
 
         if self.system_number == 2:
-            print(str("RHITD 2"))
             pov_1 = self.SECONDARY_PATH[1]
 
             for i in single_points:
                 if i == pov_1:
-                    msg += 'La via prosegue verso il POV ONE {}.'.format(str(i))
+                    msg += self.CONFIG_DICT['dungeon_msg_21'].format(str(i))
                     if i.isdigit() is True:
                         dungeon_id = '{}{}'.format(
                             str(self.pointofview_l), str(i))
@@ -830,7 +842,8 @@ class Heroquest_solo:
                         msg += msg_doors
                         self.DUNGEON_EXPLORED.append(dungeon_id)
                 else:
-                    msg += 'Da questa parte il soffitto ha ceduto. Metti un segnalino crollo verso il POV {}'.format(str(i))
+                    if i not in self.POINT_OF_VIEW_EXPLORED:
+                        msg +=  self.CONFIG_DICT['dungeon_msg_25'].format(str(i))
 
             return msg
 
@@ -843,9 +856,9 @@ class Heroquest_solo:
             for i in single_points:
                 if i == pov_1 or i == pov_2 or i == pov_3 :
                     if i in self.POINT_OF_VIEW_EXPLORED:
-                        msg += 'Puoi tornare verso il POV {}.'.format(str(i))
+                        msg += self.CONFIG_DICT['dungeon_msg_26'].format(str(i))
                     else:
-                        msg += 'La via prosegue verso il POV TWO {}.'.format(str(i))
+                        msg += self.CONFIG_DICT['dungeon_msg_21'].format(str(i))
                         if i.isdigit() is True:
                             dungeon_id = '{}{}'.format(
                                 str(self.pointofview_l), str(i))
@@ -865,15 +878,14 @@ class Heroquest_solo:
                                 dungeon_id)
 
                 else:
-                    msg += 'La nuda roccia ti sbarra la strada. Metti un segnalino crollo verso il POV {}'.format(str(i))
+                    msg += self.CONFIG_DICT['dungeon_msg_27'].format(str(i))
             return msg
 
         if self.system_number == 4:
-            print(str("RHITD 4"))
             pov_1 = self.START_FROM
             for i in single_points:
-                if str(i) in self.PRIMARY_PATH:
-                    msg += 'La via prosegue verso il POV THREE {}.'.format(str(i))
+                if str(i) == self.PRIMARY_PATH[self.PRIMARY_PATH.index(pov_1)+1]:
+                    msg += self.CONFIG_DICT['dungeon_msg_21'].format(str(i))
                     if i.isdigit() is True:
                         dungeon_id = '{}{}'.format(
                             str(self.pointofview_l), str(i))
@@ -889,30 +901,27 @@ class Heroquest_solo:
                         msg += msg_doors
                         self.DUNGEON_EXPLORED.append(dungeon_id)
                 else:
-                    msg += 'Da questa parte il soffitto a ceduto. ' \
-                           'Metti un segnalino crollo verso il POV {}.\n'.format(str(i))
+                    if i not in self.POINT_OF_VIEW_EXPLORED:
+                        msg += self.CONFIG_DICT['dungeon_msg_25'].format(str(i))
             return msg
 
         if self.system_number == 5:
-            print(str("RHITD 5"))
-            msg = 'Da questa parte il soffitto a ceduto. '
-            msg += 'Metti un segnalino crollo verso gli altri POV (tranne quello da cui arrivi) \n'
+
+            msg = self.CONFIG_DICT['dungeon_msg_28']
             return msg
 
         if self.system_number == 6:
-            print(str("RHITD 6"))
-            msg = 'Da questa parte il soffitto ha ceduto. '
+            msg = self.CONFIG_DICT['dungeon_msg_29']
             for i in single_points:
                 if i not in self.COMPLEX_PATH:
-                    msg += 'Metti un segnalino crollo verso il POV {}. \n'.format(str(i))
+                    msg += self.CONFIG_DICT['dungeon_msg_24'].format(str(i))
 
             return msg
 
         if self.system_number == 7:
-            print(str("RHITD 7"))
             for i in single_points:
                 if str(i) == self.PRIMARY_PATH[self.PRIMARY_PATH.index(self.pointofview_l)+1] or str(i) == self.PRIMARY_PATH[self.PRIMARY_PATH.index(self.pointofview_l)-1]:
-                    msg += 'La via verso il POV FOUR {} è libera. \n'.format(str(i))
+                    msg += self.CONFIG_DICT['dungeon_msg_30'].format(str(i))
 
                     if i.isdigit() is True:
                         dungeon_id = '{}{}'.format(str(self.pointofview_l), str(i))
@@ -921,7 +930,15 @@ class Heroquest_solo:
                             msg += msg_doors
                             self.DUNGEON_EXPLORED.append(dungeon_id)
                         elif msg_doors != '':
-                            msg += msg_doors
+                            rng_1 = random.SystemRandom()  # you'll find a weapon
+                            rand_num = rng_1.randint(1, 3)
+                            if rand_num == 1:
+                                msg += self.CONFIG_DICT['dungeon_msg_31'].format(msg_doors)
+                            elif rand_num == 2:
+                                msg += self.CONFIG_DICT['dungeon_msg_32'].format(msg_doors)
+                            else:
+                                msg = self.CONFIG_DICT['dungeon_msg_33']
+
                             self.DUNGEON_EXPLORED.append(dungeon_id)
                     else:
                         dungeon_id = '{}{}'.format(str(i), str(self.pointofview_l))
@@ -929,27 +946,34 @@ class Heroquest_solo:
                             dungeon_id)
                         self.DUNGEON_EXPLORED.append(dungeon_id)
                         if msg_doors != '' and i in self.POINT_OF_VIEW_EXPLORED:
-                            msg += "Scrutando meglio indietro ti accorgi della presenza di porte che non avevi notato"
+                            msg += self.CONFIG_DICT['dungeon_msg_34']
                             msg += msg_doors
                             self.DUNGEON_EXPLORED.append(
                                 dungeon_id)
                         elif msg_doors != '':
-                            msg += msg_doors
+                            rng_1 = random.SystemRandom()  # you'll find a weapon
+                            rand_num = rng_1.randint(1, 3)
+                            if rand_num == 1:
+                                msg += self.CONFIG_DICT['dungeon_msg_31'].format(msg_doors)
+                            elif rand_num == 2:
+                                msg += self.CONFIG_DICT['dungeon_msg_32'].format(msg_doors)
+                            else:
+                                msg = self.CONFIG_DICT['dungeon_msg_33']
+
                             self.DUNGEON_EXPLORED.append(
                                 dungeon_id)
                 elif str(i) != self.PRIMARY_PATH[-2]:
-                    msg += 'La via verso il POV FIVE {} è chiusa. Metti un segnalino crollo'.format(str(i))
+                    msg += self.CONFIG_DICT['dungeon_msg_35'].format(str(i))
                 else:
                     if i not in self.COMPLEX_PATH:
-                        msg += 'EIGHT Da questa parte il soffitto ha ceduto. Metti un segnalino crollo verso il POV {}.\n'.format(str(i))
+                        msg += self.CONFIG_DICT['dungeon_msg_25'].format(str(i))
             return msg
 
 
         if self.system_number == 8:
-            print(str("RHITD 9"))
             for i in single_points:
                 if str(i) == self.SECONDARY_PATH[self.SECONDARY_PATH.index(self.pointofview_l)+1] or str(i) == self.SECONDARY_PATH[self.SECONDARY_PATH.index(self.pointofview_l)-1]:
-                    msg += 'La via prosegue verso il POV {} FIVE.'.format(str(i))
+                    msg += self.CONFIG_DICT['dungeon_msg_36'].format(str(i))
                     if i.isdigit() is True:
                         dungeon_id = '{}{}'.format(
                             str(self.pointofview_l), str(i))
@@ -965,8 +989,8 @@ class Heroquest_solo:
                         msg += msg_doors
                         self.DUNGEON_EXPLORED.append(dungeon_id)
                 else:
-                    if i not in self.COMPLEX_PATH:
-                        msg += 'Da questa parte il soffitto ha ceduto. Metti un segnalino crollo verso il POV {}.\n'.format(str(i))
+                    if i not in self.POINT_OF_VIEW_EXPLORED:
+                        msg += self.CONFIG_DICT['dungeon_msg_25'].format(str(i))
             return msg
 
 
@@ -1072,12 +1096,17 @@ class Heroquest_solo:
                     """
 
 
-    def create_the_dungeon(self, s, a, m):
+    def create_the_dungeon(self):
+        print("gigig 2")
+        pov_list = list(self.POINT_OF_VIEW.keys())
+        pov_length = len(pov_list)-1
         #INSERT VALUES
-        start = s #CHOOSED RANDOMLY BY THE GAME
-        arrive = a #CHOOSED RANDOMLY BY THE GAME
-        min_path = m #CHOOSED RANDOMLY BY THE GAME
-
+        rng_n = random.SystemRandom()
+        start = pov_list[rng_n.randint(0, pov_length)] #CHOOSED RANDOMLY BY THE GAME
+        rng_n = random.SystemRandom()
+        arrive = pov_list[rng_n.randint(0, pov_length)] #CHOOSED RANDOMLY BY THE GAME
+        rng_n = random.SystemRandom()  # you'll find a weapon
+        min_path =  rng_n.randint(3, 6) #CHOOSED RANDOMLY BY THE GAME
 
         #the_primary_path = ''
         #THEN PUSH THE BUTTON
@@ -1313,6 +1342,23 @@ class Heroquest_solo:
         else:
             #villan mode
             return 2
+
+    def monster_raid(self, c):
+        self.choice = c
+        msg = ''
+        print("monster_raid_1")
+        if self.choice == 1:
+            print("monster_raid_1.1")
+            msg = self.CONFIG_DICT['raid_message_1'].format(str(self.ROOMS_EXPLORED_LAST_TURN))
+            print("monster_raid_2")
+        if self.choice == 2:
+            print("monster_raid_2.1")
+            msg = self.CONFIG_DICT['raid_message_2'].format(str(self.ROOMS_EXPLORED_LAST_TURN))
+            print("monster_raid_2.3")
+
+        return msg
+
+
 
     def hero_attack(self, rv):
         self.rv = rv
