@@ -31,7 +31,11 @@ from PyQt5 import QtWidgets, uic, QtCore
 #codeadded
 from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QImage, QPalette, QBrush
+from PyQt5.QtWidgets import QMessageBox
 #codeadded
+
+#TEST TEST JSON
+import json
 
 """functions for create dungeon, fornitures, monsters, ecc."""
 from heroquest_solo_function import Heroquest_solo
@@ -48,7 +52,6 @@ class Ui(QtWidgets.QMainWindow):
     #TODO messaggio con punto di partenza
     #TODO aggiungere segnalatore di fine avventura scale trovate
     #TODO se il mostro prima attacca poi si sposta per lasciare spazio ad un altro mostro se è nella stanza
-
     #GLOBAL VARIABLES
     CONFIG = ""
     HQ_SOLO = ""
@@ -118,18 +121,21 @@ class Ui(QtWidgets.QMainWindow):
         self.comboBox_choose_adventure.clear()
         self.comboBox_choose_adventure.addItems(key_list)
 
+        """
         local_language = locale.getdefaultlocale()
         # file_name = 'en_EN.txt'
         if local_language[0] == 'it_IT':
-            #self.CONFIG = open('./languages/IT_it.txt', 'wb')
+            self.CONFIG = open('./languages/IT_it.txt', 'w')
             self.CONFIG.write(self.CONFIG_DICT)
             self.CONFIG.close()
             self.pushButton_the_mission.setEnabled(True)
         else:
-            #self.CONFIG = open('./languages/EN_en.txt', 'wb')
+            self.CONFIG = open('./languages/EN_en.txt', 'w')
             self.CONFIG.write(self.CONFIG_DICT)
             self.CONFIG.close()
-            self.pushButton_the_mission.setEnabled(True)
+            
+        """
+        self.pushButton_the_mission.setEnabled(True)
 
     def charge_list(self):
         """CHARGE DB MONSTERS CATEGORY"""
@@ -166,24 +172,26 @@ class Ui(QtWidgets.QMainWindow):
 
     def on_pushButton_the_mission_pressed(self):
         """Open the mission selected or select one randomly"""
+        print("Mission pressed 1")
         mission_choosed = self.comboBox_choose_adventure.currentText()
-
-        if mission_choosed =="":
+        if mission_choosed == "":
             rng_base = random.SystemRandom()
             mission_number_rand = rng_base.randint(1,4)
         else:
             mission_number_rand = int(mission_choosed)
 
+        print("Mission pressed 2")
+
         self.HQ_SOLO.special_data_mission_charged(mission_number_rand)
 
+        print("Mission pressed 3")
+
+
         the_mission_dict = self.CONFIG_DICT['missions_dict']
-
         rng_base = random.SystemRandom()
-
         wanderer_monster_number_rand = rng_base.randint(1, 7)
         wanderer_monster = self.CONFIG_DICT['monsters_dict'][wanderer_monster_number_rand]
         wanderer_monster_text = self.CONFIG_DICT['monsters_msg_3']
-
         the_mission_text = '{}\n{}{}'.format(the_mission_dict[mission_number_rand][1],wanderer_monster_text,wanderer_monster)
         self.textEdit_the_mission.setText(the_mission_text)
         self.QLabel_the_title.setText(the_mission_dict[mission_number_rand][0])
@@ -200,12 +208,20 @@ class Ui(QtWidgets.QMainWindow):
 
 
         self.pushButton_the_mission.setEnabled(False)
-
         #################CREATE THE DUNGEON####################
+        print("Mission pressed 4 - From here starts create the dungeon")
         self.HQ_SOLO.create_the_dungeon()
+        print("Mission pressed 4.1")
         self.set_chronicle(the_mission_text)
-        the_begin_msg = self.CONFIG_DICT['the_begin_msg'].format(self.HQ_SOLO.START_FROM)
+        print("Mission pressed 5")
+
+        the_begin_msg = self.HQ_SOLO.adventure_start_from()
+        print("Mission pressed 6")
+
         self.set_chronicle(the_begin_msg)
+
+        self.set_chronicle("PRIMARY PATH: "+str(self.HQ_SOLO.PRIMARY_PATH))
+        self.set_chronicle("SECONDARY PATH: "+str(self.HQ_SOLO.SECONDARY_PATH))
 
     def set_chronicle(self, nt):
         """Write all event in Chronicle field"""
@@ -228,6 +244,11 @@ class Ui(QtWidgets.QMainWindow):
         self.pushButton_treasures_finds.setEnabled(True)
         self.pushButton_treasures_random.setEnabled(False)
         self.pushButton_treasure_card.setEnabled(False)
+
+        #A RANDOM EVENT CAN HAPPENS
+        self.message_random_events()
+
+
 
 
     def on_pushButton_aisles_pressed(self):
@@ -317,7 +338,7 @@ class Ui(QtWidgets.QMainWindow):
             self.HQ_SOLO.ROOMS_EXPLORED.append(room_to_explore)
         current_turn = int(self.lineEdit_round.text())
         room_dimension = str(self.HQ_SOLO.ROOMS_NUM_TILES[str(room_to_explore)])
-        msg_temp = self.HQ_SOLO.room_generator(room_dimension, current_turn,room_explored)
+        msg_temp = self.HQ_SOLO.room_generator(room_dimension, current_turn, room_explored)
         if current_turn == 1 or current_turn == 2:
             msg_room = self.HQ_SOLO.CONFIG_DICT['aux_msg_1'].format(msg_temp[0])
             random_trap = self.HQ_SOLO.random_trap(self.CURRENT_ROUND)
@@ -407,6 +428,36 @@ class Ui(QtWidgets.QMainWindow):
         self.set_chronicle(random_trap)
         rand_value = self.HQ_SOLO.random_numbers()
         self.textEdit_combat_text.setText(self.HQ_SOLO.hero_attack(rand_value))
+
+    def message_random_events(self):
+        print("test 0.0")
+        res = self.HQ_SOLO.random_numbers()
+        len_room_explored = len(self.HQ_SOLO.ROOMS_EXPLORED)
+        if res >= 22 and self.HQ_SOLO.MISSION_PERCENT_MADE >= 80 and len_room_explored > 8:
+            print("test 0")
+            random_events = self.CONFIG_DICT["random_events"]
+            #rng_base = random.SystemRandom()
+            #msg_attack = msg_attack_list[rng_base.randint(0, len_room_explored-1)]
+            print("test 1")
+            print(str(len_room_explored))
+            rng_base = random.SystemRandom()
+            index_number = rng_base.randint(0, len_room_explored - 1)
+            room_choosed = self.HQ_SOLO.ROOMS_EXPLORED[index_number]
+            if len_room_explored >= 0 and room_choosed not in self.HQ_SOLO.ROOMS_RANDOM_EVENTS:
+                self.HQ_SOLO.ROOMS_RANDOM_EVENTS.append(room_choosed)
+                primary_message = random_events["1"][0].format(room_choosed)
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Information)
+                msg.setText(primary_message)
+                msg.setInformativeText(self.CONFIG_DICT["aux_msg_14"])
+                msg.setWindowTitle(self.CONFIG_DICT["aux_msg_13"])
+                msg.setDetailedText(random_events["1"][1])
+                msg.setStandardButtons(QMessageBox.Ok)
+                msg.exec()
+            else:
+                return
+        else:
+            return
 
     ############################ TODO spostare in functions ####################
 

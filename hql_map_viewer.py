@@ -48,7 +48,7 @@ class HQL_MAP(QDialog, MAIN_DIALOG_CLASS):
         self.setupUi(self)
 
     def on_pushButton_pov3_pressed(self):
-        print("gigi")
+        pass
         #self.UI.textEdit_room_description.setText("puppa")
 
 

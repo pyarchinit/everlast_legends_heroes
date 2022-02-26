@@ -28,6 +28,7 @@ from PyQt5.QtWidgets import QApplication, QDialog, QMessageBox, QTableWidgetItem
 from PyQt5.uic import loadUiType
 from delegateComboBox import ComboBoxDelegate
 import os
+import locale
 import sqlite3
 
 
@@ -98,7 +99,6 @@ class AdventurePanelSettings(QDialog, MAIN_DIALOG_CLASS):
 
         class_monsters_list = self.from_list_to_listoflist(self.DICT['monster_class'][mission_number])
 
-        #print(str(class_monsters_list))
         self.tableInsertData("self.tableWidget_monsters_type", class_monsters_list)
 
         #type_special_room_fornitures_list = self.from_list_to_listoflist(self.DICT['specials_rooms'][mission_number][0])
@@ -111,7 +111,6 @@ class AdventurePanelSettings(QDialog, MAIN_DIALOG_CLASS):
         #FORNITURES_QTY_DICT = {1: db_fornitures_charged[0][2],
         for i in special_room_fornitures_list:
             res = self.CURSOR.execute("SELECT * FROM fornitures WHERE id_forniture = '{}'".format(str(i)))
-            #print(str(paolo))
             res_charged = res.fetchone()
             forniture_converted = self.DICT['forniture_name_conversion_dict'][res_charged[1]]
 
@@ -268,6 +267,21 @@ class AdventurePanelSettings(QDialog, MAIN_DIALOG_CLASS):
                 self.DICT['missions_dict'][max_num_id]=to_missions_dict_list
                 self.DICT['specials_rooms'][max_num_id]=to_specials_rooms_list
                 self.DICT['monster_class'][max_num_id]=to_monster_class_list
+                local_language = locale.getdefaultlocale()
+                # file_name = 'en_EN.txt'
+                if local_language[0] == 'it_IT':
+                    self.CONFIG = open('./languages/IT_it.txt',
+                                       'w')
+                    self.CONFIG.write(str(self.DICT))
+                    self.CONFIG.close()
+                    #self.pushButton_the_mission.setEnabled(True)
+                else:
+                    self.CONFIG = open('./languages/EN_en.txt',
+                                       'w')
+                    self.CONFIG.write(str(self.DICT))
+                    self.CONFIG.close()
+                    #self.pushButton_the_mission.setEnabled(True)
+
                 QMessageBox.warning(self, "Hai un messaggio da Mentor: ","La tua leggenda è stata scritta nel Loretomo. Sei pronto per affrontarne le conseguenze?",QMessageBox.Ok)
                 self.lock_fields()
                 self.enable_button(0)
@@ -301,6 +315,21 @@ class AdventurePanelSettings(QDialog, MAIN_DIALOG_CLASS):
                 self.DICT['missions_dict'][mission_id]=to_missions_dict_list
                 self.DICT['specials_rooms'][mission_id]=to_specials_rooms_list
                 self.DICT['monster_class'][mission_id]=to_monster_class_list
+                local_language = locale.getdefaultlocale()
+                # file_name = 'en_EN.txt'
+                if local_language[0] == 'it_IT':
+                    self.CONFIG = open('./languages/IT_it.txt',
+                                       'w')
+                    self.CONFIG.write(str(self.DICT))
+                    self.CONFIG.close()
+                    #self.pushButton_the_mission.setEnabled(True)
+                else:
+                    self.CONFIG = open('./languages/EN_en.txt',
+                                       'w')
+                    self.CONFIG.write(str(self.DICT))
+                    self.CONFIG.close()
+                    #self.pushButton_the_mission.setEnabled(True)
+
                 QMessageBox.warning(self, "Hai un messaggio da Mentor: ","La tua leggenda è stata scritta nel Loretomo. Sei pronto per affrontarne le conseguenze?",QMessageBox.Ok)
                 self.lock_fields()
                 self.enable_button(0)
@@ -312,13 +341,10 @@ class AdventurePanelSettings(QDialog, MAIN_DIALOG_CLASS):
         self.tablename = n
         row = eval(self.tablename + ".rowCount()")
         col = eval(self.tablename + ".columnCount()")
-        print("col 1")
         lista = []
         for r in range(row):
-            print("col 2")
             for c in range(col):
                 value = eval(self.tablename + ".item(r,c)")
-                print("col 3")
                 if value != None:
                     lista.append(str(value.text()))
         return lista

@@ -92,13 +92,17 @@ class Heroquest_solo:
 
     NEW_DATA_TO_TEST_DELETE = 0
 
-    #charge the total of forniture linked to ID
+    ROOMS_RANDOM_EVENTS = []
+
+    """DATA FROM DATABASE"""
+    #charge alls the fornitures linked to ID
     db_fornitures_query = CURSOR.execute("Select * from fornitures")
     db_fornitures_charged = db_fornitures_query.fetchall()
 
-    #charge the total of monsters linked to ID
+    #charge alls the monsters linked to ID
     db_monsters_query = CURSOR.execute("Select * from monsters")
     db_monsters_charged = db_monsters_query.fetchall()
+
 
     FORNITURES_QTY_DICT = {1:db_fornitures_charged[0][2],
                            2:db_fornitures_charged[1][2],
@@ -145,6 +149,7 @@ class Heroquest_solo:
                          9:db_monsters_charged[8][1]
                          }
 
+    """DATA FROM INTERNAL DICT FOR DUNGEON GENERATION"""
     POINT_OF_VIEW = {
         'A': ('1', '4'),
         'B': ('1', '2'),
@@ -268,11 +273,12 @@ class Heroquest_solo:
 
 
     def __init__(self, cd):
+        """The class is instanced with dictionary from config file"""
         self.CONFIG_DICT = cd
-        self.r_num = random
+        #self.r_num = random
 
         #position dict
-        self.position_dict = self.CONFIG_DICT['position_dict']
+        self.position_dict = self.CONFIG_DICT["position_dict"]
 
         #fornitures dict
         self.forniture_dict = self.CONFIG_DICT['fornitures_dict']
@@ -351,27 +357,22 @@ class Heroquest_solo:
 
     def mission_percent_made(self, ct):
         current_turn = ct
-        #print("gigi 1")
 
         total_comparison_value = self.TOTAL_NUMBER_OF_TURNS+self.MAX_ROOM_COUNTER
         partial_comparison_value =current_turn+self.CURRENT_ROOM_COUNTER
 
         self.MISSION_PERCENT_MADE = (partial_comparison_value/total_comparison_value)*100
 
-
+        #TODO TO DELETE
         total_turn = "total_turns_made {}".format(self.TOTAL_NUMBER_OF_TURNS)
         total_rooms = "total_rooms {}".format(self.MAX_ROOM_COUNTER)
         current_turn_made = "current_turn_made {}".format(current_turn)
         current_room_made = "current_room_made {}".format(self.CURRENT_ROOM_COUNTER)
         totale_percent_made = "total_percent_made {}".format(self.MISSION_PERCENT_MADE)
 
-        # print(total_turn)
-        # print(total_rooms)
-        # print(current_turn_made)
-        # print(current_room_made)
-        # print(totale_percent_made)
-
     def permutation_sum(self,l):
+        """NEW SYSTEM FOR ROOM GENERATION NOT USED BY NOW"""
+
         sum(l)
         if s == self.N:
             self.RES.append(l)
@@ -380,12 +381,12 @@ class Heroquest_solo:
             return
         for x in range(1, self.N + 1):
             self.permutation_sum(l + [x])
-
+    """
     def room_generator_2(self, room_dimension, ct, re):
-        """create random rooms with fornitures 2"""
+        #NEW SYSTEM FOR ROOM GENERATION NOT USED BY NOW
+        #create random rooms with fornitures 2
 
-        """create random rooms with fornitures"""
-        ##print("entrata in room generato")
+        #create random rooms with fornitures
         #turn controller INPUT
 
         self.current_turn = ct
@@ -417,13 +418,11 @@ class Heroquest_solo:
         len_list_options= len(dimensions_list)
         rng = random.SystemRandom()
         slice_number = rng.randint(1, int(len_list_options))
-        print(dimensions_list[slice_number]) #select random the dimension of fornitures
-
+        """
 
 
     def room_generator(self, room_dimension, ct, re):
         """create random rooms with fornitures"""
-        ##print("entrata in room generato")
         #turn controller INPUT
 
         self.current_turn = ct
@@ -432,7 +431,7 @@ class Heroquest_solo:
         self.room_explored = int(re)
         rng = random.SystemRandom()
         value = rng.randint(1, 2)
-
+        rng = random.SystemRandom()
         room_dimension = int(room_dimension)- rng.randint(1, 2)
         self.room_dimension = int(room_dimension)/value #total of room's tiles
 
@@ -448,15 +447,12 @@ class Heroquest_solo:
         #roll the dice and select a random number of fornitures between 1 and 3
         rng = random.SystemRandom()
         forniture_numbers = rng.randint(1, 4)
-        count = 0
+        #count = 0
         #if the current turn is max or equal and the escape is founded
 
         if self.room_explored == 0:
-            ##print("entrata in room generato 2")
             if self.CURRENT_ROOM_COUNTER < self.MAX_ROOM_COUNTER:
                 self.CURRENT_ROOM_COUNTER += 1
-
-        ##print("entrata in room generato 3")
         if self.current_turn >= self.TOTAL_NUMBER_OF_TURNS and self.ESCAPE_FOUND==0 and self.room_explored == 0 and self.CURRENT_ROOM_COUNTER >= self.MAX_ROOM_COUNTER:
             msg_end = self.SPECIAL_ROOM_CHARGED[1] #Replace the number with THE_MISSION = RAND_NUM
             self.ESCAPE_FOUND = 1
@@ -465,23 +461,20 @@ class Heroquest_solo:
                 count = 0 #counter
                 for i in range(forniture_numbers):
                     rng_0 = random.SystemRandom()
-                    alea = rng_0.randint(1, 6)
-                    print("--------------------------")
-                    print("alea: {}".format(str(alea)))
-                    if alea <= 2:
+                    alea = rng_0.randint(0, 10)
+                    if alea <= 4:
                         rng_1 = random.SystemRandom()
-                        id_forniture_rand = rng_1.randint(11, 12)
+                        id_forniture_rand = rng_1.randint(12, 13)
                     else:
                         rng_1 = random.SystemRandom()
                         id_forniture_rand_1 = rng_1.randint(0, 6)
 
                         rng_2 = random.SystemRandom()
-                        id_forniture_rand_2 = rng_2.randint(1, 7)  #create a random ID for fornitures between 1 and 13
+                        id_forniture_rand_2 = rng_2.randint(1, 5)  #create a random ID for fornitures between 1 and 13
 
                         id_forniture_rand = id_forniture_rand_1+id_forniture_rand_2
 
                     #verify if the fornitures is still present
-                    print("forniture residue id: {}".format(str(id_forniture_rand)))
                     forniture_residue = self.FORNITURES_QTY_DICT[id_forniture_rand]
 
                     if forniture_residue > 0:
@@ -494,19 +487,21 @@ class Heroquest_solo:
                         if tot_square_taken < self.room_dimension:
                             if count == 0:
                                 if id_forniture_rand == 11 or id_forniture_rand == 12:
-                                    msg_forniture = '{} {} {};'.format(msg_forniture, self.forniture_dict[id_forniture_rand],self.position_dict[self.r_num.randint(1, 3)])
+                                    rng = random.SystemRandom()
+                                    msg_forniture = '{} {} {};'.format(msg_forniture, self.forniture_dict[id_forniture_rand],self.position_dict[str(rng.randint(1, 3))])
                                 else:
-                                    msg_forniture = '{} {} {};'.format(msg_forniture, self.forniture_dict[id_forniture_rand],self.position_dict[self.r_num.randint(1, 5)])
+                                    rng = random.SystemRandom()
+                                    msg_forniture = '{} {} {};'.format(msg_forniture, self.forniture_dict[id_forniture_rand],self.position_dict[str(rng.randint(1, 5))])
                                 new_forniture_residue = forniture_residue - 1
                                 self.FORNITURES_QTY_DICT[id_forniture_rand] = new_forniture_residue
                                 count = 1
                             else:
-                                print("room_generator fin qui 9")
+                                rng = random.SystemRandom()
                                 msg_forniture = '{} {} {};'.format(msg_forniture, self.forniture_dict[id_forniture_rand],
-                                                                 self.position_dict[self.r_num.randint(1, 5)])
+                                                                 self.position_dict[str(rng.randint(1, 5))])
                                 new_forniture_residue = forniture_residue - 1
                                 self.FORNITURES_QTY_DICT[id_forniture_rand] = new_forniture_residue
-                        else: #no forniture is added and the temporary squares is re added                            ##print("entrata in room generato 10")
+                        else: #no forniture is added and the temporary squares is re added
                             tot_square_taken -= square_taken_temp
                     else: #if the forniture is not present
                         msg_forniture = msg_forniture
@@ -550,26 +545,21 @@ class Heroquest_solo:
         if self.rv >= 20:
             return '{} {}'.format(msg_monsters, self.CONFIG_DICT['monsters_msg_2'])
         else:
-            print(str(self.residual_tiles))
             if self.residual_tiles >= 0 and self.residual_tiles <= 3:
                 rng_base = random.SystemRandom()
-                monsters_number = rng_base.randint(1, 3)
+                monsters_number = rng_base.randint(1, 2)
             elif self.residual_tiles > 3 and self.residual_tiles <= 6:
                 rng_base = random.SystemRandom()
-                monsters_number = rng_base.randint(2, 4)
+                monsters_number = rng_base.randint(1, 5)
             elif self.residual_tiles > 6 and self.residual_tiles <= 12:
-                print("monsters 3-5")
                 rng_base = random.SystemRandom()
-                monsters_number = rng_base.randint(3, 5)
+                monsters_number = rng_base.randint(1, 6)
             elif self.residual_tiles > 12 and self.residual_tiles <= 30:
-                print("monsters 4-6")
                 rng_base = random.SystemRandom()
                 monsters_number = rng_base.randint(4, 6)
             else:
                 rng_base = random.SystemRandom()
-                monsters_number = rng_base.randint(3, 6)
-
-
+                monsters_number = 1
             query_string_base="Select id_monster from monsters where "
             query_string_where = ""
             for cm in self.MONSTER_CLASS:
@@ -585,7 +575,6 @@ class Heroquest_solo:
                 db_monsters_class_query = self.CURSOR.execute(query_string)
                 db_monsters_class_charged = db_monsters_class_query.fetchall()
                 db_monsters_class_charged_list = []
-                ##print("monster_generator_2 4")
                 for i in db_monsters_class_charged:
                     db_monsters_class_charged_list.append(i[0])
                 db_monsters_class_charged_lenght = len(db_monsters_class_charged_list)-1
@@ -593,20 +582,18 @@ class Heroquest_solo:
                 id_monster_rand = db_monsters_class_charged_list[rng.randint(0, db_monsters_class_charged_lenght)]
                 monsters_residue = int(self.MONSTERS_QTY_DICT[id_monster_rand])
                 if monsters_residue > 0:
-                    ##print("monster_generator_2 8")
+                    rng = random.SystemRandom()
                     monsters_msg_partial = '{} {} {};'.format(monsters_msg_partial,
                                                               self.monsters_dict[id_monster_rand],
-                                                              self.position_dict[self.r_num.randint(1, 5)])
+                                                              self.position_dict[str(rng.randint(1, 5))])
 
                     new_monster_residue = int(monsters_residue) - 1
 
                     self.MONSTERS_QTY_DICT[id_monster_rand] = new_monster_residue
 
             if monsters_msg_partial != '':
-                ##print("monster_generator_2 4")
                 msg_monsters = '{} {} {}'.format(self.CONFIG_DICT['monsters_msg_intro'], monsters_msg_partial, self.CONFIG_DICT['monsters_msg_close'])
             else:
-                ##print("monster_generator_2 5")
                 if self.n == 0:
                     msg_monsters = '{} {}'.format(self.CONFIG_DICT['monsters_msg_intro'],self.CONFIG_DICT['monsters_msg_2'])
                 else:
@@ -667,60 +654,62 @@ class Heroquest_solo:
 
 
     def put_the_doors(self, d):
+        """"Receive the POV and describe where are the doors"""
+        print("PUT_THE_DOORS 1")
         dungeon_id = d
-        print('DOOR 1')
-        print(str(dungeon_id))
         rooms_tup = self.DUNGEON_TO_ROOM[dungeon_id]
         rooms_list = []
         for e in rooms_tup:
             rooms_list.append(e)
-        print("Door 1.1")
         for i in rooms_list:
             if i in self.ROOMS_EXPLORED or i in self.DOORS_TO_ROOMS_APPLIED:
                 rooms_list.remove(i)
         door_msg = ''
-        print('DOOR 2')
         if len(rooms_list) > 0:
             for room_num in rooms_list:
+                print("room start")
+                print("room_num"+str(room_num))
                 num = self.random_numbers()
-                print('DOOR 3')
-                if num >=14 and self.FORNITURES_QTY_DICT[11] >= 1 and room_num not in self.ROOMS_EXPLORED and room_num not in self.DOORS_TO_ROOMS_APPLIED:
+                print(str(self.ROOMS_EXPLORED))
+                print("num"+str(num))
+                print(str(self.DOORS_TO_ROOMS_APPLIED))
+                print(str(self.FORNITURES_QTY_DICT[13]))
+                print("room end")
+
+                if num >=12 and self.FORNITURES_QTY_DICT[13]>=1 and room_num not in self.ROOMS_EXPLORED and room_num not in self.DOORS_TO_ROOMS_APPLIED:
+                    rng = random.SystemRandom()
                     self.DOORS_TO_ROOMS_APPLIED.append(str(room_num))
-                    door_type_msg = self.r_num.randint(1, 2)
-                    print('DOOR 4')
+                    door_type_msg = rng.randint(1, 2)
+                    print("door_type_msg"+str(door_type_msg))
                     if door_type_msg == 1:
                         door_msg += self.CONFIG_DICT['dungeon_msg_01'].format(str(room_num))
-                        new_doors_residue = self.FORNITURES_QTY_DICT[11] - 1
+                        new_doors_residue = self.FORNITURES_QTY_DICT[13] - 1
                         self.FORNITURES_QTY_DICT[11] = new_doors_residue
                     else:
-                        print('DOOR 4.1')
                         door_msg += self.CONFIG_DICT['dungeon_msg_02'].format(str(room_num))
-                        new_doors_residue = self.FORNITURES_QTY_DICT[11] - 1
+                        new_doors_residue = self.FORNITURES_QTY_DICT[13] - 1
                         self.FORNITURES_QTY_DICT[11] = new_doors_residue
                 else:
-                    pass
+                    pass #TODO VERIFY THIS PASS....
                     #door_msg += "No doors for room {}. \n".format(str(room_num))
+            print("door_msg" + str(door_msg))
         else:
             door_msg = self.CONFIG_DICT['dungeon_msg_22']
+
         return door_msg
 
 
     def how_is_the_dungeon(self, pv, r):
-        print("HITD 0")
-        ### TODO RUN HOW IS THE DUNGEON
+        """DESCRIBE THE DUNGEON MAIN BASED ON PRIMARY PATH AND SECONDARY PATH. THERE ARE MANY DIFFERENT CASE
+        THAT THIS FUNCTION ANALYSE AND PASS TO def run_how_is_the_dungeon"""
 
         pointofview = pv
         round = r
-        msg = ''
 
         msg = self.CONFIG_DICT['dungeon_msg_00'].format(str(round))
 
-
-
         #ESTENSIONE DEL PRIMO PATH DAL PRIMO A PARTIRE DAL PRIMO PUNTO DEL PRIMARY PATH
         if pointofview == self.START_FROM and pointofview == self.THE_SECONDARY_START:
-            print("HITD 1")
-
             pov_direction = self.run_how_is_the_dungeon(pointofview, 1)
             msg += self.CONFIG_DICT['dungeon_msg_13'].format(str(pov_direction))
             self.POINT_OF_VIEW_EXPLORED.append(pointofview)
@@ -728,7 +717,6 @@ class Heroquest_solo:
 
         # ESTENSIONE DALL'ULTIMO PUNTO DEL PRIMARY PATH
         elif pointofview == self.ARRIVE_TO and pointofview == self.THE_SECONDARY_START:
-            print("HITD 2")
             pov_direction = self.run_how_is_the_dungeon(pointofview, 2)
             msg += self.CONFIG_DICT['dungeon_msg_14'].format(str(pov_direction))
             self.POINT_OF_VIEW_EXPLORED.append(pointofview)
@@ -737,7 +725,6 @@ class Heroquest_solo:
 
         #BIFORCAZIONE AL CENTRO se il punto corrente corrisponde a qualcosa in primary path e inizio del secondario: alla biforcazione
         elif pointofview in self.PRIMARY_PATH and pointofview == self.THE_SECONDARY_START:
-            print("HITD 3")
             pov_direction = self.run_how_is_the_dungeon(pointofview, 3)
 
             msg += self.CONFIG_DICT['dungeon_msg_15'].format(str(pov_direction)) #self.CONFIG_DICT['dungeon_msg_12'].format(str(next_pov_primary),str(next_pov_secondary))
@@ -746,7 +733,6 @@ class Heroquest_solo:
             return msg
 
         elif pointofview == self.START_FROM:
-            print("HITD 4")
             pov_direction = self.run_how_is_the_dungeon(pointofview, 4)
             msg += self.CONFIG_DICT['dungeon_msg_16'].format(str(pov_direction))
             self.POINT_OF_VIEW_EXPLORED.append(pointofview)
@@ -755,7 +741,6 @@ class Heroquest_solo:
 
 
         elif pointofview == self.ARRIVE_TO:
-            print("HITD 5")
             pov_direction = self.run_how_is_the_dungeon(pointofview, 5)
             msg += self.CONFIG_DICT['dungeon_msg_17'].format(pov_direction)
             self.POINT_OF_VIEW_EXPLORED.append(pointofview)
@@ -763,34 +748,32 @@ class Heroquest_solo:
             return msg
 
         elif pointofview == self.THE_SECONDARY_ARRIVE:
-            print("HITD 6")
             pov_direction = self.run_how_is_the_dungeon(pointofview, 6)
             msg += self.CONFIG_DICT['dungeon_msg_18'].format(pov_direction)
             self.POINT_OF_VIEW_EXPLORED.append(pointofview)
             return msg
 
         elif pointofview in self.PRIMARY_PATH:
-            print("HITD 7")
             pov_direction = self.run_how_is_the_dungeon(pointofview, 7)
             msg += self.CONFIG_DICT['dungeon_msg_19'].format(pov_direction)
             self.POINT_OF_VIEW_EXPLORED.append(pointofview)
             return msg
 
         elif pointofview in self.SECONDARY_PATH:
-            print("HITD 8")
             pov_direction = self.run_how_is_the_dungeon(pointofview, 8)
             msg += self.CONFIG_DICT['dungeon_msg_19'].format(pov_direction)
             self.POINT_OF_VIEW_EXPLORED.append(pointofview)
             return msg
 
         elif pointofview not in self.COMPLEX_PATH:
-            print("HITD 9")
             msg += self.CONFIG_DICT['dungeon_msg_20']
             self.POINT_OF_VIEW_EXPLORED.append(pointofview)
             return msg
 
 
     def run_how_is_the_dungeon(self, pov, sn):
+        """DUNGEON CREATION SYSTEM: DESCRIBE THE DUNGEON STARTING FROM A POV AND A CASE, BASED ON
+        POV AND PRIMARY AND SECONDARY PATH"""
         self.pointofview_l = pov
         self.system_number = sn
 
@@ -800,7 +783,6 @@ class Heroquest_solo:
         msg = self.CONFIG_DICT['dungeon_msg_23']
 
         if self.system_number == 1:
-            print(str("RHITD 1"))
             pov_1 = self.PRIMARY_PATH[1]
             pov_2 = self.SECONDARY_PATH[1]
 
@@ -848,7 +830,6 @@ class Heroquest_solo:
             return msg
 
         if self.system_number == 3:
-            print(str("RHITD 3"))
             pov_1 = self.PRIMARY_PATH[self.PRIMARY_PATH.index(self.pointofview_l)+1]
             pov_3 = self.PRIMARY_PATH[self.PRIMARY_PATH.index(self.pointofview_l)-1]
             pov_2 = self.SECONDARY_PATH[1]
@@ -1004,20 +985,16 @@ class Heroquest_solo:
         """
         #se il punto di vista non fa parte di nessuno dei due path = VICOLO CIECO
         if pointofview not in self.COMPLEX_PATH:
-            print("POV 1")
             msg += self.CONFIG_DICT['dungeon_msg_09']
-            print("POV 111")
             #msg += "This is a Dead-end road...you can only con back. Put Rocks to any other point of view"
 
         #se il punto di vista corrente non è nel path corrente e risulta già esplorato
         elif pointofview not in path and pointofview in self.POINT_OF_VIEW_EXPLORED:
-            print("POV 2")
             msg += self.CONFIG_DICT['dungeon_msg_10']
             #msg += "This is a strange place ... The road is blocked to POV {} \n".format(str(i))
 
         #se il punto correte è l'ultimo del path che si sta seguendo
         elif pointofview == path[-1] or pointofview == self.ARRIVE_TO or pointofview == self.THE_SECONDARY_ARRIVE:
-            print("POV 3")
             msg += self.CONFIG_DICT['dungeon_msg_11']
             #msg += "This is a Dead-end road...you can only con back. Put Rocks to any other point of view"
 
@@ -1039,7 +1016,6 @@ class Heroquest_solo:
         for i in single_points:
             if i not in self.COMPLEX_PATH:
                 #STRADA BLOCCATA VERSO OGNI ALTRA VIA...vi state smarrendo
-                print("POV 4")
                 msg += self.CONFIG_DICT['dungeon_msg_13'].format(str(i))
             else:
                 #se il POV fa parte dei percorsi
@@ -1057,38 +1033,29 @@ class Heroquest_solo:
                         msg_doors = self.put_the_doors(dungeon_id)
                         msg += msg_doors
                 else:
-                    print("POV 6")
                     try:
                         index_number = path.index(pointofview)+1
                         #se il punto di vista che si vede dal POV corrente successivo è uguale al
                         #pov successivo nel path corrente e non è stato esplorato metti le porte
                         if i == path[index_number] and i not in self.POINT_OF_VIEW_EXPLORED :  #IF i the next pov
-                            print("POV 7")
                             msg += self.CONFIG_DICT['dungeon_msg_03'].format(str(i))
-                            print("POV 7.1")
                             if i.isdigit() == True:
-                                print("POV 7.2")
                                 dungeon_id = '{}{}'.format(str(pointofview), str(i))
-                                print("POV 7.3")
                                 msg_doors = self.put_the_doors(dungeon_id)
                                 msg += msg_doors
                             else:
-                                print("POV 7.3")
                                 dungeon_id = '{}{}'.format(str(i), str(pointofview))
                                 msg_doors = self.put_the_doors(dungeon_id)
                                 msg += msg_doors
                         # se il punto di vista che si vede dal POV corrente successivo è uguale al
                         #è diverso dai punti fi vista successivi del path corrente e i è stato esplorato
                         elif i != path[index_number] and i in self.POINT_OF_VIEW_EXPLORED:
-                            print("POV 8")
                             msg += self.CONFIG_DICT['dungeon_msg_04'].format(str(i))
 
                         elif i == path[index_number] and i in self.POINT_OF_VIEW_EXPLORED and i != self.THE_SECONDARY_START:
-                            print("POV 9")
                             msg += self.CONFIG_DICT['dungeon_msg_05'].format(str(i))
 
                         elif i != path[index_number] and i not in self.POINT_OF_VIEW_EXPLORED and i != self.THE_SECONDARY_START and i not in self.SECONDARY_PATH:
-                            print("POV 10")
                             msg += self.CONFIG_DICT['dungeon_msg_06'].format(str(i))
                     except:
                         pass
@@ -1097,40 +1064,49 @@ class Heroquest_solo:
 
 
     def create_the_dungeon(self):
-        print("gigig 2")
+        print("Create the dungeon 0")
+        """THIS FUNCTION CREATE THE DUNGEON. WILL BE GENERATED 2 PATH, PRIMARY AND SECONDARY"""
         pov_list = list(self.POINT_OF_VIEW.keys())
         pov_length = len(pov_list)-1
         #INSERT VALUES
         rng_n = random.SystemRandom()
-        start = pov_list[rng_n.randint(0, pov_length)] #CHOOSED RANDOMLY BY THE GAME
+        pov_length_rand = pov_length-rng_n.randint(1, 3)
+        start = pov_list[rng_n.randint(0, pov_length_rand)] #CHOOSED RANDOMLY BY THE GAME
+        print("start: {}".format(start))
         rng_n = random.SystemRandom()
-        arrive = pov_list[rng_n.randint(0, pov_length)] #CHOOSED RANDOMLY BY THE GAME
-        rng_n = random.SystemRandom()  # you'll find a weapon
-        min_path =  rng_n.randint(3, 6) #CHOOSED RANDOMLY BY THE GAME
+        pov_length_rand = pov_length - rng_n.randint(2, 4)
+        arrive = pov_list[rng_n.randint(0, pov_length_rand)] #CHOOSED RANDOMLY BY THE GAME
+        print("arrive: {}".format(arrive))
+        rng_n = random.SystemRandom()
+        min_path = rng_n.randint(4, 6) #CHOOSED RANDOMLY BY THE GAME
+        print("Create the dungeon 1")
 
         #the_primary_path = ''
         #THEN PUSH THE BUTTON
         #self.PRIMARY_PATH = ''
         #self.SECONDARY_PATH = ''
-
-
-        self.PRIMARY_PATH = self.find_route(start,arrive)
+        print("Create the dungeon 2 - first run 7 find route")
+        print("start: {}".format(start))
+        print("arrive: {}".format(arrive))
+        self.PRIMARY_PATH = self.find_route(start, arrive)
         while len(self.PRIMARY_PATH) < min_path or arrive != self.PRIMARY_PATH[-1]:
             self.PRIMARY_PATH = self.find_route(start, arrive)
+        print("Create the dungeon 3")
 
         #THE GAME CHOOSE A SECONDARY PATH
         half = len(self.PRIMARY_PATH) // 2
         the_secondary_path_temp = self.PRIMARY_PATH[0:half]
+        print("Create the dungeon 4")
 
         for i in self.POINT_OF_VIEW.keys():
             if i not in self.PRIMARY_PATH:
                 self.THE_SECONDARY_ARRIVE = i
                 break
-
+        print("Create the dungeon 5")
         self.THE_SECONDARY_START = the_secondary_path_temp[-1]
         #CHOOSED RANDOMLY BY THE GAME
 
-        self.THE_SECONDARY_MIN_PATH = 3 #len(self.PRIMARY_PATH) #the current path lenght of primary_path
+        self.THE_SECONDARY_MIN_PATH = len(self.PRIMARY_PATH)-2 #the current path lenght of primary_path
         #the_path = ''
 
         #THEN PUSH THE BUTTON
@@ -1138,10 +1114,14 @@ class Heroquest_solo:
         #INSERT VALUES
 
         #THEN PUSH THE BUTTON
-
+        print("Create the dungeon 6 - second run find route")
+        print("II start: {}".format(self.THE_SECONDARY_START))
+        print("II arrive: {}".format(self.THE_SECONDARY_ARRIVE))
         self.SECONDARY_PATH = self.find_route(self.THE_SECONDARY_START,self.THE_SECONDARY_ARRIVE)
-        while len(self.SECONDARY_PATH) >= len(self.PRIMARY_PATH) or self.THE_SECONDARY_ARRIVE != self.SECONDARY_PATH[-1]:
+        while self.THE_SECONDARY_ARRIVE != self.SECONDARY_PATH[-1]: # len(self.SECONDARY_PATH) >= len(self.PRIMARY_PATH) or
             self.SECONDARY_PATH = self.find_route(self.THE_SECONDARY_START, self.THE_SECONDARY_ARRIVE)
+
+        print("Create the dungeon 7")
 
         third_path_temp = []
         for i in self.SECONDARY_PATH:
@@ -1149,6 +1129,7 @@ class Heroquest_solo:
                 third_path_temp.append(i)
             elif i not in self.PRIMARY_PATH:
                 third_path_temp.append(i)
+        print("Create the dungeon 8")
 
         self.SECONDARY_PATH = third_path_temp
 
@@ -1159,6 +1140,7 @@ class Heroquest_solo:
         self.THE_SECONDARY_ARRIVE = self.SECONDARY_PATH[-1]
 
         self.COMPLEX_PATH = self.PRIMARY_PATH + self.SECONDARY_PATH
+        print("Create the dungeon 9")
 
 
     def find_route(self, b, a):
@@ -1167,7 +1149,7 @@ class Heroquest_solo:
         current = start
         path_temp = [start]
         cont = 0
-        while current != arrive and cont <= 25:
+        while current != arrive and cont <= 1000:
             local_paths = self.POINT_OF_VIEW[current] #POINT_OF_VIEW
             length_list = len(local_paths)
             rng = random.SystemRandom()
@@ -1182,10 +1164,12 @@ class Heroquest_solo:
             cont += 1
         return path_temp
 
+    """DEPRECATED
     def aisles(self, rv):
         #sistem for discover aisles
         self.rv = rv #recive a random number beetween 4 and 24 for number of doors
-        self.LR_n = self.r_num.randint(1, 2) #select beetween left ora right
+        rng = random.SystemRandom()
+        self.LR_n = rng.randint(1, 2) #select beetween left ora right
         rock_msg_value = self.random_numbers()
 
         #generate a rock message and a monster
@@ -1194,39 +1178,39 @@ class Heroquest_solo:
         elif rock_msg_value > 15 and rock_msg_value <= 18:
             rocks_msg = self.CONFIG_DICT['aisles_msg_2']
         else:
-            rocks_msg = self.CONFIG_DICT['aisles_msg_3'].format(self.monsters_dict[self.r_num.randint(1, 7)])
+            rng = random.SystemRandom()
+            rocks_msg = self.CONFIG_DICT['aisles_msg_3'].format(self.monsters_dict[rng.randint(1, 7)])
 
         #aisles generators with doors
         if self.rv > 1 and self.rv <= 12 and self.FORNITURES_QTY_DICT[11] >= 1:  #one door
-            msg_1 = self.CONFIG_DICT['aisles_msg_4'].format(self.position_dict[self.LR_n], rocks_msg)
+            msg_1 = self.CONFIG_DICT['aisles_msg_4'].format(self.position_dict[str(self.LR_n)], rocks_msg)
             new_doors_residue = self.FORNITURES_QTY_DICT[11] - 1
             self.FORNITURES_QTY_DICT[11] = new_doors_residue
 
             return '{} {}'.format(msg_1, self.CONFIG_DICT['aisles_msg_8'])
 
-        elif self.rv > 12 and self.rv <= 14 and self.FORNITURES_QTY_DICT[11] >= 2: #two doors
+        elif self.rv > 12 and self.rv <= 14 and self.FORNITURES_QTY_DICT[11] >= 2: #NO DOORS
             return self.CONFIG_DICT['aisles_msg_7']
 
-
-        elif self.rv > 14 and self.rv <= 19 or self.FORNITURES_QTY_DICT[11] == 0: #NO DOORS
+        elif self.rv > 14 and self.rv <= 19 or self.FORNITURES_QTY_DICT[11] == 0: #two doors
+            rng = random.SystemRandom()
             msg_1 = self.CONFIG_DICT['aisles_msg_5'].format(
-                self.position_dict[self.r_num.randint(1, 2)],
-                self.position_dict[self.r_num.randint(1, 2)],
+                self.position_dict[str(rng.randint(1, 2))],
+                self.position_dict[str(rng.randint(1, 2))],
                 rocks_msg)
             new_doors_residue = self.FORNITURES_QTY_DICT[11] - 2
             self.FORNITURES_QTY_DICT[11] = new_doors_residue
             return '{} {}'.format(msg_1, self.CONFIG_DICT[
                 'aisles_msg_8'])
 
-
         elif self.rv > 19 and self.rv <= 24 and self.FORNITURES_QTY_DICT[11] >= 3:  #three door
-            print("tre porte")
-            msg_1 = self.CONFIG_DICT['aisles_msg_6'].format(self.position_dict[self.r_num.randint(1, 2)], self.position_dict[self.r_num.randint(1, 2)], self.position_dict[self.r_num.randint(1, 2)], rocks_msg)
+            rng = random.SystemRandom()
+            msg_1 = self.CONFIG_DICT['aisles_msg_6'].format(self.position_dict[str(rng.randint(1, 2))], self.position_dict[str(rng.randint(1, 2))], self.position_dict[str(rng.randint(1, 2))], rocks_msg)
             new_doors_residue = self.FORNITURES_QTY_DICT[11] - 3
             self.FORNITURES_QTY_DICT[11] = new_doors_residue
 
             return '{} {}'.format(msg_1, self.CONFIG_DICT['aisles_msg_8'])
-
+        """
 
     def treasures(self, rv):
         self.rv = rv
@@ -1253,7 +1237,8 @@ class Heroquest_solo:
             return msg_random_treasure
 
         elif self.rv > 13 and self.rv <= 20: #you'll find gold coins
-            msg = self.CONFIG_DICT['chest_msg_2'].format(self.r_num.randrange(50, 150, 5))
+            rng = random.SystemRandom()
+            msg = self.CONFIG_DICT['chest_msg_2'].format(rng.randrange(50, 150, 5))
             return msg
 
         elif self.rv > 20 and self.rv <= 22:  #you'll find a trap!
@@ -1270,14 +1255,14 @@ class Heroquest_solo:
         """"create a random treasures inside chest"""
         self.rv = rv
         if self.rv >= 19 and self.rv <= 20: #you'll find a healing potion
-            treasure_description = self.treasures_card_dict[19]
+            treasure_description = self.treasures_card_dict[str(19)]
             return treasure_description
         elif self.rv > 20 and self.rv <= 24: #you'll find a wanderer monster
-            treasure_description = self.treasures_card_dict[5]
+            treasure_description = self.treasures_card_dict[str(5)]
             return treasure_description
         else:
             rng_1 = random.SystemRandom()
-            treasure_description = self.treasures_card_dict[rng_1.randint(1, 20)]
+            treasure_description = self.treasures_card_dict[str(rng_1.randint(1, 20))]
             return treasure_description
 
     def secret_doors(self, rv):
@@ -1288,8 +1273,9 @@ class Heroquest_solo:
         if self.rv >= 1 and self.rv <= 16:
             msg = [self.CONFIG_DICT['secret_doors_msg_1'],''] #no secret doors
         elif self.rv > 16 and self.rv <= 21:
-            value_LR = self.r_num.randint(1, 3)
-            msg = [self.CONFIG_DICT['secret_doors_msg_2'].format(self.position_dict[value_LR]),''] #find a secret doot
+            rng = random.SystemRandom()
+            value_LR = rng.randint(1, 3)
+            msg = [self.CONFIG_DICT['secret_doors_msg_2'].format(self.position_dict[str(value_LR)]),''] #find a secret doot
         elif self.rv > 21 and self.rv <= 23:
             msg = [self.CONFIG_DICT['secret_doors_msg_3'],''] #find a trapdoor
         elif self.rv > 23 and self.ESCAPE_FOUND == 0:
@@ -1315,7 +1301,6 @@ class Heroquest_solo:
 
         #COMBAT VALUE FROM DB
         combat_value_dict = self.CONFIG_DICT['combat_value_dict']
-        print("attacck system 1")
         monster_converted = self.CONFIG_DICT['monster_name_reconversion_dict'][self.monster_category]
         combat_value = combat_value_dict[monster_converted]
 
@@ -1346,15 +1331,10 @@ class Heroquest_solo:
     def monster_raid(self, c):
         self.choice = c
         msg = ''
-        print("monster_raid_1")
         if self.choice == 1:
-            print("monster_raid_1.1")
             msg = self.CONFIG_DICT['raid_message_1'].format(str(self.ROOMS_EXPLORED_LAST_TURN))
-            print("monster_raid_2")
         if self.choice == 2:
-            print("monster_raid_2.1")
             msg = self.CONFIG_DICT['raid_message_2'].format(str(self.ROOMS_EXPLORED_LAST_TURN))
-            print("monster_raid_2.3")
 
         return msg
 
@@ -1362,7 +1342,6 @@ class Heroquest_solo:
 
     def hero_attack(self, rv):
         self.rv = rv
-        #print("pippo hero")
         if self.rv < 23:
             msg = self.CONFIG_DICT['aux_msg_12']
             return str(msg)
@@ -1402,6 +1381,24 @@ class Heroquest_solo:
             return self.CONFIG_DICT['aux_msg_11']
 
 
+    def adventure_start_from(self):
+        rng = random.SystemRandom()
+        rand_num = rng.randint(1, 2)
+        if rand_num == 1:
+            start_from = self.START_FROM
+            return self.CONFIG_DICT["the_begin_msg_1"].format(start_from)
+        else:
+            if self.START_FROM.isdigit() is True:
+                dungeon_id = '{}{}'.format(self.PRIMARY_PATH[1], self.START_FROM)
+            else:
+                dungeon_id = '{}{}'.format(self.START_FROM, self.PRIMARY_PATH[1],)
+
+            room_id = self.DUNGEON_TO_ROOM[dungeon_id]
+            rng = random.SystemRandom()
+            rand_num = rng.randint(0, len(room_id)-1)
+            start_from = room_id[rand_num]
+            self.ROOMS_EXPLORED.append(start_from)
+            return self.CONFIG_DICT["the_begin_msg_2"].format(start_from, dungeon_id)
 
 
 #TODO FIGTHTING SYSTEM

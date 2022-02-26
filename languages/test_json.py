@@ -3,6 +3,9 @@
 import json
 
 data = {
+'the_begin_msg_1': "DOPO UNA LUNGA DISCESA AL BUIO, GLI EROI SBUCANO IN UN FETIDO CORRIDOIO. (Metti gli eroi sul POV {}). PER VINCERE GLI EROI DEVONO TORNARE IN QUESTO PUNTO E FUGGIRE DAL CUNICOLO DA CUI SONO ARRIVATI",
+'the_begin_msg_2': "COL CUORE IN GOLA SIETE RIUSCITI AD INTRUFOLARVI E LA LUNGA SCALA VI HA FATTO ARRIVARE IN QUESTA STANZA (Metti la scala e gli eroi nella stanza {}). UNA PORTA CHIUSA SEMBRA ESSERE L'UNICA USCITA DA QUI PER PROSEGUIRE NELLA VOSTRA IMPRESA (Mettete una porta verso il corridio {}). PER VINCERE GLI EROI DEVONO TORNARE IN QUESTO PUNTO E FUGGIRE DALLE SCALE DA CUI SONO ARRIVATI",
+'chronicle_msg': '-- TURNO {} -- \n --- {} ---- \n\n {} \n\n --- \n\n {}',
 'aisles_msg_1': "Dal fondo del corrido io arriva una luce fioca, forse troverai altre stanze?",
 'aisles_msg_2' : "Il soffitto è crollato e il corridoio è bloccato (blocca la strada con uno o più segnalini crollo accanto all'ultima porta). O tornare indietro o entrare. Che cosa ti dice di fare l\'istinto?",
 'aisles_msg_3' : "Il soffitto è crollato e il corridoio è bloccato dopo la porta (blocca la strada con uno o più segnalini crollo accanto all'ultima porta). Dal buio del corridoio arriva un rumore sinistro: sulla tua strada trovi {}",
@@ -30,9 +33,24 @@ data = {
 'dungeon_msg_16': "Il cunicolo sembra proseguire nel buio.\n {}",
 'dungeon_msg_17': "Sei arrivato in fondo a questo cunicolo.\n {}",
 'dungeon_msg_18': "Questa strada sembra non portare da nessuna parte.\n{}",
-'dungeon_msg_19': "Fetore e un senso di malessere aleggiano per il corridoio. A stento prosegui.\n PIPPO {}",
+'dungeon_msg_19': "Fetore e un senso di malessere aleggiano per il corridoio. A stento prosegui.\n {}",
 'dungeon_msg_20': "Sembra un vicolo cieco, solo pietre crollate e brandelli di muri si parano davanti a voi. Metti un segnalino crollo verso ogni altro POV non esplorato distante almeno 2 caselle dall\'eroe o dopo una porta.",
 'dungeon_msg_21': "La via prosegue verso il POV {}.",
+'dungeon_msg_22': "Non ci sono porte in questi corridoi.",
+'dungeon_msg_23': "Tonfi e rumori indistinti arrivano da qualche parte intorno a te.",
+'dungeon_msg_24': "Metti un segnalino crollo verso il POV {}",
+'dungeon_msg_25': "Da questa parte il soffitto ha ceduto. Metti un segnalino crollo verso il POV {}.",
+'dungeon_msg_26': "Puoi tornare verso il POV {}.",
+'dungeon_msg_27': "La nuda roccia ti sbarra la strada. Metti un segnalino crollo verso il POV {}",
+'dungeon_msg_28': "Da questa parte il soffitto ha ceduto. Metti un segnalino crollo verso gli altri POV (tranne quello da cui arrivi).",
+'dungeon_msg_29': "Da questa parte il soffitto ha ceduto.",
+'dungeon_msg_30': "La via verso il POV {} è libera. \n",
+'dungeon_msg_31': "Un click proviene dalle tue spalle. Un porta segreta si apre sulla stanza {}. Tra te e la porta appare un pozzo trabocchetto. Lancia un dado da combattimento per ogni punto mente. Se fai DUE schudi riesci a bloccare il meccanismo. Altrimenti piazza un segnalino trabocchette tra te e la porta.",
+'dungeon_msg_32': "Un mostro errante ti attacca provenendo dalla direzione della stanza {}.",
+'dungeon_msg_33': "Tutto tace alle tue spalle.",
+'dungeon_msg_34' : "Scrutando meglio indietro ti accorgi della presenza di porte che non avevi notato.",
+'dungeon_msg_35' : "La via verso il POV {} è chiusa. Metti un segnalino crollo",
+'dungeon_msg_36' : "La via prosegue verso il POV {}.",
 'treasures_msg_1' : "Pesca una carta dal mazzo dei Tesori.",
 'treasures_msg_2' : "Dopo una attenta ricerca forse hai trovato qualcosa. Scopri cosa contiere il tesoro.",
 'treasures_msg_3' : "Mentre cerchi tra vecchi stracci e ossa di sorcio, senti uno scatto: un dardo ti colpisce e perdi 1 punto corpo (Ignora questa istruzione se hai cercato trabocchetti in questa stanza.",
@@ -56,36 +74,36 @@ data = {
 'monsters_msg_3' : "Il mostro errante in questa avventura è ",
 'monsters_msg_4' : "Un mostro errante richiamato dai rumori appare alle tue spalle e ti attacca subito.",
 'monsters_msg_5' : "La felicità per aver trovato il tuo obbiettivo dura poco...Senti un fetore e un gorgoglio strano provenire dalle tue spalle. Un mostro errante ti coglie di sorpresa e ti attacca subito; pensi: Anche oggi tocca fare gli straordinari!",
+'monsters_msg_6':'Attacco del mostro:\n{}',
 'monsters_msg_close' : " prepararsi alla battaglia! Imbracciate le armi. Combattete! Cooombatteeette!",
 'monsters_msg_first_room' : "Tutto sembra tranquillo, ma il fetore del passaggio di qualche immonda creatura sembra molto chiaro. Meglio stare in allerta.",
+"position_dict": {"1": 'a sinistra',
+                  "2": 'a destra',
+                  "3": 'sul fondo',
+                  "4": 'al centro della stanza',
+                  "5": 'davanti a te'},
 
-'position_dict': {1: 'a sinistra',
-                  2: 'a destra',
-                  3: 'sul fondo',
-                  4: 'al centro della stanza',
-                  5: 'davanti a te'},
 
-
-'treasures_card_dict' :  {1: "La pietra che avete sotto i piedi comincia a spostarsi e vi accorgete, troppo tardi, che si tratta di un trabocchetto. Cascate in uns buca piena di spuntoni e perdete 1 punto-corpo, ma al vostro prossimo turno potrete venire fuori e ricominciare a giocare normalmente.",
-                     2: "La leggera pressione di un filo contro le gambe vi fa prima vacillare, poi girare...ma troppo tardi! Perdete 1 punto-corpo a causa di una freccia lanciata da una balestra nascosta dentro un muro",
-                     3: "State cercando qualcosa e fate scattare inavvertitamente una trappola che vi scaglia addosso un dardo da dentro un muro. Perdete 1 punto-corpo.",
-                     4: "Da uno scaffale polveroso tirate giù uno strano flacone. Ripulendolo vi accorgete che si tratta di una pozione magica. Potrete berla in qualsiasi momento ed essa vi permetterà, al vostro prossimo movimento, di tirare un numero di dadi doppio rispetto al normale. La carta va scartata dopo l'uso.",
-                     5: "Avvolta in un mucchio di stracci trovate una bottiglietta colma di un liquido che si rivela essere una pozione risanante. Potrete berla in qualsiasi momento ed essa vi farà riguardagnare fino a 4 punti-corpo perduti. La carta va scartata dopo l'uso.",
-                     6: "Scoprite una bottiglietta di color porpora. Contiene  una pozione rinforzante, che potrete bere in qualsiasi momento. Essa vi permetterà di tirare 2 dadi di combattimento in più durante la vostra prossima azione di attacco. La carta va scartata dopo l'uso.",
-                     7: "In mezzo a un gruppo di vecchie bottiglie e di bricchi in terracotta, scoprite un flaconcino trasparente con dentro una pozione del recupero. Potrete berla in qualsiasi momento, dopo di che potrete lanciare per difendervi 2 dadi da combattimento in più la prossima volta che se ne presenterà l'occasione. La carta va scartata dopo l'uso.",
-                     8: "Una sacca di pelle che pende da un muro contiene una pozione magica: l\'infuso Eroico, da bere prima dell\'attacco. Ogni Personaggio che beve la posizione sarà in grado per un turno solo, di condurre 2 attacchi invece di uno. La carta va scartata dopo l'uso.",
-                     9: "Abbandonata e dimenticata in un angolo della stanza, trovate un'ampollina d'acqua benedetta. Potrete usarla al posto di un attacco dato che eliminerà qualsiasi nonmorto, sia esso Scheletro, Zombie o Mummia. Scartare la carta dopo l'uso.",
-                     10 : "Dopo una assidua ricerca scoprite tanti piccoli mucchi d'oro sparsi in vari nascondigli. Perdete però la cognizione del tempo. Tirate allora un dado e moltiplicate il valore per 10 onde scoprire quante monete avete trovato. Saltate un turno. Riportate il totale sul retro del vostro foglio segna-punti e rimettete questa carta nel mazzo.",
-                     11: "Dietro una pietra traballante trovate un borsellino di cuoio avvolto in un vecchio straccio. Lo aprite e e vi trovate 50 monete d'oro! Riportate la cifra sul retro del vostro foglio segna-punti e rimettete questa carta nel mazzo del tesoro.",
-                     12: "Dopo aver frugato in vari cassetti trovate 20 monete d'oro. Riportate la cifra sul retro del vostro foglio segna punti e rimettete questa carta nel mazzo del tesoro.",
-                     13: "Qualcuno ha stupidamente lasciato in vista una scatoletta contenente 25 onete d'oro. Segnate il valore sul retro del foglio segna punti e riponete la carta nel mazzo del tesoro.",
-                     14: "Tra un mucchio di cianfrusaglie, vecchi cenci sporchi e bisunte coperte trovate 25 monete d'oro. Registrate il valore sul retro del foglio segna punti e riponete questa carta nel mazzo del tesoro.",
-                     15: "Un magro bottino di sole 10 monete d'oro è stato trovato nel taschino di un logoro puzzolente gilet. Registrate il valore sul retro del foglio segna punti e riponete la carta nel mazzo del tesoro.",
-                     16: "La fortuna è dalla vostra! In un piccolo scrigno, nascostro sotto ad una vecchia pelliccia, scoprite 100 monete d'oro. Dopo averle registrate sul retro del vostro foglio segna-punti rimettete la carta nel mazzo del tesoro.",
-                     17: "Avete trovato una vecchia cassettina di legno tarlato che, all\'interno, è foderata di raso rosso e contiene gioielli del valore di 50 monete d'oro. Riportate la cifra sul retro del vostro foglio segna-punti e rimettete questa carta nel mazzo del tesoro.",
-                     18: "Nascosta dentro la punta di un vecchio stivale trovate una pietra preziosa del valore di 50 monete d'oro. Segnate il valore sul retro del foglio segna-punti e riponete la carta nel mazzo del tesoro.",
-                     19: "Mentre siete occupati nella ricerca un mostro vi soprende furtivamente alle spalle e vi attacca. Lo Stregone dovrà mettere il mostro errante, menzionato per questa avventura nel libro delle imprese, in una casella qualsiasi a te adiacente. Il mostro vi attaccherà subito.",
-                     20: "Nonostante abbiate cercato ovunque non trovate ... niente!"},
+'treasures_card_dict' :  {"1": "La pietra che avete sotto i piedi comincia a spostarsi e vi accorgete, troppo tardi, che si tratta di un trabocchetto. Cascate in uns buca piena di spuntoni e perdete 1 punto-corpo, ma al vostro prossimo turno potrete venire fuori e ricominciare a giocare normalmente.",
+                     "2": "La leggera pressione di un filo contro le gambe vi fa prima vacillare, poi girare...ma troppo tardi! Perdete 1 punto-corpo a causa di una freccia lanciata da una balestra nascosta dentro un muro",
+                     "3": "State cercando qualcosa e fate scattare inavvertitamente una trappola che vi scaglia addosso un dardo da dentro un muro. Perdete 1 punto-corpo.",
+                     "4": "Da uno scaffale polveroso tirate giù uno strano flacone. Ripulendolo vi accorgete che si tratta di una pozione magica. Potrete berla in qualsiasi momento ed essa vi permetterà, al vostro prossimo movimento, di tirare un numero di dadi doppio rispetto al normale. La carta va scartata dopo l'uso.",
+                     "5": "Avvolta in un mucchio di stracci trovate una bottiglietta colma di un liquido che si rivela essere una pozione risanante. Potrete berla in qualsiasi momento ed essa vi farà riguardagnare fino a 4 punti-corpo perduti. La carta va scartata dopo l'uso.",
+                     "6": "Scoprite una bottiglietta di color porpora. Contiene  una pozione rinforzante, che potrete bere in qualsiasi momento. Essa vi permetterà di tirare 2 dadi di combattimento in più durante la vostra prossima azione di attacco. La carta va scartata dopo l'uso.",
+                     "7": "In mezzo a un gruppo di vecchie bottiglie e di bricchi in terracotta, scoprite un flaconcino trasparente con dentro una pozione del recupero. Potrete berla in qualsiasi momento, dopo di che potrete lanciare per difendervi 2 dadi da combattimento in più la prossima volta che se ne presenterà l'occasione. La carta va scartata dopo l'uso.",
+                     "8": "Una sacca di pelle che pende da un muro contiene una pozione magica: l\'infuso Eroico, da bere prima dell\'attacco. Ogni Personaggio che beve la posizione sarà in grado per un turno solo, di condurre 2 attacchi invece di uno. La carta va scartata dopo l'uso.",
+                     "9": "Abbandonata e dimenticata in un angolo della stanza, trovate un'ampollina d'acqua benedetta. Potrete usarla al posto di un attacco dato che eliminerà qualsiasi nonmorto, sia esso Scheletro, Zombie o Mummia. Scartare la carta dopo l'uso.",
+                     "10" : "Dopo una assidua ricerca scoprite tanti piccoli mucchi d'oro sparsi in vari nascondigli. Perdete però la cognizione del tempo. Tirate allora un dado e moltiplicate il valore per 10 onde scoprire quante monete avete trovato. Saltate un turno. Riportate il totale sul retro del vostro foglio segna-punti e rimettete questa carta nel mazzo.",
+                     "11": "Dietro una pietra traballante trovate un borsellino di cuoio avvolto in un vecchio straccio. Lo aprite e e vi trovate 50 monete d'oro! Riportate la cifra sul retro del vostro foglio segna-punti e rimettete questa carta nel mazzo del tesoro.",
+                     "12": "Dopo aver frugato in vari cassetti trovate 20 monete d'oro. Riportate la cifra sul retro del vostro foglio segna punti e rimettete questa carta nel mazzo del tesoro.",
+                     "13": "Qualcuno ha stupidamente lasciato in vista una scatoletta contenente 25 onete d'oro. Segnate il valore sul retro del foglio segna punti e riponete la carta nel mazzo del tesoro.",
+                     "14": "Tra un mucchio di cianfrusaglie, vecchi cenci sporchi e bisunte coperte trovate 25 monete d'oro. Registrate il valore sul retro del foglio segna punti e riponete questa carta nel mazzo del tesoro.",
+                     "15": "Un magro bottino di sole 10 monete d'oro è stato trovato nel taschino di un logoro puzzolente gilet. Registrate il valore sul retro del foglio segna punti e riponete la carta nel mazzo del tesoro.",
+                     "16": "La fortuna è dalla vostra! In un piccolo scrigno, nascostro sotto ad una vecchia pelliccia, scoprite 100 monete d'oro. Dopo averle registrate sul retro del vostro foglio segna-punti rimettete la carta nel mazzo del tesoro.",
+                     "17": "Avete trovato una vecchia cassettina di legno tarlato che, all\'interno, è foderata di raso rosso e contiene gioielli del valore di 50 monete d'oro. Riportate la cifra sul retro del vostro foglio segna-punti e rimettete questa carta nel mazzo del tesoro.",
+                     "18": "Nascosta dentro la punta di un vecchio stivale trovate una pietra preziosa del valore di 50 monete d'oro. Segnate il valore sul retro del foglio segna-punti e riponete la carta nel mazzo del tesoro.",
+                     "19": "Mentre siete occupati nella ricerca un mostro vi soprende furtivamente alle spalle e vi attacca. Lo Stregone dovrà mettere il mostro errante, menzionato per questa avventura nel libro delle imprese, in una casella qualsiasi a te adiacente. Il mostro vi attaccherà subito.",
+                     "20": "Nonostante abbiate cercato ovunque non trovate ... niente!"},
 
 'fornitures_dict': {1: "uno scrigno",
                     2: "un trono",
@@ -150,6 +168,8 @@ data = {
   'aux_msg_10': 'Fino a qui tutto tranquillo...',
   'aux_msg_11': 'Per ora nessun problema... ma attento ai trabocchetti!!!',
   'aux_msg_12': 'I mostri si preparano alla battaglia',
+  "aux_msg_13" : "Un evento inaspettato ... ",
+  "aux_msg_14" : "Scopri se Mentor ti può soccorrere ... ",
   'end_msg_1' : 'La via d\'uscita! Noti una pietra spostata nel muro e toccandola, un rumore di ingranaggi apre una voragine nel pavimento. Hai trovato le scale per uscire!',
   'monsters_msg_intro': 'Prendi tutto il tuo coraggio e guardi dentro. Ecco cosa vedi:\n',
 
@@ -289,6 +309,9 @@ data = {
                        3: ['Il mostro con un rapido movimento raccoglie dei sassi da terra e te li scaglia in faccia infliggendoti 1 punto ferita (Ti difendi con un dado da combattimento)',
                            'Il mostro scarta di lato e ti coglie di sorpresa attancandoti (Lancia un dado da combattimento in attacco per il mostro. L\'eroe si difende normalmente.)']
                            },
+  'raid_message_1' :  'Il mostro porta con sè gli altri mostri e si precipita attraverso un passaggio segreto alla stanza {}. Se ci sono eroi dentro, ognuno di loro subisce un attacco da tutti i mostri. Mettete le porte segrete nelle due stanze per ricordare che sono unite da un tunnel segreto. ',
+  'raid_message_2' :  'Il mostro si precpita attraverso un passaggio segreto alla stanza {}. Se ci sono eroi dentro li attacca subito. Mettete le porte segrete nelle due stanze per ricordare che sono unite da un tunnel segreto.',
+
 
   'choice_dict' : {1:'più vicino {}',
                    2:'più lontano {}',
@@ -318,10 +341,11 @@ data = {
                       3 : ['not_dead', 'magical'],
                       4 : ['orc']},
 
-  'monster_types'  : ['orc','not_dead','magical']
+  'monster_types'  : ['orc','not_dead','magical'],
+
+  "random_events" : {"1" : ["Un rumore sordo arriva dalle tenebre. Una stanza deve essere crollata. (Togli tutte le porte dalla stanza nr. {}). Lancia un D6. Se fai un 2 o un 5 scopri se ci sono vie di uscita cliccando su -Show Details-", "Se vuoi riattraversare la stanza (o raggiungere le scale se erano lì), tira un dado da combattimento per ogni punto mente che ha l'eroe. Il crollo è superato se subisce 10 teschi. Si difende con 6 dadi da combattimento. Per ogni teschio che ti esce in attacco l'eroe perde un punto corpo."]}
 
 }
-
 
 # Serializing json
 json_object = json.dumps(data, indent = 4)
@@ -329,5 +353,8 @@ json_object = json.dumps(data, indent = 4)
 with open("sample.json", "w") as outfile:
     outfile.write(json_object)
 
-
+"""
+with open('samples.json', 'w') as json_file:
+  json.dump(data, json_file)
+  """
 
