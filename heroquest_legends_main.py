@@ -56,7 +56,7 @@ class Ui(QtWidgets.QMainWindow):
     CONFIG = ""
     HQ_SOLO = ""
     CURRENT_ROUND = 1
-    MONSTER_LIST = ''
+    MONSTER_LIST = ""
     TREASURES_FINDS = 0
     CHRONICLE = ""
 
@@ -91,7 +91,7 @@ class Ui(QtWidgets.QMainWindow):
 
         self.setPalette(palette )
         self.charge_list()
-        the_missions_dict = self.CONFIG_DICT['missions_dict']
+        the_missions_dict = self.CONFIG_DICT["missions_dict"]
         key_list = []
         for k in the_missions_dict.keys():
             key_list.append(str(k))
@@ -113,7 +113,7 @@ class Ui(QtWidgets.QMainWindow):
 
         dlg.exec_()
 
-        the_missions_dict = self.CONFIG_DICT['missions_dict']
+        the_missions_dict = self.CONFIG_DICT["missions_dict"]
         key_list = []
         for k in the_missions_dict.keys():
             key_list.append(str(k))
@@ -144,15 +144,16 @@ class Ui(QtWidgets.QMainWindow):
         self.MONSTER_LIST = []
 
         for value in db_monsters_charged.values():
+            value = "{}".format(value)
 
-            self.MONSTER_LIST.append(self.CONFIG_DICT['monster_name_conversion_dict'][value])
+            self.MONSTER_LIST.append(self.CONFIG_DICT["monster_name_conversion_dict"][value])
 
         self.comboBox_monster_attack.clear()
 
         self.comboBox_monster_attack.addItems(self.MONSTER_LIST)
 
         ############# CHARGE FORNITURES LIST ##############
-        fornitures_list = self.CONFIG_DICT['forniture_name_reconversion_dict']
+        fornitures_list = self.CONFIG_DICT["forniture_name_reconversion_dict"]
         self.comboBox_fornitures.addItems([*fornitures_list])
 
         ###########CHARGE DUNGEON POV ############
@@ -176,23 +177,21 @@ class Ui(QtWidgets.QMainWindow):
         mission_choosed = self.comboBox_choose_adventure.currentText()
         if mission_choosed == "":
             rng_base = random.SystemRandom()
-            mission_number_rand = rng_base.randint(1,4)
+            mission_number_rand = "{}".format(rng_base.randint(1,4))
         else:
-            mission_number_rand = int(mission_choosed)
+            mission_number_rand = "{}".format(mission_choosed)
 
-        print("Mission pressed 2")
 
         self.HQ_SOLO.special_data_mission_charged(mission_number_rand)
 
-        print("Mission pressed 3")
 
 
-        the_mission_dict = self.CONFIG_DICT['missions_dict']
+        the_mission_dict = self.CONFIG_DICT["missions_dict"]
         rng_base = random.SystemRandom()
-        wanderer_monster_number_rand = rng_base.randint(1, 7)
-        wanderer_monster = self.CONFIG_DICT['monsters_dict'][wanderer_monster_number_rand]
+        wanderer_monster_number_rand = "{}".format(rng_base.randint(1, 7))
+        wanderer_monster = self.CONFIG_DICT["monsters_dict"][wanderer_monster_number_rand]
         wanderer_monster_text = self.CONFIG_DICT['monsters_msg_3']
-        the_mission_text = '{}\n{}{}'.format(the_mission_dict[mission_number_rand][1],wanderer_monster_text,wanderer_monster)
+        the_mission_text = "{}\n{}{}".format(the_mission_dict[mission_number_rand][1],wanderer_monster_text,wanderer_monster)
         self.textEdit_the_mission.setText(the_mission_text)
         self.QLabel_the_title.setText(the_mission_dict[mission_number_rand][0])
 
@@ -257,10 +256,13 @@ class Ui(QtWidgets.QMainWindow):
         self.textEdit_messages.setText("")
         current_POV = self.comboBox_pov.currentText()
         if current_POV not in self.HQ_SOLO.POINT_OF_VIEW_EXPLORED:
+            print("not in POV")
             self.HQ_SOLO.POINT_OF_VIEW_EXPLORED.append(current_POV)
+            print(type(current_POV))
             msg += self.HQ_SOLO.how_is_the_dungeon(current_POV, self.CURRENT_ROUND)
             msg += '\n'+self.HQ_SOLO.random_monsters_on_aisles(self.CURRENT_ROUND)
         else:
+            print("in POV")
             msg += self.HQ_SOLO.random_monsters_on_aisles(self.CURRENT_ROUND)
         random_trap = self.HQ_SOLO.random_trap(self.CURRENT_ROUND)
         message = "{}\n{}".format(random_trap, msg)
@@ -323,22 +325,43 @@ class Ui(QtWidgets.QMainWindow):
         a new room. If the room is explored, something can happen: monsters, traps, etc."""
         #msg_room = '' #TODO DELETE???
         #random_trap = '' #TODO DELETE???
+        print("room 1")
 
         self.textEdit_messages.setText("")
+        print("room 2")
         room_to_explore = self.comboBox_room_n.currentText()
+        print("room 3")
+
         self.HQ_SOLO.ROOMS_EXPLORED_LAST_TURN = room_to_explore
+        print("room 4")
 
         if room_to_explore in self.HQ_SOLO.ROOMS_EXPLORED:
+            print("room 4.1")
+
             room_explored = 1
             random_trap = self.HQ_SOLO.random_trap(self.CURRENT_ROUND)
+            print("room 4.2")
+
             msg_trap = random_trap
             self.set_chronicle(msg_trap)
+            print("room 4.3")
+
         else:
+            print("room 4.17")
+
             room_explored = 0
             self.HQ_SOLO.ROOMS_EXPLORED.append(room_to_explore)
+            print("room 4.7")
+
         current_turn = int(self.lineEdit_round.text())
+        print("room 4.9")
+
         room_dimension = str(self.HQ_SOLO.ROOMS_NUM_TILES[str(room_to_explore)])
+        print("room 4.10")
+
         msg_temp = self.HQ_SOLO.room_generator(room_dimension, current_turn, room_explored)
+        print("room 4.11")
+
         if current_turn == 1 or current_turn == 2:
             msg_room = self.HQ_SOLO.CONFIG_DICT['aux_msg_1'].format(msg_temp[0])
             random_trap = self.HQ_SOLO.random_trap(self.CURRENT_ROUND)

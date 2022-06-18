@@ -84,7 +84,7 @@ class AdventurePanelSettings(QDialog, MAIN_DIALOG_CLASS):
 
 
     def on_pushButton_charge_adventure_pressed(self):
-        mission_number = int(self.comboBox_id.currentText())
+        mission_number = "{}".format(self.comboBox_id.currentText())
         the_missions = self.DICT['missions_dict'][mission_number]
         the_title = the_missions[0]
         description = the_missions[1]
@@ -379,8 +379,9 @@ class AdventurePanelSettings(QDialog, MAIN_DIALOG_CLASS):
         id_list.sort()
         max_num_index = len(id_list)-1
         max_num_id = id_list[max_num_index]+1
+        max_num_id_str = "{}".format(max_num_id)
 
-        return max_num_id
+        return max_num_id_str
 
     def lock_fields(self):
         self.setComboBoxEnable(["self.comboBox_id"], "False")

@@ -1,10 +1,6 @@
-#! /usr/bin/env python
-# -*- coding: utf-8 -*-
-import json
-
-data = {
-'the_begin_msg_1': "DOPO UNA LUNGA DISCESA AL BUIO, GLI EROI SBUCANO IN UN FETIDO CORRIDOIO. (Metti gli eroi sul POV {}). PER VINCERE GLI EROI DEVONO TORNARE IN QUESTO PUNTO E FUGGIRE DAL CUNICOLO DA CUI SONO ARRIVATI",
-'the_begin_msg_2': "COL CUORE IN GOLA SIETE RIUSCITI AD INTRUFOLARVI E LA LUNGA SCALA VI HA FATTO ARRIVARE IN QUESTA STANZA (Metti la scala e gli eroi nella stanza {}). UNA PORTA CHIUSA SEMBRA ESSERE L'UNICA USCITA DA QUI PER PROSEGUIRE NELLA VOSTRA IMPRESA (Mettete una porta verso il corridio {}). PER VINCERE GLI EROI DEVONO TORNARE IN QUESTO PUNTO E FUGGIRE DALLE SCALE DA CUI SONO ARRIVATI",
+{
+"the_begin_msg_1": "DOPO UNA LUNGA DISCESA AL BUIO, GLI EROI SBUCANO IN UN FETIDO CORRIDOIO. (Metti gli eroi sul POV {}). PER VINCERE GLI EROI DEVONO TORNARE IN QUESTO PUNTO E FUGGIRE DAL CUNICOLO DA CUI SONO ARRIVATI",
+"the_begin_msg_2": "COL CUORE IN GOLA SIETE RIUSCITI AD INTRUFOLARVI E LA LUNGA SCALA VI HA FATTO ARRIVARE IN QUESTA STANZA (Metti la scala e gli eroi nella stanza {}). UNA PORTA CHIUSA SEMBRA ESSERE L'UNICA USCITA DA QUI PER PROSEGUIRE NELLA VOSTRA IMPRESA (Mettete una porta verso il corridio {}). PER VINCERE GLI EROI DEVONO TORNARE IN QUESTO PUNTO E FUGGIRE DALLE SCALE DA CUI SONO ARRIVATI",
 'chronicle_msg': '-- TURNO {} -- \n --- {} ---- \n\n {} \n\n --- \n\n {}',
 'aisles_msg_1': "Dal fondo del corrido io arriva una luce fioca, forse troverai altre stanze?",
 'aisles_msg_2' : "Il soffitto è crollato e il corridoio è bloccato (blocca la strada con uno o più segnalini crollo accanto all'ultima porta). O tornare indietro o entrare. Che cosa ti dice di fare l\'istinto?",
@@ -91,7 +87,7 @@ data = {
                      "5": "Avvolta in un mucchio di stracci trovate una bottiglietta colma di un liquido che si rivela essere una pozione risanante. Potrete berla in qualsiasi momento ed essa vi farà riguardagnare fino a 4 punti-corpo perduti. La carta va scartata dopo l'uso.",
                      "6": "Scoprite una bottiglietta di color porpora. Contiene  una pozione rinforzante, che potrete bere in qualsiasi momento. Essa vi permetterà di tirare 2 dadi di combattimento in più durante la vostra prossima azione di attacco. La carta va scartata dopo l'uso.",
                      "7": "In mezzo a un gruppo di vecchie bottiglie e di bricchi in terracotta, scoprite un flaconcino trasparente con dentro una pozione del recupero. Potrete berla in qualsiasi momento, dopo di che potrete lanciare per difendervi 2 dadi da combattimento in più la prossima volta che se ne presenterà l'occasione. La carta va scartata dopo l'uso.",
-                     "8": "Una sacca di pelle che pende da un muro contiene una pozione magica: l\'infuso Eroico, da bere prima dell\'attacco. Ogni Personaggio che beve la posizione sarà in grado per un turno solo, di condurre 2 attacchi invece di uno. La carta va scartata dopo l'uso.",
+                     "8": "Una sacca di pelle che pende da un muro contiene una pozione magica: l'infuso Eroico, da bere prima dell'attacco. Ogni Personaggio che beve la posizione sarà in grado per un turno solo, di condurre 2 attacchi invece di uno. La carta va scartata dopo l'uso.",
                      "9": "Abbandonata e dimenticata in un angolo della stanza, trovate un'ampollina d'acqua benedetta. Potrete usarla al posto di un attacco dato che eliminerà qualsiasi nonmorto, sia esso Scheletro, Zombie o Mummia. Scartare la carta dopo l'uso.",
                      "10" : "Dopo una assidua ricerca scoprite tanti piccoli mucchi d'oro sparsi in vari nascondigli. Perdete però la cognizione del tempo. Tirate allora un dado e moltiplicate il valore per 10 onde scoprire quante monete avete trovato. Saltate un turno. Riportate il totale sul retro del vostro foglio segna-punti e rimettete questa carta nel mazzo.",
                      "11": "Dietro una pietra traballante trovate un borsellino di cuoio avvolto in un vecchio straccio. Lo aprite e e vi trovate 50 monete d'oro! Riportate la cifra sul retro del vostro foglio segna-punti e rimettete questa carta nel mazzo del tesoro.",
@@ -100,7 +96,7 @@ data = {
                      "14": "Tra un mucchio di cianfrusaglie, vecchi cenci sporchi e bisunte coperte trovate 25 monete d'oro. Registrate il valore sul retro del foglio segna punti e riponete questa carta nel mazzo del tesoro.",
                      "15": "Un magro bottino di sole 10 monete d'oro è stato trovato nel taschino di un logoro puzzolente gilet. Registrate il valore sul retro del foglio segna punti e riponete la carta nel mazzo del tesoro.",
                      "16": "La fortuna è dalla vostra! In un piccolo scrigno, nascostro sotto ad una vecchia pelliccia, scoprite 100 monete d'oro. Dopo averle registrate sul retro del vostro foglio segna-punti rimettete la carta nel mazzo del tesoro.",
-                     "17": "Avete trovato una vecchia cassettina di legno tarlato che, all\'interno, è foderata di raso rosso e contiene gioielli del valore di 50 monete d'oro. Riportate la cifra sul retro del vostro foglio segna-punti e rimettete questa carta nel mazzo del tesoro.",
+                     "17": "Avete trovato una vecchia cassettina di legno tarlato che, all'interno, è foderata di raso rosso e contiene gioielli del valore di 50 monete d'oro. Riportate la cifra sul retro del vostro foglio segna-punti e rimettete questa carta nel mazzo del tesoro.",
                      "18": "Nascosta dentro la punta di un vecchio stivale trovate una pietra preziosa del valore di 50 monete d'oro. Segnate il valore sul retro del foglio segna-punti e riponete la carta nel mazzo del tesoro.",
                      "19": "Mentre siete occupati nella ricerca un mostro vi soprende furtivamente alle spalle e vi attacca. Lo Stregone dovrà mettere il mostro errante, menzionato per questa avventura nel libro delle imprese, in una casella qualsiasi a te adiacente. Il mostro vi attaccherà subito.",
                      "20": "Nonostante abbiate cercato ovunque non trovate ... niente!"},
@@ -111,7 +107,7 @@ data = {
                     4: "una libreria",
                     5: "un caminetto",
                     6: "un tavolo di tortura",
-                    7: "un tavolo dell\'alchimista",
+                    7: "un tavolo dell'alchimista",
                     8: "un bancone del mago",
                     9: "una tomba",
                     10: "una rastrelliera",
@@ -170,7 +166,7 @@ data = {
   'aux_msg_12': 'I mostri si preparano alla battaglia',
   "aux_msg_13" : "Un evento inaspettato ... ",
   "aux_msg_14" : "Scopri se Mentor ti può soccorrere ... ",
-  'end_msg_1' : 'La via d\'uscita! Noti una pietra spostata nel muro e toccandola, un rumore di ingranaggi apre una voragine nel pavimento. Hai trovato le scale per uscire!',
+  'end_msg_1' : "La via d'uscita! Noti una pietra spostata nel muro e toccandola, un rumore di ingranaggi apre una voragine nel pavimento. Hai trovato le scale per uscire!",
   'monsters_msg_intro': 'Prendi tutto il tuo coraggio e guardi dentro. Ecco cosa vedi:\n',
 
 
@@ -273,9 +269,9 @@ data = {
                                                   "Una custodia voluminosa attira la vostra attenzione: la aprite con cautela e...meraviglia! Avete trovato una sborsa degli attrezzi che vi farà ritirare un dado da combattimento a scelta nel caso cadiate in una trappola.",
                                                   "Mentre cercate dentro all\'armadio fate scattare un meccanismo. L\'armadio si sposta e vi rivela una porta segreta"],
                               'bookcase'       : ["Un voluminoso tomo contiene tantissime formule utili. Purtroppo non c\'è tempo per studiarle tutte: vi appuntate una formula per guarire un vostro compagno di avventura con +1 punto corpo.",
-                                                  "Non c'è tempo per indugiare tra questi polverosi libri. Ne prendete un po' sperando che valgano qualcosa. Alla fine dell\'avventura tirate due D6 e moltiplicate il valore per 10: sarà il vostro guadagno per rivendere i libri al vecchio mercato di Aman Sur.",
-                                                  "Cercando tra i libri un grosso tomo rosso scuro attira la vostra attenzione: tirandolo a voi fa scattare un meccanismo che rivela una porta (mettetela preferibilmente verso una stanza inesplorata o ancora senza accessi"],
-                              'chimney'        : ["Un meccanismo nastosco nel camino fa aprire un porta segreta che vi conduce in una stanza inesplorata o ancora senza accessi",
+                                                  "Non c\'è tempo per indugiare tra questi polverosi libri. Ne prendete un po\' sperando che valgano qualcosa. Alla fine dell\'avventura tirate due D6 e moltiplicate il valore per 10: sarà il vostro guadagno per rivendere i libri al vecchio mercato di Aman Sur.",
+                                                  "Cercando tra i libri un grosso tomo rosso scuro attira la vostra attenzione: tirandolo a voi fa scattare un meccanismo che rivela una porta (mettetela preferibilmente verso una stanza inesplorata o ancora senza accessi (se tutte le stanze intorno hanno accessi mettete l\'altra porta in una stanza lontana che non comunica con niente)"],
+                              'chimney'        : ["Un meccanismo nastosco nel camino fa aprire un porta segreta che vi conduce in una stanza inesplorata o ancora senza accessi (se tutte le stanze intorno hanno accessi mettete l\'altra porta in una stanza lontana che non comunica con niente)",
                                                   "Appoggiata sul caminetto trovate una fiala con all\'interno dell\'elisir del coraggio che vi danno +2 dadi da combattimento al prossimo scronto.",
                                                   "Tra i tizzoni ardenti notate una pergamena sbruciacchiata: è una mappa che vi conduce ad un tesoro. La mappa recità così: trova la libreria dell\'alchimista, lì vi è una gemma di inestimabile valore. Il primo che trova e arriva ad una casella adiacente ad una libreria o fa ritorno ad una libreria già trovata, conquista la gemma da 500 monete d'oro"],
                               'torture_table'  : ["Hai trovato una spada arrugginita (+ 1 dado da combattimento in attacco)",
@@ -343,18 +339,6 @@ data = {
 
   'monster_types'  : ['orc','not_dead','magical'],
 
-  "random_events" : {"1" : ["Un rumore sordo arriva dalle tenebre. Una stanza deve essere crollata. (Togli tutte le porte dalla stanza nr. {}). Lancia un D6. Se fai un 2 o un 5 scopri se ci sono vie di uscita cliccando su -Show Details-", "Se vuoi riattraversare la stanza (o raggiungere le scale se erano lì), tira un dado da combattimento per ogni punto mente che ha l'eroe. Il crollo è superato se subisce 10 teschi. Si difende con 6 dadi da combattimento. Per ogni teschio che ti esce in attacco l'eroe perde un punto corpo."]}
+  "random_events" : {"1" : ["Un rumore sordo arriva dalle tenebre. Una stanza deve essere crollata. (Togli tutte le porte dalla stanza nr. {}). Lancia un D6. Se fai un 2 o un 5 scopri se ci sono vie di uscita cliccando su -Show Details-", "Se vuoi riattraversare la stanza (o raggiungere le scale se erano lì), tira un dado da combattimento per ogni punto mente che ha l'eroe. Il crollo è superato se subisce 10 teschi. Si difende con 6 dadi da combattimento. Per ogni scudo nero che ti esce in attacco l'eroe perde un punto corpo."]}
 
 }
-
-# Serializing json
-json_object = json.dumps(data, indent = 4)
-# Writing to sample.json
-with open("sampleb.json", "w") as outfile:
-    outfile.write(json_object)
-
-
-with open('samples.json', 'w') as json_file:
-  json.dump(data, json_file)
-
-

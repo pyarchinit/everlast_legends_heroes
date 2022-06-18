@@ -104,147 +104,147 @@ class Heroquest_solo:
     db_monsters_charged = db_monsters_query.fetchall()
 
 
-    FORNITURES_QTY_DICT = {1:db_fornitures_charged[0][2],
-                           2:db_fornitures_charged[1][2],
-                           3:db_fornitures_charged[2][2],
-                           4:db_fornitures_charged[3][2],
-                           5:db_fornitures_charged[4][2],
-                           6:db_fornitures_charged[5][2],
-                           7:db_fornitures_charged[6][2],
-                           8:db_fornitures_charged[7][2],
-                           9:db_fornitures_charged[8][2],
-                           10:db_fornitures_charged[9][2],
-                           11:db_fornitures_charged[10][2],
-                           12:db_fornitures_charged[11][2],
-                           13:db_fornitures_charged[12][2]}
+    FORNITURES_QTY_DICT = {"1":db_fornitures_charged[0][2],
+                           "2":db_fornitures_charged[1][2],
+                           "3":db_fornitures_charged[2][2],
+                           "4":db_fornitures_charged[3][2],
+                           "5":db_fornitures_charged[4][2],
+                           "6":db_fornitures_charged[5][2],
+                           "7":db_fornitures_charged[6][2],
+                           "8":db_fornitures_charged[7][2],
+                           "9":db_fornitures_charged[8][2],
+                           "10":db_fornitures_charged[9][2],
+                           "11":db_fornitures_charged[10][2],
+                           "12":db_fornitures_charged[11][2],
+                           "13":db_fornitures_charged[12][2]}
 
-    MONSTERS_QTY_DICT = {1:db_monsters_charged[0][2],
-                         2:db_monsters_charged[1][2],
-                         3:db_monsters_charged[2][2],
-                         4:db_monsters_charged[3][2],
-                         5:db_monsters_charged[4][2],
-                         6:db_monsters_charged[5][2],
-                         7:db_monsters_charged[6][2],
-                         8:db_monsters_charged[7][2],
-                         9:db_monsters_charged[8][2]}
+    MONSTERS_QTY_DICT = {"1":db_monsters_charged[0][2],
+                         "2":db_monsters_charged[1][2],
+                         "3":db_monsters_charged[2][2],
+                         "4":db_monsters_charged[3][2],
+                         "5":db_monsters_charged[4][2],
+                         "6":db_monsters_charged[5][2],
+                         "7":db_monsters_charged[6][2],
+                         "8":db_monsters_charged[7][2],
+                         "9":db_monsters_charged[8][2]}
 
-    MONSTERS_COMBAT_VALUES_DICT = {1:db_monsters_charged[0][4],
-                                   2:db_monsters_charged[1][4],
-                                   3:db_monsters_charged[2][4],
-                                   4:db_monsters_charged[3][4],
-                                   5:db_monsters_charged[4][4],
-                                   6:db_monsters_charged[5][4],
-                                   7:db_monsters_charged[6][4],
-                                   8:db_monsters_charged[7][4],
-                                   9:db_monsters_charged[8][4]}
+    MONSTERS_COMBAT_VALUES_DICT = {"1":db_monsters_charged[0][4],
+                                   "2":db_monsters_charged[1][4],
+                                   "3":db_monsters_charged[2][4],
+                                   "4":db_monsters_charged[3][4],
+                                   "5":db_monsters_charged[4][4],
+                                   "6":db_monsters_charged[5][4],
+                                   "7":db_monsters_charged[6][4],
+                                   "8":db_monsters_charged[7][4],
+                                   "9":db_monsters_charged[8][4]}
 
-    MONSTERS_CATEGORY = {1:db_monsters_charged[0][1],
-                         2:db_monsters_charged[1][1],
-                         3:db_monsters_charged[2][1],
-                         4:db_monsters_charged[3][1],
-                         5:db_monsters_charged[4][1],
-                         6:db_monsters_charged[5][1],
-                         7:db_monsters_charged[6][1],
-                         8:db_monsters_charged[7][1],
-                         9:db_monsters_charged[8][1]
+    MONSTERS_CATEGORY = {"1":db_monsters_charged[0][1],
+                         "2":db_monsters_charged[1][1],
+                         "3":db_monsters_charged[2][1],
+                         "4":db_monsters_charged[3][1],
+                         "5":db_monsters_charged[4][1],
+                         "6":db_monsters_charged[5][1],
+                         "7":db_monsters_charged[6][1],
+                         "8":db_monsters_charged[7][1],
+                         "9":db_monsters_charged[8][1]
                          }
 
     """DATA FROM INTERNAL DICT FOR DUNGEON GENERATION"""
     POINT_OF_VIEW = {
-        'A': ('1', '4'),
-        'B': ('1', '2'),
-        'C': ('2', '3'),
-        'D': ('3', '4'),
-        'E': ('1', '5', '6'),
-        'F': ('2', '6', '7'),
-        'G': ('3', '7', '8'),
-        'H': ('4', '5', '8'),
-        '1': ('A', 'B', 'E'),
-        '2': ('B', 'C', 'F'),
-        '3': ('C', 'D', 'G'),
-        '4': ('A', 'D', 'H'),
-        '5': ('E', 'H'),
-        '6': ('E', 'F'),
-        '7': ('F', 'G'),
-        '8': ('G', 'H')}
+        "A": ("1", "4"),
+        "B": ("1", "2"),
+        "C": ("2", "3"),
+        "D": ("3", "4"),
+        "E": ("1", "5", "6"),
+        "F": ("2", "6", "7"),
+        "G": ("3", "7", "8"),
+        "H": ("4", "5", "8"),
+        "1": ("A", "B", "E"),
+        "2": ("B", "C", "F"),
+        "3": ("C", "D", "G"),
+        "4": ("A", "D", "H"),
+        "5": ("E", "H"),
+        "6": ("E", "F"),
+        "7": ("F", "G"),
+        "8": ("G", "H")}
 
     DUNGEON_TO_ROOM = {
-        'A1': ('401', '402', '403'),
-        'B1': ('301', '302', '303'),
-        'B2': ('301', '304'),
-        'C2': ('201', '204'),
-        'C3': ('201', '202', '203'),
-        'D3': ('101', '102', '103'),
-        'D4': ('101', '104'),
-        'A4': ('401', '404'),
-        'E1': ('303', '403', '501'),
-        'E5': ('403', '406', '501'),
-        'E6': ('303', '305', '501'),
-        'F2': ('204', '205', '304', '305', '501'),
-        'F6': ('303', '305', '501'),
-        'F7': ('203', '205', '501'),
-        'G3': ('103', '203', '501'),
-        'G7': ('203', '205', '501'),
-        'G8': ('103', '105', '501'),
-        'H4': ('104', '105', '404', '405', '406', '501'),
-        'H5': ('403', '406', '501'),
-        'H8': ('103', '105', '501')}
+        "A1": ("401", "402", "403"),
+        "B1": ("301", "302", "303"),
+        "B2": ("301", "304"),
+        "C2": ("201", "204"),
+        "C3": ("201", "202", "203"),
+        "D3": ("101", "102", "103"),
+        "D4": ("101", "104"),
+        "A4": ("401", "404"),
+        "E1": ("303", "403", "501"),
+        "E5": ("403", "406", "501"),
+        "E6": ("303", "305", "501"),
+        "F2": ("204", "205", "304", "305", "501"),
+        "F6": ("303", "305", "501"),
+        "F7": ("203", "205", "501"),
+        "G3": ("103", "203", "501"),
+        "G7": ("203", "205", "501"),
+        "G8": ("103", "105", "501"),
+        "H4": ("104", "105", "404", "405", "406", "501"),
+        "H5": ("403", "406", "501"),
+        "H8": ("103", "105", "501")}
 
     ROOM_TO_ROOM = {
-        '101': ('102', '104'),
-        '102': ('101', '103', '105'),
-        '103': ('102', '105'),
-        '104': ('101', '105'),
-        '105': ('102', '103', '104'),
+        "101": ("102", "104"),
+        "102": ("101", "103", "105"),
+        "103": ("102", "105"),
+        "104": ("101", "105"),
+        "105": ("102", "103", "104"),
 
-        '201': ('202', '204'),
-        '202': ('201', '203', '205'),
-        '203': ('202', '205'),
-        '204': ('201', '205'),
-        '205': ('202', '203', '204'),
+        "201": ("202", "204"),
+        "202": ("201", "203", "205"),
+        "203": ("202", "205"),
+        "204": ("201", "205"),
+        "205": ("202", "203", "204"),
 
-        '301': ('302', '304'),
-        '302': ('301', '303', '305'),
-        '303': ('302', '305'),
-        '304': ('301', '305'),
-        '305': ('302', '303', '304'),
+        "301": ("302", "304"),
+        "302": ("301", "303", "305"),
+        "303": ("302", "305"),
+        "304": ("301", "305"),
+        "305": ("302", "303", "304"),
 
-        '401': ('402', '404'),
-        '402': ('401', '403', '404', '405', '406'),
-        '403': ('402'),
-        '404': ('401', '404', '405', '406'),
-        '405': ('402', '404', '406'),
-        '406': ('402', '405')}
+        "401": ("402", "404"),
+        "402": ("401", "403", "404", "405", "406"),
+        "403": ("402"),
+        "404": ("401", "404", "405", "406"),
+        "405": ("402", "404", "406"),
+        "406": ("402", "405")}
 
     ROOM_TO_DUNGEON = {
-        '101': ('D3', 'D4'),
-        '102': ('D3'),
-        '103': ('D3', 'G3', 'G8'),
-        '104': ('D4', 'H4'),
-        '105': ('H4', 'H8'),
+        "101": ("D3", "D4"),
+        "102": ("D3"),
+        "103": ("D3", "G3", "G8"),
+        "104": ("D4", "H4"),
+        "105": ("H4", "H8"),
 
-        '201': ('C2', 'C3'),
-        '202': ('C3'),
-        '203': ('C3', 'G3', 'G7'),
-        '204': ('C2', 'F2'),
-        '205': ('F2', 'F7'),
+        "201": ("C2", "C3"),
+        "202": ("C3"),
+        "203": ("C3", "G3", "G7"),
+        "204": ("C2", "F2"),
+        "205": ("F2", "F7"),
 
-        '301': ('B1', 'B2'),
-        '302': ('B1'),
-        '303': ('B1', 'E1', 'E6'),
-        '304': ('B2', 'F2'),
-        '305': ('F2', 'F6'),
+        "301": ("B1", "B2"),
+        "302": ("B1"),
+        "303": ("B1", "E1", "E6"),
+        "304": ("B2", "F2"),
+        "305": ("F2", "F6"),
 
-        '401': ('A1', 'A4'),
-        '402': ('A1'),
-        '403': ('A1', 'E1'),
-        '404': ('A4', 'H4'),
-        '405': ('H4'),
-        '406': ('H4', 'H5'),
+        "401": ("A1", "A4"),
+        "402": ("A1"),
+        "403": ("A1", "E1"),
+        "404": ("A4", "H4"),
+        "405": ("H4"),
+        "406": ("H4", "H5"),
 
-        '501': (
-        'E1', 'E5', 'E6', 'F2', 'F6', 'F7', 'G3', 'G7', 'G8',
-        'H4', 'H5', 'H8')}
+        "501": (
+        "E1", "E5", "E6", "F2", "F6", "F7", "G3", "G7", "G8",
+        "H4", "H5", "H8")}
 
     ROOMS_NUM_TILES = {
         '101': 12,
@@ -290,16 +290,24 @@ class Heroquest_solo:
         self.monsters_dict = self.CONFIG_DICT['monsters_dict']
 
     def special_data_mission_charged(self, mn):
-        self.THE_MISSION = int(mn)
-        self.SPECIAL_ROOM_CHARGED = self.CONFIG_DICT['specials_rooms'][self.THE_MISSION]
-        self.MONSTER_CLASS = self.CONFIG_DICT['monster_class'][self.THE_MISSION]
+        self.THE_MISSION = "{}".format(mn)
+        print("THE MISSION")
+        print(self.THE_MISSION)
+        self.SPECIAL_ROOM_CHARGED = self.CONFIG_DICT["specials_rooms"][self.THE_MISSION]
+        print("SPECIAL ROOM CHARGED")
+        print(self.SPECIAL_ROOM_CHARGED)
+        self.MONSTER_CLASS = self.CONFIG_DICT["monster_class"][self.THE_MISSION]
 
         #remove_forniture_for_special_room
         id_forniture_special_room_list = self.SPECIAL_ROOM_CHARGED[0] #charge id list
+        print("special room list:"+str(id_forniture_special_room_list))
         for i in id_forniture_special_room_list:
-            tot_forniture = self.FORNITURES_QTY_DICT[i]
+            values_str = "{}".format(i)
+            print("VALUES STRS")
+            print(str(values_str))
+            tot_forniture = self.FORNITURES_QTY_DICT[values_str]
             new_tot_forniture = tot_forniture-1
-            self.FORNITURES_QTY_DICT[i] = new_tot_forniture
+            self.FORNITURES_QTY_DICT[values_str] = new_tot_forniture
 
     def charge_point_of_views(self):
         for keys in self.POINT_OF_VIEW.keys():
@@ -432,7 +440,7 @@ class Heroquest_solo:
         rng = random.SystemRandom()
         value = rng.randint(1, 2)
         rng = random.SystemRandom()
-        room_dimension = int(room_dimension)- rng.randint(1, 2)
+        room_dimension = int(room_dimension)-rng.randint(1, 2)
         self.room_dimension = int(room_dimension)/value #total of room's tiles
 
         #forniture_square_taken
@@ -449,13 +457,17 @@ class Heroquest_solo:
         forniture_numbers = rng.randint(1, 4)
         #count = 0
         #if the current turn is max or equal and the escape is founded
-
+        print("room gen 1")
         if self.room_explored == 0:
             if self.CURRENT_ROOM_COUNTER < self.MAX_ROOM_COUNTER:
                 self.CURRENT_ROOM_COUNTER += 1
         if self.current_turn >= self.TOTAL_NUMBER_OF_TURNS and self.ESCAPE_FOUND==0 and self.room_explored == 0 and self.CURRENT_ROOM_COUNTER >= self.MAX_ROOM_COUNTER:
+            print("room gen 2")
+
             msg_end = self.SPECIAL_ROOM_CHARGED[1] #Replace the number with THE_MISSION = RAND_NUM
             self.ESCAPE_FOUND = 1
+            print("room gen 3")
+
         else:
             if self.room_explored == 0: #if the room is not explored
                 count = 0 #counter
@@ -472,59 +484,77 @@ class Heroquest_solo:
                         rng_2 = random.SystemRandom()
                         id_forniture_rand_2 = rng_2.randint(1, 5)  #create a random ID for fornitures between 1 and 13
 
-                        id_forniture_rand = id_forniture_rand_1+id_forniture_rand_2
+                        id_forniture_rand = str(id_forniture_rand_1+id_forniture_rand_2)
 
                     #verify if the fornitures is still present
-                    forniture_residue = self.FORNITURES_QTY_DICT[id_forniture_rand]
+                    print("room gen 10")
+
+                    forniture_residue = self.FORNITURES_QTY_DICT[str(id_forniture_rand)]
 
                     if forniture_residue > 0:
                         # charge from DB the selected fornitures
-                        res = self.CURSOR.execute("SELECT * FROM fornitures WHERE id_forniture = %d" % id_forniture_rand)
+                        print("room gen 11")
+                        query_select = '{}{}'.format("SELECT * FROM fornitures WHERE id_forniture = ", id_forniture_rand)
+                        res = self.CURSOR.execute(query_select)
                         forniture_selected = res.fetchone()
+
+                        print("room gen 13"+query_select)
                         square_taken_temp = forniture_selected[4]
                         tot_square_taken += square_taken_temp
                         #if there is residue space in rooms
+                        print("room gen 14")
                         if tot_square_taken < self.room_dimension:
                             if count == 0:
-                                if id_forniture_rand == 11 or id_forniture_rand == 12:
+                                print("room gen 15")
+                                if id_forniture_rand == "11" or id_forniture_rand == "12":
                                     rng = random.SystemRandom()
-                                    msg_forniture = '{} {} {};'.format(msg_forniture, self.forniture_dict[id_forniture_rand],self.position_dict[str(rng.randint(1, 3))])
+                                    msg_forniture = '{} {} {};'.format(msg_forniture, self.forniture_dict[str(id_forniture_rand)],self.position_dict[str(rng.randint(1, 3))])
+                                    print("room gen 16")
                                 else:
                                     rng = random.SystemRandom()
-                                    msg_forniture = '{} {} {};'.format(msg_forniture, self.forniture_dict[id_forniture_rand],self.position_dict[str(rng.randint(1, 5))])
+                                    msg_forniture = '{} {} {};'.format(msg_forniture, self.forniture_dict[str(id_forniture_rand)],self.position_dict[str(rng.randint(1, 5))])
                                 new_forniture_residue = forniture_residue - 1
                                 self.FORNITURES_QTY_DICT[id_forniture_rand] = new_forniture_residue
                                 count = 1
                             else:
                                 rng = random.SystemRandom()
-                                msg_forniture = '{} {} {};'.format(msg_forniture, self.forniture_dict[id_forniture_rand],
+                                msg_forniture = '{} {} {};'.format(msg_forniture, self.forniture_dict[str(id_forniture_rand)],
                                                                  self.position_dict[str(rng.randint(1, 5))])
                                 new_forniture_residue = forniture_residue - 1
-                                self.FORNITURES_QTY_DICT[id_forniture_rand] = new_forniture_residue
+                                self.FORNITURES_QTY_DICT[str(id_forniture_rand)] = new_forniture_residue
                         else: #no forniture is added and the temporary squares is re added
+                            print("room gen 18")
                             tot_square_taken -= square_taken_temp
                     else: #if the forniture is not present
+                        print("room gen 19")
                         msg_forniture = msg_forniture
                 if msg_forniture != '':
+                    print("room gen 20")
                     msg_rand = rng.randint(0, 3)
                     aux_message = ['aux_msg_2', 'aux_msg_3', 'aux_msg_4', 'aux_msg_5']
                     msg_forniture = '{} {}.'.format(self.CONFIG_DICT[aux_message[msg_rand]], msg_forniture)
             else:
+                print("room gen 21")
                 msg_forniture = self.CONFIG_DICT['aux_msg_7']
 
         #generate the room
         if self.FIRST_ROOM == 1:
+            print("room gen 22")
             if self.ESCAPE_FOUND == 2:
+                print("room gen 22.1")
                 msg_monsters = self.monsters_generator_2(self.random_numbers(),tot_square_taken, self.current_turn,0)
             if self.ESCAPE_FOUND == 0:
+                print("room gen 22.2")
                 msg_monsters = self.monsters_generator_2(self.random_numbers(),tot_square_taken, self.current_turn,0)
             if self.ESCAPE_FOUND == 1:
+                print("room gen 22.3")
                 msg_monsters = self.monsters_generator_2(self.random_numbers(),tot_square_taken, self.current_turn,1)
                 self.ESCAPE_FOUND = 2
         else:
+            print("room gen 23")
             msg_monsters = self.CONFIG_DICT['monsters_msg_first_room']
             self.FIRST_ROOM = 1
-
+        print("room gen 25")
         msg_list.append(msg_forniture)
         msg_list.append(msg_monsters)
         msg_list.append(msg_end)
@@ -541,56 +571,82 @@ class Heroquest_solo:
 
         msg_monsters = ''
         monsters_msg_partial = ''
-
+        print("monst gen 1")
         if self.rv >= 20:
+            print("monst gen 2")
             return '{} {}'.format(msg_monsters, self.CONFIG_DICT['monsters_msg_2'])
         else:
+            print("monst gen 3")
+
             if self.residual_tiles >= 0 and self.residual_tiles <= 3:
+                print("monst gen 4")
                 rng_base = random.SystemRandom()
                 monsters_number = rng_base.randint(1, 2)
             elif self.residual_tiles > 3 and self.residual_tiles <= 6:
+                print("monst gen 5")
                 rng_base = random.SystemRandom()
                 monsters_number = rng_base.randint(1, 5)
             elif self.residual_tiles > 6 and self.residual_tiles <= 12:
+                print("monst gen 6")
+
                 rng_base = random.SystemRandom()
                 monsters_number = rng_base.randint(1, 6)
             elif self.residual_tiles > 12 and self.residual_tiles <= 30:
+                print("monst gen 8")
+
                 rng_base = random.SystemRandom()
                 monsters_number = rng_base.randint(4, 6)
             else:
+                print("monst gen 9")
+
                 rng_base = random.SystemRandom()
                 monsters_number = 1
+            print("monst gen 10")
             query_string_base="Select id_monster from monsters where "
             query_string_where = ""
+            print("monst class lenght: "+str(len(self.MONSTER_CLASS)))
             for cm in self.MONSTER_CLASS:
                 if query_string_where == "":
                     query_string_where = "monster_class = '{}' or monster_class LIKE '%{}' or monster_class LIKE '{}%' or monster_class LIKE '%{}%'".format(cm, cm, cm, cm)
+                    print("monst gen 10.1: "+query_string_where)
                 else:
                     query_string_where += " or monster_class = '{}' or monster_class LIKE '%{}' or monster_class LIKE '{}%' or monster_class LIKE '%{}%'".format(cm, cm, cm, cm)
-
+                    print("monst gen 10.2: " + query_string_where)
+            print("monst gen 11")
             query_string = '{} {}'.format(query_string_base, query_string_where)
+
+            print("monst gen 12")
 
             for i in range(monsters_number):
                 #choose id based on monster class
+                print("monst gen 12.1")
+                print(query_string)
                 db_monsters_class_query = self.CURSOR.execute(query_string)
+                print("monst gen 12.2")
                 db_monsters_class_charged = db_monsters_class_query.fetchall()
+                print("monst gen 12.3")
                 db_monsters_class_charged_list = []
+                print("monst gen 13")
                 for i in db_monsters_class_charged:
                     db_monsters_class_charged_list.append(i[0])
+                print("monst gen 14")
                 db_monsters_class_charged_lenght = len(db_monsters_class_charged_list)-1
                 rng = random.SystemRandom()
                 id_monster_rand = db_monsters_class_charged_list[rng.randint(0, db_monsters_class_charged_lenght)]
-                monsters_residue = int(self.MONSTERS_QTY_DICT[id_monster_rand])
+                print("monst gen 15")
+                monsters_residue = int(self.MONSTERS_QTY_DICT[str(id_monster_rand)])
+                print("monst gen 16")
                 if monsters_residue > 0:
+                    print("monst gen 17")
                     rng = random.SystemRandom()
                     monsters_msg_partial = '{} {} {};'.format(monsters_msg_partial,
-                                                              self.monsters_dict[id_monster_rand],
+                                                              self.monsters_dict[str(id_monster_rand)],
                                                               self.position_dict[str(rng.randint(1, 5))])
 
                     new_monster_residue = int(monsters_residue) - 1
 
-                    self.MONSTERS_QTY_DICT[id_monster_rand] = new_monster_residue
-
+                    self.MONSTERS_QTY_DICT[str(id_monster_rand)] = new_monster_residue
+            print("monst gen 18")
             if monsters_msg_partial != '':
                 msg_monsters = '{} {} {}'.format(self.CONFIG_DICT['monsters_msg_intro'], monsters_msg_partial, self.CONFIG_DICT['monsters_msg_close'])
             else:
@@ -636,12 +692,12 @@ class Heroquest_solo:
             db_monsters_class_charged_lenght = len(db_monsters_class_charged_list) - 1
             rng = random.SystemRandom()
             id_monster_rand = db_monsters_class_charged_list[rng.randint(0, db_monsters_class_charged_lenght)]
-            monsters_residue = self.MONSTERS_QTY_DICT[id_monster_rand]
+            monsters_residue = self.MONSTERS_QTY_DICT[str(id_monster_rand)]
 
             if monsters_residue > 0:
-                msg_monsters = self.CONFIG_DICT['aux_msg_9'].format(self.monsters_dict[id_monster_rand])
+                msg_monsters = self.CONFIG_DICT['aux_msg_9'].format(self.monsters_dict[str(id_monster_rand)])
                 new_monster_residue = monsters_residue - 1
-                self.MONSTERS_QTY_DICT[id_monster_rand] = new_monster_residue
+                self.MONSTERS_QTY_DICT[str(id_monster_rand)] = new_monster_residue
                 if msg_monsters == "":
                     return "Per ora tutto ok!" #TODO sistemare il null
                 else:
@@ -657,7 +713,9 @@ class Heroquest_solo:
         """"Receive the POV and describe where are the doors"""
         print("PUT_THE_DOORS 1")
         dungeon_id = d
+        print("PUT_THE_DOORS 3")
         rooms_tup = self.DUNGEON_TO_ROOM[dungeon_id]
+        print("PUT_THE_DOORS 4")
         rooms_list = []
         for e in rooms_tup:
             rooms_list.append(e)
@@ -667,39 +725,35 @@ class Heroquest_solo:
         door_msg = ''
         if len(rooms_list) > 0:
             for room_num in rooms_list:
-                print("room start")
-                print("room_num"+str(room_num))
                 num = self.random_numbers()
-                print(str(self.ROOMS_EXPLORED))
-                print("num"+str(num))
-                print(str(self.DOORS_TO_ROOMS_APPLIED))
-                print(str(self.FORNITURES_QTY_DICT[13]))
-                print("room end")
 
-                if num >=12 and self.FORNITURES_QTY_DICT[13]>=1 and room_num not in self.ROOMS_EXPLORED and room_num not in self.DOORS_TO_ROOMS_APPLIED:
+                if num >=12 and self.FORNITURES_QTY_DICT["13"]>=1 and room_num not in self.ROOMS_EXPLORED and room_num not in self.DOORS_TO_ROOMS_APPLIED:
                     rng = random.SystemRandom()
                     self.DOORS_TO_ROOMS_APPLIED.append(str(room_num))
                     door_type_msg = rng.randint(1, 2)
-                    print("door_type_msg"+str(door_type_msg))
                     if door_type_msg == 1:
-                        door_msg += self.CONFIG_DICT['dungeon_msg_01'].format(str(room_num))
-                        new_doors_residue = self.FORNITURES_QTY_DICT[13] - 1
-                        self.FORNITURES_QTY_DICT[11] = new_doors_residue
+                        print("Door type ms 1")
+                        door_msg += self.CONFIG_DICT["dungeon_msg_01"].format(str(room_num))
+                        new_doors_residue = self.FORNITURES_QTY_DICT["13"] - 1
+                        self.FORNITURES_QTY_DICT["11"] = new_doors_residue
                     else:
+                        print("Door msg plus")
                         door_msg += self.CONFIG_DICT['dungeon_msg_02'].format(str(room_num))
-                        new_doors_residue = self.FORNITURES_QTY_DICT[13] - 1
-                        self.FORNITURES_QTY_DICT[11] = new_doors_residue
+                        new_doors_residue = self.FORNITURES_QTY_DICT["13"] - 1
+                        self.FORNITURES_QTY_DICT["11"] = new_doors_residue
                 else:
+                    print("Door pass to verify")
                     pass #TODO VERIFY THIS PASS....
                     #door_msg += "No doors for room {}. \n".format(str(room_num))
-            print("door_msg" + str(door_msg))
+            print("door_msg 9867: " + str(door_msg))
         else:
             door_msg = self.CONFIG_DICT['dungeon_msg_22']
-
+        print("door_msg: 6587"+door_msg)
         return door_msg
 
 
     def how_is_the_dungeon(self, pv, r):
+        print("How_is_the_dungeon")
         """DESCRIBE THE DUNGEON MAIN BASED ON PRIMARY PATH AND SECONDARY PATH. THERE ARE MANY DIFFERENT CASE
         THAT THIS FUNCTION ANALYSE AND PASS TO def run_how_is_the_dungeon"""
 
@@ -710,6 +764,7 @@ class Heroquest_solo:
 
         #ESTENSIONE DEL PRIMO PATH DAL PRIMO A PARTIRE DAL PRIMO PUNTO DEL PRIMARY PATH
         if pointofview == self.START_FROM and pointofview == self.THE_SECONDARY_START:
+            print("HITD OP1")
             pov_direction = self.run_how_is_the_dungeon(pointofview, 1)
             msg += self.CONFIG_DICT['dungeon_msg_13'].format(str(pov_direction))
             self.POINT_OF_VIEW_EXPLORED.append(pointofview)
@@ -717,6 +772,7 @@ class Heroquest_solo:
 
         # ESTENSIONE DALL'ULTIMO PUNTO DEL PRIMARY PATH
         elif pointofview == self.ARRIVE_TO and pointofview == self.THE_SECONDARY_START:
+            print("HITD OP2")
             pov_direction = self.run_how_is_the_dungeon(pointofview, 2)
             msg += self.CONFIG_DICT['dungeon_msg_14'].format(str(pov_direction))
             self.POINT_OF_VIEW_EXPLORED.append(pointofview)
@@ -725,6 +781,7 @@ class Heroquest_solo:
 
         #BIFORCAZIONE AL CENTRO se il punto corrente corrisponde a qualcosa in primary path e inizio del secondario: alla biforcazione
         elif pointofview in self.PRIMARY_PATH and pointofview == self.THE_SECONDARY_START:
+            print("HITD OP3")
             pov_direction = self.run_how_is_the_dungeon(pointofview, 3)
 
             msg += self.CONFIG_DICT['dungeon_msg_15'].format(str(pov_direction)) #self.CONFIG_DICT['dungeon_msg_12'].format(str(next_pov_primary),str(next_pov_secondary))
@@ -733,6 +790,7 @@ class Heroquest_solo:
             return msg
 
         elif pointofview == self.START_FROM:
+            print("HITD OP4")
             pov_direction = self.run_how_is_the_dungeon(pointofview, 4)
             msg += self.CONFIG_DICT['dungeon_msg_16'].format(str(pov_direction))
             self.POINT_OF_VIEW_EXPLORED.append(pointofview)
@@ -741,6 +799,7 @@ class Heroquest_solo:
 
 
         elif pointofview == self.ARRIVE_TO:
+            print("HITD OP5")
             pov_direction = self.run_how_is_the_dungeon(pointofview, 5)
             msg += self.CONFIG_DICT['dungeon_msg_17'].format(pov_direction)
             self.POINT_OF_VIEW_EXPLORED.append(pointofview)
@@ -748,24 +807,31 @@ class Heroquest_solo:
             return msg
 
         elif pointofview == self.THE_SECONDARY_ARRIVE:
+            print("HITD OP6 a")
             pov_direction = self.run_how_is_the_dungeon(pointofview, 6)
-            msg += self.CONFIG_DICT['dungeon_msg_18'].format(pov_direction)
+            print("HITD OP6 b")
+            msg += self.CONFIG_DICT["dungeon_msg_18"].format(pov_direction)
+            print("HITD OP6 c")
             self.POINT_OF_VIEW_EXPLORED.append(pointofview)
+            print("HITD OP6 d")
             return msg
 
         elif pointofview in self.PRIMARY_PATH:
+            print("HITD OP7")
             pov_direction = self.run_how_is_the_dungeon(pointofview, 7)
             msg += self.CONFIG_DICT['dungeon_msg_19'].format(pov_direction)
             self.POINT_OF_VIEW_EXPLORED.append(pointofview)
             return msg
 
         elif pointofview in self.SECONDARY_PATH:
+            print("HITD OP8")
             pov_direction = self.run_how_is_the_dungeon(pointofview, 8)
             msg += self.CONFIG_DICT['dungeon_msg_19'].format(pov_direction)
             self.POINT_OF_VIEW_EXPLORED.append(pointofview)
             return msg
 
         elif pointofview not in self.COMPLEX_PATH:
+            print("HITD OP9")
             msg += self.CONFIG_DICT['dungeon_msg_20']
             self.POINT_OF_VIEW_EXPLORED.append(pointofview)
             return msg

@@ -1,8 +1,4 @@
-#! /usr/bin/env python
-# -*- coding: utf-8 -*-
-import json
-
-data = {
+{
 'the_begin_msg_1': "DOPO UNA LUNGA DISCESA AL BUIO, GLI EROI SBUCANO IN UN FETIDO CORRIDOIO. (Metti gli eroi sul POV {}). PER VINCERE GLI EROI DEVONO TORNARE IN QUESTO PUNTO E FUGGIRE DAL CUNICOLO DA CUI SONO ARRIVATI",
 'the_begin_msg_2': "COL CUORE IN GOLA SIETE RIUSCITI AD INTRUFOLARVI E LA LUNGA SCALA VI HA FATTO ARRIVARE IN QUESTA STANZA (Metti la scala e gli eroi nella stanza {}). UNA PORTA CHIUSA SEMBRA ESSERE L'UNICA USCITA DA QUI PER PROSEGUIRE NELLA VOSTRA IMPRESA (Mettete una porta verso il corridio {}). PER VINCERE GLI EROI DEVONO TORNARE IN QUESTO PUNTO E FUGGIRE DALLE SCALE DA CUI SONO ARRIVATI",
 'chronicle_msg': '-- TURNO {} -- \n --- {} ---- \n\n {} \n\n --- \n\n {}',
@@ -346,15 +342,3 @@ data = {
   "random_events" : {"1" : ["Un rumore sordo arriva dalle tenebre. Una stanza deve essere crollata. (Togli tutte le porte dalla stanza nr. {}). Lancia un D6. Se fai un 2 o un 5 scopri se ci sono vie di uscita cliccando su -Show Details-", "Se vuoi riattraversare la stanza (o raggiungere le scale se erano lì), tira un dado da combattimento per ogni punto mente che ha l'eroe. Il crollo è superato se subisce 10 teschi. Si difende con 6 dadi da combattimento. Per ogni teschio che ti esce in attacco l'eroe perde un punto corpo."]}
 
 }
-
-# Serializing json
-json_object = json.dumps(data, indent = 4)
-# Writing to sample.json
-with open("sampleb.json", "w") as outfile:
-    outfile.write(json_object)
-
-
-with open('samples.json', 'w') as json_file:
-  json.dump(data, json_file)
-
-
