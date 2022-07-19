@@ -438,11 +438,12 @@ class Heroquest_solo:
         #room controller INPUT
         self.room_explored = int(re)
         rng = random.SystemRandom()
-        value = rng.randint(1, 2)
+        value = rng.randint(2, 3)
         rng = random.SystemRandom()
-        room_dimension = int(room_dimension)-rng.randint(1, 2)
-        self.room_dimension = int(room_dimension)/value #total of room's tiles
-
+        room_dimension = int(room_dimension)-rng.randint(1, 3)
+        self.room_dimension = round(int(room_dimension)/value) #total of room's tiles
+        print("room dimension"+str(room_dimension))
+        print("self room dimension"+str(self.room_dimension))
         #forniture_square_taken
         tot_square_taken = 0
 
@@ -1138,11 +1139,13 @@ class Heroquest_solo:
         rng_n = random.SystemRandom()
         pov_length_rand = pov_length-rng_n.randint(1, 3)
         start = pov_list[rng_n.randint(0, pov_length_rand)] #CHOOSED RANDOMLY BY THE GAME
-        print("start: {}".format(start))
+        print("start 1: {}".format(start))
         rng_n = random.SystemRandom()
         pov_length_rand = pov_length - rng_n.randint(2, 4)
-        arrive = pov_list[rng_n.randint(0, pov_length_rand)] #CHOOSED RANDOMLY BY THE GAME
-        print("arrive: {}".format(arrive))
+        arrive = pov_list[rng_n.randint(0, pov_length_rand)]
+        while(arrive == start):
+            arrive = pov_list[rng_n.randint(0, pov_length_rand)] #CHOOSED RANDOMLY BY THE GAME
+        print("arrive 1: {}".format(arrive))
         rng_n = random.SystemRandom()
         min_path = rng_n.randint(4, 6) #CHOOSED RANDOMLY BY THE GAME
         print("Create the dungeon 1")
@@ -1152,8 +1155,8 @@ class Heroquest_solo:
         #self.PRIMARY_PATH = ''
         #self.SECONDARY_PATH = ''
         print("Create the dungeon 2 - first run 7 find route")
-        print("start: {}".format(start))
-        print("arrive: {}".format(arrive))
+        print("start 2: {}".format(start))
+        print("arrive 2: {}".format(arrive))
         self.PRIMARY_PATH = self.find_route(start, arrive)
         while len(self.PRIMARY_PATH) < min_path or arrive != self.PRIMARY_PATH[-1]:
             self.PRIMARY_PATH = self.find_route(start, arrive)
@@ -1293,7 +1296,7 @@ class Heroquest_solo:
         """"create a random treasures inside chest"""
         self.forniture = forniture
         self.rv = rv
-        if self.rv > 1 and self.rv <= 13 and (forniture != 'Room' or forniture != 'Stanza'): #add any translation for the word room #a special treasure
+        if self.rv > 1 and self.rv <= 13 and (forniture in self.CONFIG_DICT['forniture_name_reconversion_dict']): #Vieta di trovare un tesoro random nella stanza add any translation for the word room #a special treasure
             forniture_id_txt = self.CONFIG_DICT['forniture_name_reconversion_dict'][self.forniture]
             treasure_list = self.CONFIG_DICT['treasures_random_type'][forniture_id_txt]
             max_rand_value = len(treasure_list)-1
