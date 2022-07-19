@@ -57,21 +57,21 @@ class Heroquest_Advanced_Modules:
 
 #PASSAGES
 
-        if self.choice_dice == "D12":
-            rng = random.SystemRandom()
-            value_1 = rng.randint(1, 6)
+                  if self.choice_dice == "D12":
+                rng = random.SystemRandom()
+                value_1 = rng.randint(1, 6)
 
-            rng = random.SystemRandom()
-            value_2 = rng.randint(1, 6)
+                rng = random.SystemRandom()
+                value_2 = rng.randint(1, 6)
 
-            rn_list = [value_1, value_2]
+                rn_list = [value_1, value_2]
 
-        elif self.choice_dice == "2D12":
-            rng = random.SystemRandom()
-            value_1 = rng.randint(1, 6)
+            elif self.choice_dice == "2D12":
+                rng = random.SystemRandom()
+                value_1 = rng.randint(1, 6)
 
-            rng = random.SystemRandom()
-            value_2 = rng.randint(1, 6)
+                rng = random.SystemRandom()
+                value_2 = rng.randint(1, 6)
 
             rng = random.SystemRandom()
             value_3 = rng.randint(1, 6)
