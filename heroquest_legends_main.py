@@ -1,14 +1,13 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """
 /***************************************************************************
-    Heroquest Legends Solo by Mandor the Druid
+    Everlast Legends Heroes
     ------------------------------------------
     begin                : 2021-01-02
     copyright            : (C) 2021 by Luca Mandolesi
     email                : mandoluca at gmail.com
-    version              : 0.95 ALPHA
+    version              : 0.951 ALPHA
  ***************************************************************************/
 
 /***************************************************************************
@@ -18,8 +17,8 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- ***************************************************************************/
-"""
+ *********************************
+ """
 import locale
 import sys, os
 import random

@@ -3,7 +3,7 @@
 
 """
 /***************************************************************************
-    Heroquest Legends Solo by Mandor the Druid
+    Heroquest Legends Solo by Mandor the Druids
                               -------------------
     begin                : 2021-01-02
     copyright            : (C) 2021 by Luca Mandolesi
