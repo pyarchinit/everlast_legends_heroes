@@ -61,15 +61,28 @@ class Ui(QtWidgets.QMainWindow):
 
     """charge the language. Translate your LANG_lang.txt file and add the proper part
     of code"""
+
+    """ DIZIONARIO CON .txt 
     local_language = locale.getdefaultlocale()
     if local_language[0] == 'it_IT':
         CONFIG = open('./languages/IT_it.txt', "rb+")
     else:
         CONFIG = open('./languages/EN_en.txt', "rb+")
-    data_config = CONFIG.read()
     CONFIG_DICT = eval(data_config)
     CONFIG.close()
+    """
+    """"CONFIG CON JSON TEST"""
+    local_language = locale.getdefaultlocale()
+    if local_language[0] == 'it_IT':
+        with open('./languages/IT_it.json', 'r') as f:
+            CONFIG = json.load(f)
+    else:
+        with open('./languages/EN_en.json', 'r') as f:
+            CONFIG = json.load(f)
 
+    CONFIG_DICT = CONFIG
+
+    """FINO QUI"""
 
     def __init__(self):
         super(Ui, self).__init__()
