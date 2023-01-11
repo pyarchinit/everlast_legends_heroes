@@ -77,7 +77,7 @@ class Ui(QtWidgets.QMainWindow):
         with open('./languages/IT_it.json', 'r') as f:
             CONFIG = json.load(f)
     else:
-        with open('./languages/EN_en.json', 'r') as f:
+        with open('./languages/EN_en.txt', 'r') as f:
             CONFIG = json.load(f)
 
     CONFIG_DICT = CONFIG
@@ -410,6 +410,7 @@ class Ui(QtWidgets.QMainWindow):
 
     def on_pushButton_monster_attack_pressed(self):
         """The button launch the monster attack based on some values as grouped or sight"""
+        print("monster_attacck_1")
         self.textEdit_combat_text.setText("")
         self.textEdit_messages.setText("")
         monster_category = self.comboBox_monster_attack.currentText()
@@ -420,35 +421,47 @@ class Ui(QtWidgets.QMainWindow):
 
         if self.checkBox_sight.isChecked() == True:
             monster_sight = 1
-
+        print("monster_attacck_1.2")
         if monster_sight != 1 and self.HQ_SOLO.ROOMS_EXPLORED_LAST_TURN != 0 and self.HQ_SOLO.random_numbers() >= 18:
+            print("monster_attacck_1.6")
             if monster_group == 1:
+                print("monster_attacck_1.5")
                 monster_attack_msg = self.HQ_SOLO.monster_raid(1)
             else:
+                print("monster_attacck_1.4")
                 monster_attack_msg = self.HQ_SOLO.monster_raid(2)
+
+            print("monster_attacck_1.3")
             self.textEdit_combat_text.setText(str(monster_attack_msg))
             monster_attack_msg = self.CONFIG_DICT['monsters_msg_6'].format(monster_attack_msg)
             self.set_chronicle(monster_attack_msg)
         else:
+            print("monster_attacck_1.7")
             mode_result = self.HQ_SOLO.fighting_system(monster_category, monster_group, monster_sight) #1 attack - 0 escape
-
+            print("monster_attacck_1.8")
             if mode_result == 1:
-                msg_attack_list = self.CONFIG_DICT['attack_messages'][1]
-
+                print("monster_attacck_1.9")
+                print(str(self.CONFIG_DICT['attack_messages']))
+                msg_attack_list = self.CONFIG_DICT['attack_messages']['1']
+                print("monster_attacck_1.11")
                 rng_base = random.SystemRandom()
                 msg_attack = msg_attack_list[rng_base.randint(0, len(msg_attack_list)-1)]
-
+                print("monster_attacck_1.13")
                 rng_base = random.SystemRandom()
-                msg_attack_choice = msg_attack.format(self.CONFIG_DICT['choice_dict'][rng_base.randint(1, 5)])
-
+                msg_attack_choice = msg_attack.format(self.CONFIG_DICT['choice_dict'][str(rng_base.randint(1, 5))])
+                print("monster_attacck_1.14")
                 rng_base = random.SystemRandom()
-                msg_attack_choice_direction = msg_attack_choice.format(self.CONFIG_DICT['monster_direction_dict'][rng_base.randint(1, 4)])
+                msg_attack_choice_direction = msg_attack_choice.format(self.CONFIG_DICT['monster_direction_dict'][str(rng_base.randint(1, 4))])
 
                 self.textEdit_combat_text.setText(str(msg_attack_choice_direction))
+                print("monster_attacck_1.12")
                 monster_attack_msg = self.CONFIG_DICT['monsters_msg_6'].format(msg_attack_choice_direction)
                 self.set_chronicle(monster_attack_msg)
             else:
-                msg_escape_list = self.CONFIG_DICT['attack_messages'][2]
+                print("monster_attacck_1.10")
+                print(str(self.CONFIG_DICT['attack_messages']))
+                msg_escape_list = self.CONFIG_DICT['attack_messages']['2']
+                print("monster_attacck_1.11")
                 rng_base = random.SystemRandom()
                 msg_escape = msg_escape_list[rng_base.randint(0, len(msg_escape_list)-1)]
                 self.textEdit_combat_text.setText(msg_escape)
