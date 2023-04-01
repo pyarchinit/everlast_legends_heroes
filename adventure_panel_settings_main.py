@@ -30,6 +30,7 @@ from delegateComboBox import ComboBoxDelegate
 import os
 import locale
 import sqlite3
+import json
 
 
 MAIN_DIALOG_CLASS, _ = loadUiType(os.path.join(os.path.dirname(__file__), 'adventures_panel_settings.ui'))

@@ -442,8 +442,8 @@ class Heroquest_solo:
         rng = random.SystemRandom()
         room_dimension = int(room_dimension)-rng.randint(1, 3)
         self.room_dimension = round(int(room_dimension)/value) #total of room's tiles
-        print("room dimension"+str(room_dimension))
-        print("self room dimension"+str(self.room_dimension))
+        #print("room dimension"+str(room_dimension))
+        #print("self room dimension"+str(self.room_dimension))
         #forniture_square_taken
         tot_square_taken = 0
 
@@ -974,6 +974,7 @@ class Heroquest_solo:
                     if i.isdigit() is True:
                         dungeon_id = '{}{}'.format(str(self.pointofview_l), str(i))
                         msg_doors = self.put_the_doors(dungeon_id)
+                        print("msg_door_32_gigi {}".format(msg_doors))
                         if msg_doors != '' and i not in self.POINT_OF_VIEW_EXPLORED:
                             msg += msg_doors
                             self.DUNGEON_EXPLORED.append(dungeon_id)
@@ -981,10 +982,13 @@ class Heroquest_solo:
                             rng_1 = random.SystemRandom()  # you'll find a weapon
                             rand_num = rng_1.randint(1, 3)
                             if rand_num == 1:
+                                print("dungeon_msg_31")
                                 msg += self.CONFIG_DICT['dungeon_msg_31'].format(msg_doors)
                             elif rand_num == 2:
-                                msg += self.CONFIG_DICT['dungeon_msg_32'].format(msg_doors)
+                                print("dungeon_msg_32 con Dungeon ID")
+                                msg += self.CONFIG_DICT['dungeon_msg_32'].format(dungeon_id, msg_doors)
                             else:
+                                print("dungeon_msg_33")
                                 msg = self.CONFIG_DICT['dungeon_msg_33']
 
                             self.DUNGEON_EXPLORED.append(dungeon_id)
@@ -1004,7 +1008,8 @@ class Heroquest_solo:
                             if rand_num == 1:
                                 msg += self.CONFIG_DICT['dungeon_msg_31'].format(msg_doors)
                             elif rand_num == 2:
-                                msg += self.CONFIG_DICT['dungeon_msg_32'].format(msg_doors)
+                                print("dungeon_msg_32 con Dungeon ID")
+                                msg += self.CONFIG_DICT['dungeon_msg_32'].format(dungeon_id, msg_doors)
                             else:
                                 msg = self.CONFIG_DICT['dungeon_msg_33']
 

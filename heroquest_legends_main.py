@@ -334,7 +334,7 @@ class Ui(QtWidgets.QMainWindow):
 
     def on_pushButton_rooms_pressed(self):
         """The button return a new room with fornitures and monster for
-        a new room. If the room is explored, something can happen: monsters, traps, etc."""
+        a new room. If the room is explored, something can happens: monsters, traps, etc."""
         #msg_room = '' #TODO DELETE???
         #random_trap = '' #TODO DELETE???
         print("room 1")
